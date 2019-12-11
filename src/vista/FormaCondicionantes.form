@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Condicionantes"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane3" alignment="0" min="-2" pref="1161" max="-2" attributes="0"/>
+                      <Component id="jXFindBar1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jXFindBar1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane3" min="-2" pref="541" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jButton2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MousePressed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButton2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Limpiar selecci&#xf3;n"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton2MousePressed"/>
+      </Events>
+    </Component>
+    <Container class="org.jdesktop.swingx.JXFindBar" name="jXFindBar1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="421" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="org.jdesktop.swingx.JXList" name="jXList2">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+              <StringArray count="36">
+                <StringItem index="0" value="InscripcionDelElementoValoradoComoFincaRegistralIndependiente"/>
+                <StringItem index="1" value="AclaracionDiferenciasSignificativasEntreLaSuperficieRegistralCatastralyLaComprobada"/>
+                <StringItem index="2" value="AportacionDeNotaSimpleoCertificacionEmitidaFueraDeLos3MesesAnterioresaLaFechaDeTasacion"/>
+                <StringItem index="3" value="AportacionDeProyectoVisado"/>
+                <StringItem index="4" value="AportacionDeLicenciaDeObras"/>
+                <StringItem index="5" value="JustificacionDeQueElElementoValoradoEstaLibreDeInquilinosuOcupantes"/>
+                <StringItem index="6" value="AportacionDeContratoDeArrendamientoyoUltimoRecibo"/>
+                <StringItem index="7" value="AportacionDeUltimosRecibosDeRentaAbonados"/>
+                <StringItem index="8" value="AportacionDeLaCedulaDeCalificacionProvisionaloDefinitiva"/>
+                <StringItem index="9" value="AportacionDeDocumentacionUrbanisticayoDatosDeAprovechamientoUrbanistico"/>
+                <StringItem index="10" value="AportacionDeCertificacionRegistral"/>
+                <StringItem index="11" value="AportacionDePropietarioDeCertificadoDatosDeAlquiler"/>
+                <StringItem index="12" value="DerechoDeRiego"/>
+                <StringItem index="13" value="AportacionCedulaUrbanisticaCertificadoUrbanisticoMunicipaloDocumentacionparadeterminarlaClasedeSueloyAprovechamientoUrbanisticodelaPropiedad"/>
+                <StringItem index="14" value="EstadodeConservacionAparente"/>
+                <StringItem index="15" value="ServidumbresVisibles"/>
+                <StringItem index="16" value="AportacionDocumentoRegimendeProteccionDelPatrimonioArquitectonico"/>
+                <StringItem index="17" value="NoExistenCondicionantesParaElCasoConcretoDeEsteInforme"/>
+                <StringItem index="18" value="NoSeHaDispuestoParaSuAnalisisPorElTasadorDeLaDocumentacionCatastral"/>
+                <StringItem index="19" value="NoSeHaDispuestoParaSuAnalisisPorElTasadorDeLaReferenciaCatastralDeAlgunInmueble"/>
+                <StringItem index="20" value="NoSeHaPodidoComprobarLaExistenciaDeProcedimientoDeDeclaracionDeIncumplimientoPlazosDeLosDeberesDeUrbanizacionoDeEdificacionDelSuelo"/>
+                <StringItem index="21" value="OtrosCondicionantes"/>
+                <StringItem index="22" value="C111_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDeEscrituraDeLaPropiedadoCertificacionRegistralyoCopiaDeNotaSimpleEmitidaDuranteLosTresMesesAnterioresaLaFechaDeLaTasacion"/>
+                <StringItem index="23" value="C112_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDeFichaCatastralEmitidaDuranteLosTresMesesAnterioresaLaFechaDeLaTasacion"/>
+                <StringItem index="24" value="C121_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDeDocumentacionRegistralSegunNormativaEscrituraDeLaPropiedadoCertificacionRegistralyoCopiaDeNotaSimple"/>
+                <StringItem index="25" value="C122_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDeFichaCatastralEnLaQueLaDescripcionCatastralSeAdecueaLaRealidadFisicaActualySeaAcordeConLaNormativaUrbanistica"/>
+                <StringItem index="26" value="C13_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDeDocumentacionRegistralSegunNormativaEscrituraDeLaPropiedadoCertificacionRegistralyoCopiadeNotaSimpleEnLaQueElElementoValoradoFigure"/>
+                <StringItem index="27" value="C14_ElelementoValoradoEstaFormadoPorDosoMasFincasRegistralesQueFormanUnaUnicaUnidadFuncionalNoSiendoPosibleDeterminarLaConfiguracionoLinderosDeCadaUnaDeEllasPorLoQueElValorInformadoSeCorrespondeConLaAgrupacion"/>
+                <StringItem index="28" value="C15_LaFincaValoradaDaAccesoaOtraFincaRegistralQueSoloTieneAccesoAtravesDeEllayNoConstaInscritaServidumbreDePasoElValorDeTasacionSoloSeraValidoSiSeInscribeLasServidumbreDePasoDeacuerdoaLosParametrosManejados"/>
+                <StringItem index="29" value="C31_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDeproyectovisado"/>
+                <StringItem index="30" value="C32_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDeLicenciaDeObrasConSusClausulasyCartaDePago"/>
+                <StringItem index="31" value="C41_AportacionAlTasadorParaLaVerificacionDeDocumentacionQueJustifiqueQueElElementoValoradoEstaLibreDeArrendamientoInquilinosuOcupantesDiferentesDelTitularRegistralAlNoHaberSidoAportadasLasCondicionesDeOcupacion"/>
+                <StringItem index="32" value="C42_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDelContratoDeArrendamiento"/>
+                <StringItem index="33" value="C43_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDelUltimoReciboDeRentaAbonado"/>
+                <StringItem index="34" value="C5_AportacionAlTasadorParaLaVerificacionDeLosDatosEmpleadosEnElInformeDecedulaurbanisticacertificadomunicipaluotradocumentacionquepermitadeterminaryconfirmarintegramentelaclasedesueloelaprovechamientoysuscondicion"/>
+                <StringItem index="35" value="C7_CondicionantesOtros"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="jButton3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cerrar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton3MousePressed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>
