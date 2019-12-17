@@ -115,7 +115,7 @@ import vista.FormaCrearUsuario;
  * @author TECH ID SOLUTIONS
  */
 public class Utiles {
-
+    public static String direcion=System.getProperty("user.dir");
     public static String rutaEnviados = System.getProperty("user.dir").concat("\\docs\\Enviados\\");
     public static String rutaPendientes = System.getProperty("user.dir").concat("\\docs\\");
 
@@ -1434,6 +1434,23 @@ public class Utiles {
      * @param nombreArchivo
      * @return
      */
+    public static String pruebaEjemplo()
+    {
+        try {
+            File file = new File(System.getProperty("user.dir").concat("\\conf\\configFtp.properties"));
+
+            FileInputStream fileInputStream = new FileInputStream(file);
+            Properties mainProperties = new Properties();
+            mainProperties.load(fileInputStream);
+            //buscando en el fichero de conf la llave "ipFtp"
+            String ipFtp = mainProperties.getProperty("ipFtp");
+            System.out.println(ipFtp);
+            return ipFtp;
+        } catch (IOException ex) {
+            Logger.getLogger(Utiles.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     public static File copiarArchivosPdfDesdeServidorFTP(String nombreArchivo) {
         File archivoRetorno = null;
         FTPClient ftp = new FTPClient();
@@ -1442,7 +1459,7 @@ public class Utiles {
         String archivo = nombreArchivo;
 
         try {
-             File file = new File(System.getProperty("user.dir").concat("\\config\\configFtp.properties"));
+             File file = new File(direcion.concat("\\conf\\configFtp.properties"));
             FileInputStream fileInputStream = new FileInputStream(file);
             Properties mainProperties = new Properties();
             mainProperties.load(fileInputStream);
@@ -1521,12 +1538,13 @@ public class Utiles {
         JSch jsch = new JSch();
         Session session = null;
         try {
-            File file = new File(System.getProperty("user.dir").concat("\\config\\configFtp.properties"));
+            File file = new File(direcion.concat("\\config\\configFtp.properties"));
             FileInputStream fileInputStream = new FileInputStream(file);
             Properties mainProperties = new Properties();
             mainProperties.load(fileInputStream);
             //buscando en el fichero de conf la llave "ipFtp"
             String ipFtp = mainProperties.getProperty("ipFtp");
+
             //buscando en el fichero de conf la llave "userFtp"
             String userFtp = mainProperties.getProperty("userFtp");
             //buscando en el fichero de conf la llave "passWdFtp"
