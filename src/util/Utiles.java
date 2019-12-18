@@ -1522,7 +1522,7 @@ public class Utiles {
         JSch jsch = new JSch();
         Session session = null;
         try {
-            File file = new File(direcion.concat("\\confi\\configFtp.properties"));
+            File file = new File(direcion.concat("\\conf\\configFtp.properties"));
             FileInputStream fileInputStream = new FileInputStream(file);
             Properties mainProperties = new Properties();
             mainProperties.load(fileInputStream);
