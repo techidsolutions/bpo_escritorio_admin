@@ -1399,10 +1399,22 @@ public class Utiles {
     public static void copiarArchivosXmlHaciaServidorFTP() {
         FTPClient ftpClient = new FTPClient();
         try {
-            String nombreHost = "hm6744.neodigit.net";
+             File file = new File(direcion.concat("\\conf\\configFtp.properties"));
+            FileInputStream fileInputStream = new FileInputStream(file);
+            Properties mainProperties = new Properties();
+            mainProperties.load(fileInputStream);
+            //buscando en el fichero de conf la llave "ipFtp"
+            String ipFtp = mainProperties.getProperty("ipFtp");
+            //buscando en el fichero de conf la llave "userFtp"
+            String usuarioFtp = mainProperties.getProperty("usuarioFtp");
+            //buscando en el fichero de conf la llave "passWdFtp"
+            String claveFtp = mainProperties.getProperty("claveFtp");
+            //Cerrando el fichero
+            fileInputStream.close();             
+            //String nombreHost = "hm6744.neodigit.net";
             //InetAddress ip = InetAddress.getByName(nombreHost);
-            ftpClient.connect(InetAddress.getByName(nombreHost));
-            ftpClient.login("centroingentis", "0l30nt1d");
+            ftpClient.connect(InetAddress.getByName(ipFtp));
+            ftpClient.login(usuarioFtp, usuarioFtp);
             int reply = ftpClient.getReplyCode();
             System.out.println("Respuesta recibida de conexión FTP:" + reply);
 
