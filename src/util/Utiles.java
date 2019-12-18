@@ -1434,23 +1434,7 @@ public class Utiles {
      * @param nombreArchivo
      * @return
      */
-    public static String pruebaEjemplo()
-    {
-        try {
-            File file = new File(System.getProperty("user.dir").concat("\\conf\\configFtp.properties"));
-
-            FileInputStream fileInputStream = new FileInputStream(file);
-            Properties mainProperties = new Properties();
-            mainProperties.load(fileInputStream);
-            //buscando en el fichero de conf la llave "ipFtp"
-            String ipFtp = mainProperties.getProperty("ipFtp");
-            System.out.println(ipFtp);
-            return ipFtp;
-        } catch (IOException ex) {
-            Logger.getLogger(Utiles.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+   
     public static File copiarArchivosPdfDesdeServidorFTP(String nombreArchivo) {
         File archivoRetorno = null;
         FTPClient ftp = new FTPClient();
@@ -1538,7 +1522,7 @@ public class Utiles {
         JSch jsch = new JSch();
         Session session = null;
         try {
-            File file = new File(direcion.concat("\\config\\configFtp.properties"));
+            File file = new File(direcion.concat("\\confi\\configFtp.properties"));
             FileInputStream fileInputStream = new FileInputStream(file);
             Properties mainProperties = new Properties();
             mainProperties.load(fileInputStream);
