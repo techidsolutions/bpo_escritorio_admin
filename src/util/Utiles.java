@@ -168,7 +168,7 @@ public class Utiles {
     public static String msgTareaRealizandoConversion = "Realizando conversión...";
     public static String msgTareaCargandoDocumentos = "Cargando documentos...";
     public static String msgTareaActualizandoDocumentos = "Actualizando información de documentos...";
-    public static String msgTareaDescargarArchivos = "Descargando archivos...";
+public static String msgTareaDescargarArchivos = "Descargando archivos...";
     public static String msgTareaSubiendoArchivos = "Subiendo archivos...";
     public static String msgTareaAnadiendoFinca = "Añadiendo finca...";
 
@@ -1406,9 +1406,9 @@ public class Utiles {
             //buscando en el fichero de conf la llave "ipFtp"
             String ipFtp = mainProperties.getProperty("ipFtp");
             //buscando en el fichero de conf la llave "userFtp"
-            String usuarioFtp = mainProperties.getProperty("usuarioFtp");
+            String usuarioFtp = mainProperties.getProperty("userFtp");
             //buscando en el fichero de conf la llave "passWdFtp"
-            String claveFtp = mainProperties.getProperty("claveFtp");
+            String claveFtp = mainProperties.getProperty("passWdFtp");
             //Cerrando el fichero
             fileInputStream.close();             
             //String nombreHost = "hm6744.neodigit.net";
@@ -1462,9 +1462,9 @@ public class Utiles {
             //buscando en el fichero de conf la llave "ipFtp"
             String ipFtp = mainProperties.getProperty("ipFtp");
             //buscando en el fichero de conf la llave "userFtp"
-            String usuarioFtp = mainProperties.getProperty("usuarioFtp");
+            String usuarioFtp = mainProperties.getProperty("userFtp");
             //buscando en el fichero de conf la llave "passWdFtp"
-            String claveFtp = mainProperties.getProperty("claveFtp");
+            String claveFtp = mainProperties.getProperty("passWdFtp");
             //Cerrando el fichero
             fileInputStream.close();
             ftp.connect(ipFtp);
