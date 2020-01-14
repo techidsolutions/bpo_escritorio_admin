@@ -47,6 +47,8 @@ public class DialogoCargando extends javax.swing.JDialog {
         initComponents();
         setTituloTarea(tituloTarea);
         setLocationRelativeTo(null);
+       
+        
     }
 
     /** This method is called from within the constructor to

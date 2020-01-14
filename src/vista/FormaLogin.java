@@ -44,6 +44,7 @@ public class FormaLogin extends javax.swing.JDialog {
     public Usuario loguearUsuario(String nombre, String clave) {
         File archivo = new File(Utiles.rutaUsuarios);
         Usuario usuario = null;
+
         try {
             Scanner scanner = new Scanner(archivo);
             String nombreTemp;

@@ -543,7 +543,6 @@ public class FormaPrincipal extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/images/icono.png")).getImage());
         //setSize(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize());
         //setLocationRelativeTo(null);
-        
         //jPanel1.setVisible(false);
         
         RestrictedTextField restriccionIdufir = new RestrictedTextField(eIdufir);
@@ -2308,6 +2307,8 @@ public class FormaPrincipal extends javax.swing.JFrame {
                     //eReferencia.setText(documentoSeleccionado.getNombre().substring(0, documentoSeleccionado.getNombre().length()-4).split("_")[0]);
                     jXTable1.clearSelection();
                     File archivo = new File(Utiles.rutaEnviadosNotaSimple.concat("\\").concat(documentoSeleccionado.getNombre()));
+                   
+                    System.out.print(Utiles.rutaEnviadosNotaSimple);
                         try {
                             Desktop.getDesktop().open(archivo);
                         }catch (IOException ex) {
