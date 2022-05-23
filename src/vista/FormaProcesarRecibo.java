@@ -24,6 +24,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import modelo.Documento;
 import org.jdesktop.swingx.JXTable;
+import org.openswing.swing.client.DateControl;
 import org.openswing.swing.internationalization.java.Resources;
 import org.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import util.TareaSegundoPlano;
@@ -69,7 +70,7 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         //Fechas
         Date fecha = null;
         eFechaRecibo.setDate(fecha);
-        eFechaVencimiento.setDate(fecha);
+        eFechaVencimiento.setDate(new Date(0,0,1));
     }
      
     
@@ -339,11 +340,11 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         jXFindBar1.setLayout(jXFindBar1Layout);
         jXFindBar1Layout.setHorizontalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
+            .addGap(0, 505, Short.MAX_VALUE)
         );
         jXFindBar1Layout.setVerticalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 33, Short.MAX_VALUE)
+            .addGap(0, 35, Short.MAX_VALUE)
         );
 
         jXTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -461,8 +462,16 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
 
                     }    */
             }else {
-                JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
-                comp.requestFocus();
+                if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgFechaIncorrecta + comp.getName());
+                    comp.requestFocus();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
+                    comp.requestFocus();
+                }
             }
         }
     }//GEN-LAST:event_bConvertirMousePressed
@@ -494,6 +503,7 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
            jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
         }
         });
+        eFechaVencimiento.setDate(new Date(0,0,1));
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
 
     }//GEN-LAST:event_formWindowOpened

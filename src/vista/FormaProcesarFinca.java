@@ -42,9 +42,10 @@ import util.Utiles;
  * @author TECH ID SOLUTIONS
  */
 public class FormaProcesarFinca extends javax.swing.JDialog {
+
     FormaProcesarTasacion formaTasacion;
-    private ArrayList<ArrayList<ComponenteFormulario>> listaTitulares; 
-    private ArrayList<ArrayList<ComponenteFormulario>> listaAnejos; 
+    private ArrayList<ArrayList<ComponenteFormulario>> listaTitulares;
+    private ArrayList<ArrayList<ComponenteFormulario>> listaAnejos;
     private List<Poblacion> listaPoblaciones;
     private ArrayList<Provincia> listaProvincias;
     private List<RegistroPropiedad> listaRegistros;
@@ -66,15 +67,13 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
     Vector modelTipoTitulo;
     Vector modelOcupacion;
     Vector modelConservacion;
-    
+
     private final Integer tipoLLamada;
     private Finca fincaModificar;
-    
-   
-    
-    
+
     /**
      * Creates new form FormaProcesarFinca
+     *
      * @param parent
      * @param modal
      */
@@ -85,20 +84,20 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
         RestrictedTextField restriccionCodigoPostal = new RestrictedTextField(eCodigoPostal);
         restriccionCodigoPostal.setLimit(5);
     }
-    
-    private void seleccionarElementoCombo(Vector modelo, JComboBox combo, String valor){
+
+    private void seleccionarElementoCombo(Vector modelo, JComboBox combo, String valor) {
         ModelCombo modeloCombo;
         int test = 9;
-        for(int i=0; i<modelo.size(); i++){
-            modeloCombo = (ModelCombo)modelo.elementAt(i);
-            if (modeloCombo.getClave().equals(valor)){
+        for (int i = 0; i < modelo.size(); i++) {
+            modeloCombo = (ModelCombo) modelo.elementAt(i);
+            if (modeloCombo.getClave().equals(valor)) {
                 combo.setSelectedIndex(i);
                 break;
             }
         }
     }
-    
-    private void llenarCamposDocumentoGuardado(ArrayList<ComponenteFormulario> listaComponentesCargados){
+
+    private void llenarCamposDocumentoGuardado(ArrayList<ComponenteFormulario> listaComponentesCargados) {
         eIdufir.setText(listaComponentesCargados.get(1).getValor());
         eReferenciaCatastral.setText(listaComponentesCargados.get(2).getValor());
         eNombreVia.setText(listaComponentesCargados.get(6).getValor());
@@ -124,7 +123,7 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
         eValorTasacion.setText(listaComponentesCargados.get(32).getValor());
         eValoracion.setText(listaComponentesCargados.get(33).getValor());
         eValorHipotecario.setText(listaComponentesCargados.get(34).getValor());
-       
+
         //Combo
         seleccionarElementoCombo(modelRegistroPropiedad, eRegistroPropiedad, listaComponentesCargados.get(3).getValor());
         seleccionarElementoCombo(modelSubTipoInmueble, eSubtipoInmueble, listaComponentesCargados.get(4).getValor());
@@ -135,97 +134,94 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
         seleccionarElementoCombo(modelOcupacion, eOcupacion, listaComponentesCargados.get(26).getValor());
         seleccionarElementoCombo(modelConservacion, eEstadoConservacion, listaComponentesCargados.get(27).getValor());
         seleccionarElementoCombo(modelAnnoConstruccion, eAnnoConstruccion, listaComponentesCargados.get(29).getValor());
-        
-        
-        
+
         //Fechas
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date fecha = null;
-            if (!listaComponentesCargados.get(0).getValor().equals("")){
+            if (!listaComponentesCargados.get(0).getValor().equals("")) {
                 fecha = formato.parse(listaComponentesCargados.get(0).getValor());
                 eFechaVerificación.setDate(fecha);
             }
-            if (!listaComponentesCargados.get(19).getValor().equals("")){
+            if (!listaComponentesCargados.get(19).getValor().equals("")) {
                 fecha = formato.parse(listaComponentesCargados.get(19).getValor());
                 eFechaCalificacion.setDate(fecha);
             }
         } catch (ParseException ex) {
             Logger.getLogger(FormaTitular.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        Utiles.llenarTabla(jTable1,fincaModificar.getListaTitulares(), "Titulares");
+
+        Utiles.llenarTabla(jTable1, fincaModificar.getListaTitulares(), "Titulares");
         listaTitulares = fincaModificar.getListaTitulares();
         listaAnejos = fincaModificar.getListaAnejos();
-        
+
     }
-    
+
     public FormaProcesarFinca(java.awt.Frame parent, boolean modal, FormaProcesarTasacion formaTasacion, Integer tipoLLamada, Finca fincaModificar) {
         super(parent, modal);
         initComponents();
         this.formaTasacion = formaTasacion;
         this.tipoLLamada = tipoLLamada;
         this.fincaModificar = fincaModificar;
-        
+
         RestrictedTextField restriccionIdufir = new RestrictedTextField(eIdufir);
         restriccionIdufir.setLimit(15);
-        
+
         RestrictedTextField restriccionReferenciaCatastral = new RestrictedTextField(eReferenciaCatastral);
         restriccionReferenciaCatastral.setLimit(55);
-        
+
         RestrictedTextField restriccionNombreVia = new RestrictedTextField(eNombreVia);
         restriccionNombreVia.setLimit(40);
-        
+
         RestrictedTextField restriccionBloquePortal = new RestrictedTextField(eBloqueOPortal);
         restriccionBloquePortal.setLimit(5);
-        
+
         RestrictedTextField restriccionCodigoPostal = new RestrictedTextField(eCodigoPostal);
         restriccionCodigoPostal.setLimit(5);
-        
+
         RestrictedTextField restriccionPlanta = new RestrictedTextField(ePlanta);
         restriccionPlanta.setLimit(5);
-        
+
         RestrictedTextField restriccionPuerta = new RestrictedTextField(ePuerta);
         restriccionPuerta.setLimit(5);
-        
+
         RestrictedTextField restriccionEscalera = new RestrictedTextField(eEscalera);
         restriccionEscalera.setLimit(5);
-        
+
         RestrictedTextField restriccionNumeroFinca = new RestrictedTextField(eNumeroFinca);
         restriccionNumeroFinca.setLimit(6);
-        
+
         RestrictedTextField restriccionNumeroSubFinca = new RestrictedTextField(eSubfinca);
         restriccionNumeroSubFinca.setLimit(5);
-        
+
         /*
-        RestrictedTextField restriccionCodigoPostal = new RestrictedTextField(eCodigoPostal);
-        restriccionCodigoPostal.setOnlyNums(true);
-        restriccionCodigoPostal.setLimit(5);
+         RestrictedTextField restriccionCodigoPostal = new RestrictedTextField(eCodigoPostal);
+         restriccionCodigoPostal.setOnlyNums(true);
+         restriccionCodigoPostal.setLimit(5);
         
-        RestrictedTextField restriccionSeccion = new RestrictedTextField(eSeccion);
-        restriccionSeccion.setOnlyNums(true);
-        restriccionSeccion.setLimit(3);
+         RestrictedTextField restriccionSeccion = new RestrictedTextField(eSeccion);
+         restriccionSeccion.setOnlyNums(true);
+         restriccionSeccion.setLimit(3);
         
-        RestrictedTextField restriccionTomo = new RestrictedTextField(eTomo);
-        restriccionTomo.setOnlyNums(true);
-        restriccionTomo.setLimit(4);
+         RestrictedTextField restriccionTomo = new RestrictedTextField(eTomo);
+         restriccionTomo.setOnlyNums(true);
+         restriccionTomo.setLimit(4);
         
-        RestrictedTextField restriccionLibro = new RestrictedTextField(eLibro);
-        restriccionLibro.setOnlyNums(true);
-        restriccionLibro.setLimit(4);
+         RestrictedTextField restriccionLibro = new RestrictedTextField(eLibro);
+         restriccionLibro.setOnlyNums(true);
+         restriccionLibro.setLimit(4);
         
-        RestrictedTextField restriccionFolio = new RestrictedTextField(eFolio);
-        restriccionFolio.setOnlyNums(true);
-        restriccionFolio.setLimit(6);
-        */
-        
+         RestrictedTextField restriccionFolio = new RestrictedTextField(eFolio);
+         restriccionFolio.setOnlyNums(true);
+         restriccionFolio.setLimit(6);
+         */
         eFechaVerificación.setFormat(Resources.DMY);
         eFechaVerificación.setName("FECHA_VERRIF_REG.");
         eFechaVerificación.setNextFocusableComponent(eIdufir);
         eFechaCalificacion.setFormat(Resources.DMY);
         eFechaCalificacion.setName("FECHA_CALIFICACION.");
         eFechaCalificacion.setNextFocusableComponent(eSuperficieConstruida);
-        
+
         llenarCombo("Tipo inmueble");
         llenarCombo("Subtipo inmueble");
         llenarCombo("Tipo finca");
@@ -246,11 +242,10 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
         llenarCombo("Año construcción");
         listaTitulares = new ArrayList<>();
         listaAnejos = new ArrayList<>();
-        
-        
+
     }
-    
-    public  ArrayList<ArrayList<ComponenteFormulario>> getListaTitulares() {
+
+    public ArrayList<ArrayList<ComponenteFormulario>> getListaTitulares() {
         return listaTitulares;
     }
 
@@ -258,248 +253,308 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
         this.listaTitulares = listaTitulares;
     }
 
-     public ArrayList<ArrayList<ComponenteFormulario>> getListaAnejos() {
+    public ArrayList<ArrayList<ComponenteFormulario>> getListaAnejos() {
         return listaAnejos;
     }
 
     public void setListaAnejos(ArrayList<ArrayList<ComponenteFormulario>> listaAnejos) {
         this.listaAnejos = listaAnejos;
     }
-    
-    private void llenarCombo(String TipoCombo){
-        switch(TipoCombo){
-                case "Subtipo inmueble":modelSubTipoInmueble = new Vector();
-                                    modelSubTipoInmueble.addElement( new ModelCombo("TerrenoSecano", "TerrenoSecano" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("ViviendaPiso", "ViviendaPiso" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("ViviendaUnifamiliar", "ViviendaUnifamiliar" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("PlazaGaraje", "PlazaGaraje" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("CuartoTrastero", "CuartoTrastero" ) ); 
-                                    modelSubTipoInmueble.addElement( new ModelCombo("ObraNueva", "ObraNueva" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("DivisionHorizontal", "DivisionHorizontal" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("LocalComercial", "LocalComercial" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("EdificioIndustrial", "EdificioIndustrial" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("LocalIndustrial", "LocalIndustrial" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("LocalOficinas", "LocalOficinas" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("Suelo", "Suelo" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("OtrosInmuebles", "OtrosInmuebles" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("BienesInmuebles", "BienesInmuebles" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("EdificioCompleto", "EdificioCompleto" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("Pareado", "Pareado" ) );
-                                    modelSubTipoInmueble.addElement( new ModelCombo("Adosado", "Adosado" ) );
-                                    eSubtipoInmueble.setModel(new DefaultComboBoxModel(modelSubTipoInmueble));
-                                    break;    
-                case "Tipo via":    modelTipoVia = new Vector();
-                                    modelTipoVia.addElement( new ModelCombo("Calle", "Calle" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Plaza", "Plaza" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Paseo", "Paseo" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Avenida", "Avenida" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Ronda", "Ronda" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Carretera", "Carretera" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Camino", "Camino" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Cuesta", "Cuesta" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Edificio", "Edificio" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Urbanizacion", "Urbanizacion" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Carrera", "Carrera" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Callejon", "Callejon" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Poligono", "Poligono" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Travesia", "Travesia" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Glorieta", "Glorieta" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Colonia", "Colonia" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Chalet", "Chalet" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Agrupacion", "Agrupacion" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Alameda", "Alameda" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Apartado", "Apartado" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Bajada", "Bajada" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Barranco", "Barranco" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Barriada", "Barriada" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Barrio", "Barrio" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Bloque", "Bloque" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Bulevar", "Bulevar" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Caserio", "Caserio" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Diseminado", "Diseminado" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Grupo", "Grupo" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Lugar", "Lugar" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Mercado", "Mercado" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Parque", "Parque" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Partida", "Partida" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Pasaje", "Pasaje" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Poblado", "Poblado" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Rambla", "Rambla" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Residencial", "Residencial" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Rua", "Rua" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Sector", "Sector" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Senda", "Senda" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Subida", "Subida" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Torrente", "Torrente" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Travesera", "Travesera" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Via", "Via" ) );
-                                    modelTipoVia.addElement( new ModelCombo("Carrer", "Carrer" ) );
-                                    eTipoVia.setModel(new DefaultComboBoxModel(modelTipoVia));
-                                    break;
-                case "Regimen":     modelRegimen = new Vector();
-                                    modelRegimen.addElement( new ModelCombo("NoInformado", "NoInformado" ) );
-                                    modelRegimen.addElement( new ModelCombo("VentaLibre", "VentaLibre" ) );
-                                    modelRegimen.addElement( new ModelCombo("VPO", "VPO" ) );
-                                    modelRegimen.addElement( new ModelCombo("VPOAnt78", "VPOAnt78" ) );
-                                    modelRegimen.addElement( new ModelCombo("VPOPrivada", "VPOPrivada" ) );
-                                    modelRegimen.addElement( new ModelCombo("VPOPublica", "VPOPublica" ) );
-                                    modelRegimen.addElement( new ModelCombo("VPT", "VPT" ) );
-                                    modelRegimen.addElement( new ModelCombo("Subvencionada", "Subvencionada" ) );
-                                    eRegimenProteccion.setModel(new DefaultComboBoxModel(modelRegimen));
-                                    break;
-                /*case "Regimen economico":     modelRegimenEconomico = new Vector();
-                                    modelRegimenEconomico.addElement( new ModelCombo("Otros", "Otros" ) );
-                                    modelRegimenEconomico.addElement( new ModelCombo("Gananciales", "Gananciales" ) );
-                                    modelRegimenEconomico.addElement( new ModelCombo("SeparacionBienes", "SeparacionBienes" ) );
-                                    modelRegimenEconomico.addElement( new ModelCombo("Participacion", "Participacion" ) );
-                                    eRegimenEconomico.setModel(new DefaultComboBoxModel(modelRegimenEconomico));
-                                    break;                    
-                                    */
-                /*case "Tipo de participacion":modelTipoParticipacion = new Vector();
-                                    modelTipoParticipacion.addElement( new ModelCombo("Titular", "Titular" ) );
-                                    modelTipoParticipacion.addElement( new ModelCombo("SujetoPasivo", "SujetoPasivo" ) );
-                                    modelTipoParticipacion.addElement( new ModelCombo("Vendedor", "Vendedor" ) );
-                                    modelTipoParticipacion.addElement( new ModelCombo("Avalista", "Avalista" ) );
-                                    modelTipoParticipacion.addElement( new ModelCombo("Otros", "Otros" ) );
-                                    modelTipoParticipacion.addElement( new ModelCombo("Demandante", "Demandante" ) );
-                                    modelTipoParticipacion.addElement( new ModelCombo("Demandado", "Demandado" ) );
-                                    modelTipoParticipacion.addElement( new ModelCombo("PersonaContacto", "PersonaContacto" ) );
-                                    modelTipoParticipacion.addElement( new ModelCombo("HipotecanteNoDeudor", "HipotecanteNoDeudor" ) );
-                                    eTipoParticipacion.setModel(new DefaultComboBoxModel(modelTipoParticipacion));
-                                    break; 
-                case "Tipo de propiedad":modelTipoPropiedad = new Vector();
-                                modelTipoPropiedad.addElement( new ModelCombo("Propietario", "Propietario" ) );
-                                modelTipoPropiedad.addElement( new ModelCombo("Nudo_propietario", "Nudo_propietario" ) );
-                                modelTipoPropiedad.addElement( new ModelCombo("Usufructuario", "Usufructuario" ) );
-                                modelTipoPropiedad.addElement( new ModelCombo("Arrendatario_Ocupante", "Arrendatario_Ocupante" ) );
-                                eTipoPropiedad.setModel(new DefaultComboBoxModel(modelTipoPropiedad));
-                                break;
-                case "Tipo de titulo":modelTipoTitulo = new Vector();
-                                modelTipoTitulo.addElement( new ModelCombo("Adjudicacion", "Adjudicacion" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("Aportacion", "Aportacion" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("CompraVenta", "CompraVenta" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("DacionEnPago", "DacionEnPago" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("Donacion", "Donacion" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("Herencia", "Herencia" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("LiquidacionSociedad", "LiquidacionSociedad" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("ObraNueva", "ObraNueva" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("Permuta", "Permuta" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("PropiedadDivisionHorizontal", "PropiedadDivisionHorizontal" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("TransmisionOnerosa", "TransmisionOnerosa" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("CompensacionUrbanistica", "CompensacionUrbanistica" ) );
-                                modelTipoTitulo.addElement( new ModelCombo("Otros", "Otros" ) );
+
+    private void llenarCombo(String TipoCombo) {
+        switch (TipoCombo) {
+            case "Subtipo inmueble":
+                modelSubTipoInmueble = new Vector();
+                modelSubTipoInmueble.addElement(new ModelCombo("TerrenoSecano", "TerrenoSecano"));
+                modelSubTipoInmueble.addElement(new ModelCombo("ViviendaPiso", "ViviendaPiso"));
+                modelSubTipoInmueble.addElement(new ModelCombo("ViviendaUnifamiliar", "ViviendaUnifamiliar"));
+                modelSubTipoInmueble.addElement(new ModelCombo("PlazaGaraje", "PlazaGaraje"));
+                modelSubTipoInmueble.addElement(new ModelCombo("CuartoTrastero", "CuartoTrastero"));
+                modelSubTipoInmueble.addElement(new ModelCombo("ObraNueva", "ObraNueva"));
+                modelSubTipoInmueble.addElement(new ModelCombo("DivisionHorizontal", "DivisionHorizontal"));
+                modelSubTipoInmueble.addElement(new ModelCombo("LocalComercial", "LocalComercial"));
+                modelSubTipoInmueble.addElement(new ModelCombo("EdificioIndustrial", "EdificioIndustrial"));
+                modelSubTipoInmueble.addElement(new ModelCombo("LocalIndustrial", "LocalIndustrial"));
+                modelSubTipoInmueble.addElement(new ModelCombo("LocalOficinas", "LocalOficinas"));
+                modelSubTipoInmueble.addElement(new ModelCombo("Suelo", "Suelo"));
+                modelSubTipoInmueble.addElement(new ModelCombo("OtrosInmuebles", "OtrosInmuebles"));
+                modelSubTipoInmueble.addElement(new ModelCombo("BienesInmuebles", "BienesInmuebles"));
+                modelSubTipoInmueble.addElement(new ModelCombo("EdificioCompleto", "EdificioCompleto"));
+                modelSubTipoInmueble.addElement(new ModelCombo("Pareado", "Pareado"));
+                modelSubTipoInmueble.addElement(new ModelCombo("Adosado", "Adosado"));
+                eSubtipoInmueble.setModel(new DefaultComboBoxModel(modelSubTipoInmueble));
+                break;
+            case "Tipo via":
+                modelTipoVia = new Vector();
+                modelTipoVia.addElement(new ModelCombo("Calle", "Calle"));
+                modelTipoVia.addElement(new ModelCombo("Plaza", "Plaza"));
+                modelTipoVia.addElement(new ModelCombo("Paseo", "Paseo"));
+                modelTipoVia.addElement(new ModelCombo("Avenida", "Avenida"));
+                modelTipoVia.addElement(new ModelCombo("Ronda", "Ronda"));
+                modelTipoVia.addElement(new ModelCombo("Carretera", "Carretera"));
+                modelTipoVia.addElement(new ModelCombo("Camino", "Camino"));
+                modelTipoVia.addElement(new ModelCombo("Cuesta", "Cuesta"));
+                modelTipoVia.addElement(new ModelCombo("Edificio", "Edificio"));
+                modelTipoVia.addElement(new ModelCombo("Urbanizacion", "Urbanizacion"));
+                modelTipoVia.addElement(new ModelCombo("Carrera", "Carrera"));
+                modelTipoVia.addElement(new ModelCombo("Callejon", "Callejon"));
+                modelTipoVia.addElement(new ModelCombo("Poligono", "Poligono"));
+                modelTipoVia.addElement(new ModelCombo("Travesia", "Travesia"));
+                modelTipoVia.addElement(new ModelCombo("Glorieta", "Glorieta"));
+                modelTipoVia.addElement(new ModelCombo("Colonia", "Colonia"));
+                modelTipoVia.addElement(new ModelCombo("Chalet", "Chalet"));
+                modelTipoVia.addElement(new ModelCombo("Agrupacion", "Agrupacion"));
+                modelTipoVia.addElement(new ModelCombo("Alameda", "Alameda"));
+                modelTipoVia.addElement(new ModelCombo("Apartado", "Apartado"));
+                modelTipoVia.addElement(new ModelCombo("Bajada", "Bajada"));
+                modelTipoVia.addElement(new ModelCombo("Barranco", "Barranco"));
+                modelTipoVia.addElement(new ModelCombo("Barriada", "Barriada"));
+                modelTipoVia.addElement(new ModelCombo("Barrio", "Barrio"));
+                modelTipoVia.addElement(new ModelCombo("Bloque", "Bloque"));
+                modelTipoVia.addElement(new ModelCombo("Bulevar", "Bulevar"));
+                modelTipoVia.addElement(new ModelCombo("Caserio", "Caserio"));
+                modelTipoVia.addElement(new ModelCombo("Diseminado", "Diseminado"));
+                modelTipoVia.addElement(new ModelCombo("Grupo", "Grupo"));
+                modelTipoVia.addElement(new ModelCombo("Lugar", "Lugar"));
+                modelTipoVia.addElement(new ModelCombo("Mercado", "Mercado"));
+                modelTipoVia.addElement(new ModelCombo("Parque", "Parque"));
+                modelTipoVia.addElement(new ModelCombo("Partida", "Partida"));
+                modelTipoVia.addElement(new ModelCombo("Pasaje", "Pasaje"));
+                modelTipoVia.addElement(new ModelCombo("Poblado", "Poblado"));
+                modelTipoVia.addElement(new ModelCombo("Rambla", "Rambla"));
+                modelTipoVia.addElement(new ModelCombo("Residencial", "Residencial"));
+                modelTipoVia.addElement(new ModelCombo("Rua", "Rua"));
+                modelTipoVia.addElement(new ModelCombo("Sector", "Sector"));
+                modelTipoVia.addElement(new ModelCombo("Senda", "Senda"));
+                modelTipoVia.addElement(new ModelCombo("Subida", "Subida"));
+                modelTipoVia.addElement(new ModelCombo("Torrente", "Torrente"));
+                modelTipoVia.addElement(new ModelCombo("Travesera", "Travesera"));
+                modelTipoVia.addElement(new ModelCombo("Via", "Via"));
+                modelTipoVia.addElement(new ModelCombo("Carrer", "Carrer"));
+                eTipoVia.setModel(new DefaultComboBoxModel(modelTipoVia));
+                break;
+            case "Regimen":
+                modelRegimen = new Vector();
+                modelRegimen.addElement(new ModelCombo("NoInformado", "NoInformado"));
+                modelRegimen.addElement(new ModelCombo("VentaLibre", "VentaLibre"));
+                modelRegimen.addElement(new ModelCombo("VPO", "VPO"));
+                modelRegimen.addElement(new ModelCombo("VPOAnt78", "VPOAnt78"));
+                modelRegimen.addElement(new ModelCombo("VPOPrivada", "VPOPrivada"));
+                modelRegimen.addElement(new ModelCombo("VPOPublica", "VPOPublica"));
+                modelRegimen.addElement(new ModelCombo("VPT", "VPT"));
+                modelRegimen.addElement(new ModelCombo("Subvencionada", "Subvencionada"));
+                eRegimenProteccion.setModel(new DefaultComboBoxModel(modelRegimen));
+                break;
+            /*case "Regimen economico":     modelRegimenEconomico = new Vector();
+             modelRegimenEconomico.addElement( new ModelCombo("Otros", "Otros" ) );
+             modelRegimenEconomico.addElement( new ModelCombo("Gananciales", "Gananciales" ) );
+             modelRegimenEconomico.addElement( new ModelCombo("SeparacionBienes", "SeparacionBienes" ) );
+             modelRegimenEconomico.addElement( new ModelCombo("Participacion", "Participacion" ) );
+             eRegimenEconomico.setModel(new DefaultComboBoxModel(modelRegimenEconomico));
+             break;                    
+             */
+            /*case "Tipo de participacion":modelTipoParticipacion = new Vector();
+             modelTipoParticipacion.addElement( new ModelCombo("Titular", "Titular" ) );
+             modelTipoParticipacion.addElement( new ModelCombo("SujetoPasivo", "SujetoPasivo" ) );
+             modelTipoParticipacion.addElement( new ModelCombo("Vendedor", "Vendedor" ) );
+             modelTipoParticipacion.addElement( new ModelCombo("Avalista", "Avalista" ) );
+             modelTipoParticipacion.addElement( new ModelCombo("Otros", "Otros" ) );
+             modelTipoParticipacion.addElement( new ModelCombo("Demandante", "Demandante" ) );
+             modelTipoParticipacion.addElement( new ModelCombo("Demandado", "Demandado" ) );
+             modelTipoParticipacion.addElement( new ModelCombo("PersonaContacto", "PersonaContacto" ) );
+             modelTipoParticipacion.addElement( new ModelCombo("HipotecanteNoDeudor", "HipotecanteNoDeudor" ) );
+             eTipoParticipacion.setModel(new DefaultComboBoxModel(modelTipoParticipacion));
+             break; 
+             case "Tipo de propiedad":modelTipoPropiedad = new Vector();
+             modelTipoPropiedad.addElement( new ModelCombo("Propietario", "Propietario" ) );
+             modelTipoPropiedad.addElement( new ModelCombo("Nudo_propietario", "Nudo_propietario" ) );
+             modelTipoPropiedad.addElement( new ModelCombo("Usufructuario", "Usufructuario" ) );
+             modelTipoPropiedad.addElement( new ModelCombo("Arrendatario_Ocupante", "Arrendatario_Ocupante" ) );
+             eTipoPropiedad.setModel(new DefaultComboBoxModel(modelTipoPropiedad));
+             break;
+             case "Tipo de titulo":modelTipoTitulo = new Vector();
+             modelTipoTitulo.addElement( new ModelCombo("Adjudicacion", "Adjudicacion" ) );
+             modelTipoTitulo.addElement( new ModelCombo("Aportacion", "Aportacion" ) );
+             modelTipoTitulo.addElement( new ModelCombo("CompraVenta", "CompraVenta" ) );
+             modelTipoTitulo.addElement( new ModelCombo("DacionEnPago", "DacionEnPago" ) );
+             modelTipoTitulo.addElement( new ModelCombo("Donacion", "Donacion" ) );
+             modelTipoTitulo.addElement( new ModelCombo("Herencia", "Herencia" ) );
+             modelTipoTitulo.addElement( new ModelCombo("LiquidacionSociedad", "LiquidacionSociedad" ) );
+             modelTipoTitulo.addElement( new ModelCombo("ObraNueva", "ObraNueva" ) );
+             modelTipoTitulo.addElement( new ModelCombo("Permuta", "Permuta" ) );
+             modelTipoTitulo.addElement( new ModelCombo("PropiedadDivisionHorizontal", "PropiedadDivisionHorizontal" ) );
+             modelTipoTitulo.addElement( new ModelCombo("TransmisionOnerosa", "TransmisionOnerosa" ) );
+             modelTipoTitulo.addElement( new ModelCombo("CompensacionUrbanistica", "CompensacionUrbanistica" ) );
+             modelTipoTitulo.addElement( new ModelCombo("Otros", "Otros" ) );
                                 
-                                eTipoTitulo.setModel(new DefaultComboBoxModel(modelTipoTitulo));
-                                break;
+             eTipoTitulo.setModel(new DefaultComboBoxModel(modelTipoTitulo));
+             break;
                                 
                 
-                case "Tipo de documento":modelTipoDocumento = new Vector();
-                                modelTipoDocumento.addElement( new ModelCombo("Unknwon", "Unknwon" ) );
-                                modelTipoDocumento.addElement( new ModelCombo("Nif", "Nif" ) );
-                                modelTipoDocumento.addElement( new ModelCombo("Cif", "Cif" ) );
-                                modelTipoDocumento.addElement( new ModelCombo("Passport", "Passport" ) );
-                                modelTipoDocumento.addElement( new ModelCombo("TarjetaResidente", "TarjetaResidente" ) );
-                                modelTipoDocumento.addElement( new ModelCombo("IdentificacionFiscalMenor", "IdentificacionFiscalMenor" ) );
-                                eTipoDocumento.setModel(new DefaultComboBoxModel(modelTipoDocumento));
-                                break;    */             
-                case "Provincia":modelProvincia = new Vector();
-                                listaProvincias = new ArrayList<>();
-                                //modelProvincia.addElement( new ModelCombo("SIN_ASIGNAR", "SIN_ASIGNAR" ) );
-                                modelProvincia.addElement( new ModelCombo("ALAVA", "ALAVA" ) );listaProvincias.add(new Provincia("1", "ALAVA"));
-                                modelProvincia.addElement( new ModelCombo("ALBACETE", "ALBACETE" ) );listaProvincias.add(new Provincia("2", "ALBACETE"));
-                                modelProvincia.addElement( new ModelCombo("ALICANTE", "ALICANTE" ) );listaProvincias.add(new Provincia("3", "ALICANTE"));
-                                modelProvincia.addElement( new ModelCombo("ALMERIA", "ALMERIA" ) );listaProvincias.add(new Provincia("4", "ALMERIA"));
-                                modelProvincia.addElement( new ModelCombo("AVILA", "AVILA" ) );listaProvincias.add(new Provincia("5", "AVILA"));
-                                modelProvincia.addElement( new ModelCombo("BADAJOZ", "BADAJOZ" ) );listaProvincias.add(new Provincia("6", "BADAJOZ"));
-                                modelProvincia.addElement( new ModelCombo("BALEARES", "BALEARES" ) );listaProvincias.add(new Provincia("7", "BALEARES"));
-                                modelProvincia.addElement( new ModelCombo("BARCELONA", "BARCELONA" ) );listaProvincias.add(new Provincia("8", "BARCELONA"));
-                                modelProvincia.addElement( new ModelCombo("BURGOS", "BURGOS" ) );listaProvincias.add(new Provincia("9", "BURGOS"));
-                                modelProvincia.addElement( new ModelCombo("CACERES", "CACERES" ) );listaProvincias.add(new Provincia("10", "CACERES"));
-                                modelProvincia.addElement( new ModelCombo("CADIZ", "CADIZ" ) );listaProvincias.add(new Provincia("11", "CADIZ"));
-                                modelProvincia.addElement( new ModelCombo("CASTELLON", "CASTELLON" ) );listaProvincias.add(new Provincia("12", "CASTELLON"));
-                                modelProvincia.addElement( new ModelCombo("CIUDAD_REAL", "CIUDAD_REAL" ) );listaProvincias.add(new Provincia("13", "CIUDAD_REAL"));
-                                modelProvincia.addElement( new ModelCombo("CORDOBA", "CORDOBA" ) );listaProvincias.add(new Provincia("14", "CORDOBA"));
-                                modelProvincia.addElement( new ModelCombo("A_CORUÑA", "A_CORUÑA" ) );listaProvincias.add(new Provincia("15", "A_CORUÑA"));
-                                modelProvincia.addElement( new ModelCombo("CUENCA", "CUENCA" ) );listaProvincias.add(new Provincia("16", "CUENCA"));
-                                modelProvincia.addElement( new ModelCombo("GIRONA", "GIRONA" ) );listaProvincias.add(new Provincia("17", "GIRONA"));
-                                modelProvincia.addElement( new ModelCombo("GRANADA", "GRANADA" ) );listaProvincias.add(new Provincia("18", "GRANADA"));
-                                modelProvincia.addElement( new ModelCombo("GUADALAJARA", "GUADALAJARA" ) );listaProvincias.add(new Provincia("19", "GUADALAJARA"));
-                                modelProvincia.addElement( new ModelCombo("GUIPUZCOA", "GUIPUZCOA" ) );listaProvincias.add(new Provincia("20", "GUIPUZCOA"));
-                                modelProvincia.addElement( new ModelCombo("HUELVA", "HUELVA" ) );listaProvincias.add(new Provincia("21", "HUELVA"));
-                                modelProvincia.addElement( new ModelCombo("HUESCA", "HUESCA" ) );listaProvincias.add(new Provincia("22", "HUESCA"));
-                                modelProvincia.addElement( new ModelCombo("JAEN", "JAEN" ) );listaProvincias.add(new Provincia("23", "JAEN"));
-                                modelProvincia.addElement( new ModelCombo("LEON", "LEON" ) );listaProvincias.add(new Provincia("24", "LEON"));
-                                modelProvincia.addElement( new ModelCombo("LLEIDA", "LLEIDA" ) );listaProvincias.add(new Provincia("25", "LLEIDA"));
-                                modelProvincia.addElement( new ModelCombo("LA_RIOJA", "LA_RIOJA" ) );listaProvincias.add(new Provincia("26", "LA_RIOJA"));
-                                modelProvincia.addElement( new ModelCombo("LUGO", "LUGO" ) );listaProvincias.add(new Provincia("27", "LUGO"));
-                                modelProvincia.addElement( new ModelCombo("MADRID", "MADRID" ) );listaProvincias.add(new Provincia("28", "MADRID"));
-                                modelProvincia.addElement( new ModelCombo("MALAGA", "MALAGA" ) );listaProvincias.add(new Provincia("29", "MALAGA"));
-                                modelProvincia.addElement( new ModelCombo("MURCIA", "MURCIA" ) );listaProvincias.add(new Provincia("30", "MURCIA"));
-                                modelProvincia.addElement( new ModelCombo("NAVARRA", "NAVARRA" ) );listaProvincias.add(new Provincia("31", "NAVARRA"));
-                                modelProvincia.addElement( new ModelCombo("OURENSE", "OURENSE" ) );listaProvincias.add(new Provincia("32", "OURENSE"));
-                                modelProvincia.addElement( new ModelCombo("ASTURIAS", "ASTURIAS" ) );listaProvincias.add(new Provincia("33", "ASTURIAS"));
-                                modelProvincia.addElement( new ModelCombo("PALENCIA", "PALENCIA" ) );listaProvincias.add(new Provincia("34", "PALENCIA"));
-                                modelProvincia.addElement( new ModelCombo("LAS_PALMAS", "LAS_PALMAS" ) );listaProvincias.add(new Provincia("35", "LAS_PALMAS"));
-                                modelProvincia.addElement( new ModelCombo("PONTEVEDRA", "PONTEVEDRA" ) );listaProvincias.add(new Provincia("36", "PONTEVEDRA"));
-                                modelProvincia.addElement( new ModelCombo("SALAMANCA", "SALAMANCA" ) );listaProvincias.add(new Provincia("37", "SALAMANCA"));
-                                modelProvincia.addElement( new ModelCombo("SC_TENERIFE", "SC_TENERIFE" ) );listaProvincias.add(new Provincia("38", "SC_TENERIFE"));
-                                modelProvincia.addElement( new ModelCombo("CANTABRIA", "CANTABRIA" ) );listaProvincias.add(new Provincia("39", "CANTABRIA"));
-                                modelProvincia.addElement( new ModelCombo("SEGOVIA", "SEGOVIA" ) );listaProvincias.add(new Provincia("40", "SEGOVIA"));
-                                modelProvincia.addElement( new ModelCombo("SEVILLA", "SEVILLA" ) );listaProvincias.add(new Provincia("41", "SEVILLA"));
-                                modelProvincia.addElement( new ModelCombo("SORIA", "SORIA" ) );listaProvincias.add(new Provincia("42", "SORIA"));
-                                modelProvincia.addElement( new ModelCombo("TARRAGONA", "TARRAGONA" ) );listaProvincias.add(new Provincia("43", "TARRAGONA"));
-                                modelProvincia.addElement( new ModelCombo("TERUEL", "TERUEL" ) );listaProvincias.add(new Provincia("44", "TERUEL"));
-                                modelProvincia.addElement( new ModelCombo("TOLEDO", "TOLEDO" ) );listaProvincias.add(new Provincia("45", "TOLEDO"));
-                                modelProvincia.addElement( new ModelCombo("VALENCIA", "VALENCIA" ) );listaProvincias.add(new Provincia("46", "VALENCIA"));
-                                modelProvincia.addElement( new ModelCombo("VALLADOLID", "VALLADOLID" ) );listaProvincias.add(new Provincia("47", "VALLADOLID"));
-                                modelProvincia.addElement( new ModelCombo("VIZCAYA", "VIZCAYA" ) );listaProvincias.add(new Provincia("48", "VIZCAYA"));
-                                modelProvincia.addElement( new ModelCombo("ZAMORA", "ZAMORA" ) );listaProvincias.add(new Provincia("49", "ZAMORA"));
-                                modelProvincia.addElement( new ModelCombo("ZARAGOZA", "ZARAGOZA" ) );listaProvincias.add(new Provincia("50", "ZARAGOZA"));
-                                modelProvincia.addElement( new ModelCombo("CEUTA", "CEUTA" ) );listaProvincias.add(new Provincia("51", "CEUTA"));
-                                modelProvincia.addElement( new ModelCombo("MELILLA", "MELILLA" ) );listaProvincias.add(new Provincia("52", "MELILLA"));
-                                eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
-                                break;      
-                case "Poblacion":modelPoblacion = new Vector();
-                                modelPoblacion.addElement( new ModelCombo("222", "222" ) );
-                                modelPoblacion.addElement( new ModelCombo("333", "333" ) );
-                                ePoblacion.setModel(new DefaultComboBoxModel(modelPoblacion));
-                                break;
-                case "Ocupación":modelOcupacion = new Vector();
-                                modelOcupacion.addElement( new ModelCombo("SinDatos", "SinDatos" ) );
-                                modelOcupacion.addElement( new ModelCombo("Usufructuario", "Usufructuario" ) );
-                                modelOcupacion.addElement( new ModelCombo("Precarista", "Precarista" ) );
-                                modelOcupacion.addElement( new ModelCombo("Inquilino", "Inquilino" ) );
-                                modelOcupacion.addElement( new ModelCombo("Propietario_Usuario", "Propietario_Usuario" ) );
-                                modelOcupacion.addElement( new ModelCombo("Desocupada", "Desocupada" ) );
-                                modelOcupacion.addElement( new ModelCombo("Otros", "Otros" ) );
-                                eOcupacion.setModel(new DefaultComboBoxModel(modelOcupacion));
-                                break; 
-                case "Conservación":modelConservacion = new Vector();
-                                modelConservacion.addElement( new ModelCombo("NoInformado", "NoInformado" ) );
-                                modelConservacion.addElement( new ModelCombo("Nuevo_1Anio", "Nuevo_1Anio" ) );
-                                modelConservacion.addElement( new ModelCombo("Seminuevo_5Anios", "Seminuevo_5Anios" ) );
-                                modelConservacion.addElement( new ModelCombo("Usada_Mas5Anios", "Usada_Mas5Anios" ) );
-                                modelConservacion.addElement( new ModelCombo("AReformar", "AReformar" ) );
-                                modelConservacion.addElement( new ModelCombo("Usada_Mas55Anios", "Usada_Mas55Anios" ) );
-                                modelConservacion.addElement( new ModelCombo("EnConstruccion", "EnConstruccion" ) );
-                                modelConservacion.addElement( new ModelCombo("EnRuinas", "EnRuinas" ) );
-                                modelConservacion.addElement( new ModelCombo("EnProyecto", "EnProyecto" ) );
-                                eEstadoConservacion.setModel(new DefaultComboBoxModel(modelConservacion));
-                                break;
-                case "Año construcción":modelAnnoConstruccion = new Vector();
-                                modelAnnoConstruccion.addElement( new ModelCombo("NoInformado", "NoInformado" ) );
-                                modelAnnoConstruccion.addElement( new ModelCombo("Antes1981", "Antes1981" ) );
-                                modelAnnoConstruccion.addElement( new ModelCombo("De1981a1999", "De1981a1999" ) );
-                                modelAnnoConstruccion.addElement( new ModelCombo("De1999a2003", "De1999a2003" ) );
-                                modelAnnoConstruccion.addElement( new ModelCombo("De2003a2008", "De2003a2008" ) );
-                                modelAnnoConstruccion.addElement( new ModelCombo("De2009a2013", "De2009a2013" ) );
-                                modelAnnoConstruccion.addElement( new ModelCombo("Despues2013", "Despues2013" ) );
-                                eAnnoConstruccion.setModel(new DefaultComboBoxModel(modelAnnoConstruccion));
-                                break;                
+             case "Tipo de documento":modelTipoDocumento = new Vector();
+             modelTipoDocumento.addElement( new ModelCombo("Unknwon", "Unknwon" ) );
+             modelTipoDocumento.addElement( new ModelCombo("Nif", "Nif" ) );
+             modelTipoDocumento.addElement( new ModelCombo("Cif", "Cif" ) );
+             modelTipoDocumento.addElement( new ModelCombo("Passport", "Passport" ) );
+             modelTipoDocumento.addElement( new ModelCombo("TarjetaResidente", "TarjetaResidente" ) );
+             modelTipoDocumento.addElement( new ModelCombo("IdentificacionFiscalMenor", "IdentificacionFiscalMenor" ) );
+             eTipoDocumento.setModel(new DefaultComboBoxModel(modelTipoDocumento));
+             break;    */
+            case "Provincia":
+                modelProvincia = new Vector();
+                listaProvincias = new ArrayList<>();
+                //modelProvincia.addElement( new ModelCombo("SIN_ASIGNAR", "SIN_ASIGNAR" ) );
+                modelProvincia.addElement(new ModelCombo("ALAVA", "ALAVA"));
+                listaProvincias.add(new Provincia("1", "ALAVA"));
+                modelProvincia.addElement(new ModelCombo("ALBACETE", "ALBACETE"));
+                listaProvincias.add(new Provincia("2", "ALBACETE"));
+                modelProvincia.addElement(new ModelCombo("ALICANTE", "ALICANTE"));
+                listaProvincias.add(new Provincia("3", "ALICANTE"));
+                modelProvincia.addElement(new ModelCombo("ALMERIA", "ALMERIA"));
+                listaProvincias.add(new Provincia("4", "ALMERIA"));
+                modelProvincia.addElement(new ModelCombo("AVILA", "AVILA"));
+                listaProvincias.add(new Provincia("5", "AVILA"));
+                modelProvincia.addElement(new ModelCombo("BADAJOZ", "BADAJOZ"));
+                listaProvincias.add(new Provincia("6", "BADAJOZ"));
+                modelProvincia.addElement(new ModelCombo("BALEARES", "BALEARES"));
+                listaProvincias.add(new Provincia("7", "BALEARES"));
+                modelProvincia.addElement(new ModelCombo("BARCELONA", "BARCELONA"));
+                listaProvincias.add(new Provincia("8", "BARCELONA"));
+                modelProvincia.addElement(new ModelCombo("BURGOS", "BURGOS"));
+                listaProvincias.add(new Provincia("9", "BURGOS"));
+                modelProvincia.addElement(new ModelCombo("CACERES", "CACERES"));
+                listaProvincias.add(new Provincia("10", "CACERES"));
+                modelProvincia.addElement(new ModelCombo("CADIZ", "CADIZ"));
+                listaProvincias.add(new Provincia("11", "CADIZ"));
+                modelProvincia.addElement(new ModelCombo("CASTELLON", "CASTELLON"));
+                listaProvincias.add(new Provincia("12", "CASTELLON"));
+                modelProvincia.addElement(new ModelCombo("CIUDAD_REAL", "CIUDAD_REAL"));
+                listaProvincias.add(new Provincia("13", "CIUDAD_REAL"));
+                modelProvincia.addElement(new ModelCombo("CORDOBA", "CORDOBA"));
+                listaProvincias.add(new Provincia("14", "CORDOBA"));
+                modelProvincia.addElement(new ModelCombo("A_CORUÑA", "A_CORUÑA"));
+                listaProvincias.add(new Provincia("15", "A_CORUÑA"));
+                modelProvincia.addElement(new ModelCombo("CUENCA", "CUENCA"));
+                listaProvincias.add(new Provincia("16", "CUENCA"));
+                modelProvincia.addElement(new ModelCombo("GIRONA", "GIRONA"));
+                listaProvincias.add(new Provincia("17", "GIRONA"));
+                modelProvincia.addElement(new ModelCombo("GRANADA", "GRANADA"));
+                listaProvincias.add(new Provincia("18", "GRANADA"));
+                modelProvincia.addElement(new ModelCombo("GUADALAJARA", "GUADALAJARA"));
+                listaProvincias.add(new Provincia("19", "GUADALAJARA"));
+                modelProvincia.addElement(new ModelCombo("GUIPUZCOA", "GUIPUZCOA"));
+                listaProvincias.add(new Provincia("20", "GUIPUZCOA"));
+                modelProvincia.addElement(new ModelCombo("HUELVA", "HUELVA"));
+                listaProvincias.add(new Provincia("21", "HUELVA"));
+                modelProvincia.addElement(new ModelCombo("HUESCA", "HUESCA"));
+                listaProvincias.add(new Provincia("22", "HUESCA"));
+                modelProvincia.addElement(new ModelCombo("JAEN", "JAEN"));
+                listaProvincias.add(new Provincia("23", "JAEN"));
+                modelProvincia.addElement(new ModelCombo("LEON", "LEON"));
+                listaProvincias.add(new Provincia("24", "LEON"));
+                modelProvincia.addElement(new ModelCombo("LLEIDA", "LLEIDA"));
+                listaProvincias.add(new Provincia("25", "LLEIDA"));
+                modelProvincia.addElement(new ModelCombo("LA_RIOJA", "LA_RIOJA"));
+                listaProvincias.add(new Provincia("26", "LA_RIOJA"));
+                modelProvincia.addElement(new ModelCombo("LUGO", "LUGO"));
+                listaProvincias.add(new Provincia("27", "LUGO"));
+                modelProvincia.addElement(new ModelCombo("MADRID", "MADRID"));
+                listaProvincias.add(new Provincia("28", "MADRID"));
+                modelProvincia.addElement(new ModelCombo("MALAGA", "MALAGA"));
+                listaProvincias.add(new Provincia("29", "MALAGA"));
+                modelProvincia.addElement(new ModelCombo("MURCIA", "MURCIA"));
+                listaProvincias.add(new Provincia("30", "MURCIA"));
+                modelProvincia.addElement(new ModelCombo("NAVARRA", "NAVARRA"));
+                listaProvincias.add(new Provincia("31", "NAVARRA"));
+                modelProvincia.addElement(new ModelCombo("OURENSE", "OURENSE"));
+                listaProvincias.add(new Provincia("32", "OURENSE"));
+                modelProvincia.addElement(new ModelCombo("ASTURIAS", "ASTURIAS"));
+                listaProvincias.add(new Provincia("33", "ASTURIAS"));
+                modelProvincia.addElement(new ModelCombo("PALENCIA", "PALENCIA"));
+                listaProvincias.add(new Provincia("34", "PALENCIA"));
+                modelProvincia.addElement(new ModelCombo("LAS_PALMAS", "LAS_PALMAS"));
+                listaProvincias.add(new Provincia("35", "LAS_PALMAS"));
+                modelProvincia.addElement(new ModelCombo("PONTEVEDRA", "PONTEVEDRA"));
+                listaProvincias.add(new Provincia("36", "PONTEVEDRA"));
+                modelProvincia.addElement(new ModelCombo("SALAMANCA", "SALAMANCA"));
+                listaProvincias.add(new Provincia("37", "SALAMANCA"));
+                modelProvincia.addElement(new ModelCombo("SC_TENERIFE", "SC_TENERIFE"));
+                listaProvincias.add(new Provincia("38", "SC_TENERIFE"));
+                modelProvincia.addElement(new ModelCombo("CANTABRIA", "CANTABRIA"));
+                listaProvincias.add(new Provincia("39", "CANTABRIA"));
+                modelProvincia.addElement(new ModelCombo("SEGOVIA", "SEGOVIA"));
+                listaProvincias.add(new Provincia("40", "SEGOVIA"));
+                modelProvincia.addElement(new ModelCombo("SEVILLA", "SEVILLA"));
+                listaProvincias.add(new Provincia("41", "SEVILLA"));
+                modelProvincia.addElement(new ModelCombo("SORIA", "SORIA"));
+                listaProvincias.add(new Provincia("42", "SORIA"));
+                modelProvincia.addElement(new ModelCombo("TARRAGONA", "TARRAGONA"));
+                listaProvincias.add(new Provincia("43", "TARRAGONA"));
+                modelProvincia.addElement(new ModelCombo("TERUEL", "TERUEL"));
+                listaProvincias.add(new Provincia("44", "TERUEL"));
+                modelProvincia.addElement(new ModelCombo("TOLEDO", "TOLEDO"));
+                listaProvincias.add(new Provincia("45", "TOLEDO"));
+                modelProvincia.addElement(new ModelCombo("VALENCIA", "VALENCIA"));
+                listaProvincias.add(new Provincia("46", "VALENCIA"));
+                modelProvincia.addElement(new ModelCombo("VALLADOLID", "VALLADOLID"));
+                listaProvincias.add(new Provincia("47", "VALLADOLID"));
+                modelProvincia.addElement(new ModelCombo("VIZCAYA", "VIZCAYA"));
+                listaProvincias.add(new Provincia("48", "VIZCAYA"));
+                modelProvincia.addElement(new ModelCombo("ZAMORA", "ZAMORA"));
+                listaProvincias.add(new Provincia("49", "ZAMORA"));
+                modelProvincia.addElement(new ModelCombo("ZARAGOZA", "ZARAGOZA"));
+                listaProvincias.add(new Provincia("50", "ZARAGOZA"));
+                modelProvincia.addElement(new ModelCombo("CEUTA", "CEUTA"));
+                listaProvincias.add(new Provincia("51", "CEUTA"));
+                modelProvincia.addElement(new ModelCombo("MELILLA", "MELILLA"));
+                listaProvincias.add(new Provincia("52", "MELILLA"));
+                eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
+                break;
+            case "Poblacion":
+                modelPoblacion = new Vector();
+                modelPoblacion.addElement(new ModelCombo("222", "222"));
+                modelPoblacion.addElement(new ModelCombo("333", "333"));
+                ePoblacion.setModel(new DefaultComboBoxModel(modelPoblacion));
+                break;
+            case "Ocupación":
+                modelOcupacion = new Vector();
+                modelOcupacion.addElement(new ModelCombo("SinDatos", "SinDatos"));
+                modelOcupacion.addElement(new ModelCombo("Usufructuario", "Usufructuario"));
+                modelOcupacion.addElement(new ModelCombo("Precarista", "Precarista"));
+                modelOcupacion.addElement(new ModelCombo("Inquilino", "Inquilino"));
+                modelOcupacion.addElement(new ModelCombo("Propietario_Usuario", "Propietario_Usuario"));
+                modelOcupacion.addElement(new ModelCombo("Desocupada", "Desocupada"));
+                modelOcupacion.addElement(new ModelCombo("Otros", "Otros"));
+                eOcupacion.setModel(new DefaultComboBoxModel(modelOcupacion));
+                break;
+            case "Conservación":
+                modelConservacion = new Vector();
+                modelConservacion.addElement(new ModelCombo("NoInformado", "NoInformado"));
+                modelConservacion.addElement(new ModelCombo("Nuevo_1Anio", "Nuevo_1Anio"));
+                modelConservacion.addElement(new ModelCombo("Seminuevo_5Anios", "Seminuevo_5Anios"));
+                modelConservacion.addElement(new ModelCombo("Usada_Mas5Anios", "Usada_Mas5Anios"));
+                modelConservacion.addElement(new ModelCombo("AReformar", "AReformar"));
+                modelConservacion.addElement(new ModelCombo("Usada_Mas55Anios", "Usada_Mas55Anios"));
+                modelConservacion.addElement(new ModelCombo("EnConstruccion", "EnConstruccion"));
+                modelConservacion.addElement(new ModelCombo("EnRuinas", "EnRuinas"));
+                modelConservacion.addElement(new ModelCombo("EnProyecto", "EnProyecto"));
+                eEstadoConservacion.setModel(new DefaultComboBoxModel(modelConservacion));
+                break;
+            case "Año construcción":
+                modelAnnoConstruccion = new Vector();
+                modelAnnoConstruccion.addElement(new ModelCombo("NoInformado", "NoInformado"));
+                modelAnnoConstruccion.addElement(new ModelCombo("Antes1981", "Antes1981"));
+                modelAnnoConstruccion.addElement(new ModelCombo("De1981a1999", "De1981a1999"));
+                modelAnnoConstruccion.addElement(new ModelCombo("De1999a2003", "De1999a2003"));
+                modelAnnoConstruccion.addElement(new ModelCombo("De2003a2008", "De2003a2008"));
+                modelAnnoConstruccion.addElement(new ModelCombo("De2009a2013", "De2009a2013"));
+                modelAnnoConstruccion.addElement(new ModelCombo("Despues2013", "Despues2013"));
+                eAnnoConstruccion.setModel(new DefaultComboBoxModel(modelAnnoConstruccion));
+                break;
         }
     }
-    
-    private void limpiarComponentesFormulario(){
+
+    private void limpiarComponentesFormulario() {
         eIdufir.setText("");
         eReferenciaCatastral.setText("");
         eNombreVia.setText("");
@@ -524,37 +579,36 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
         eValorSuelo.setText("");
         eValorTasacion.setText("");
         eValoracion.setText("");
-        
+
         //Combo
-        eSubtipoInmueble.setSelectedIndex(0); 
-        eTipoVia.setSelectedIndex(0); 
-        eRegimenProteccion.setSelectedIndex(0); 
-        ePoblacion.setSelectedIndex(0); 
-        eProvincia.setSelectedIndex(0); 
-        eRegistroPropiedad.setSelectedIndex(0); 
-        eAnnoConstruccion.setSelectedIndex(0); 
-        eOcupacion.setSelectedIndex(0); 
-        eEstadoConservacion.setSelectedIndex(0); 
-        
+        eSubtipoInmueble.setSelectedIndex(0);
+        eTipoVia.setSelectedIndex(0);
+        eRegimenProteccion.setSelectedIndex(0);
+        ePoblacion.setSelectedIndex(0);
+        eProvincia.setSelectedIndex(0);
+        eRegistroPropiedad.setSelectedIndex(0);
+        eAnnoConstruccion.setSelectedIndex(0);
+        eOcupacion.setSelectedIndex(0);
+        eEstadoConservacion.setSelectedIndex(0);
 
         //Fechas
         Date fecha = null;
         eFechaVerificación.setDate(fecha);
         eFechaCalificacion.setDate(fecha);
-        
+
         //listaTitulares.clear();
         listaAnejos.clear();
-        
-        DefaultTableModel modelo = (DefaultTableModel)jTable1.getModel();
+
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0);
     }
-    
-    private void limpiarComponentes(){
+
+    private void limpiarComponentes() {
         //listaTitulares.clear();
         listaAnejos.clear();
     }
-    
-    private void llenarPoblaciones(){
+
+    private void llenarPoblaciones() {
         ComboboxToolTipRenderer renderer = new ComboboxToolTipRenderer();
         eRegistroPropiedad.setRenderer(renderer);
         List<String> tooltips = new ArrayList<>();
@@ -564,27 +618,27 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
         modelPoblacion = new Vector();
         Collections.sort(listaPoblaciones);
         for (Poblacion poblacion : listaPoblaciones) {
-            modelPoblacion.addElement( new ModelCombo(poblacion.getCodigo(), poblacion.getNombre()) );
+            modelPoblacion.addElement(new ModelCombo(poblacion.getCodigo(), poblacion.getNombre()));
         }
         ePoblacion.setModel(new DefaultComboBoxModel(modelPoblacion));
-        
+
         modelRegistroPropiedad = new Vector();
         Collections.sort(listaRegistros);
-        modelRegistroPropiedad.addElement( new ModelCombo("0", "NO_INFORMADO") );
+        modelRegistroPropiedad.addElement(new ModelCombo("0", "NO_INFORMADO"));
         tooltips.add("NO_INFORMADO");
         for (RegistroPropiedad registroPropiedad : listaRegistros) {
-            modelRegistroPropiedad.addElement( new ModelCombo(registroPropiedad.getCodigo(), registroPropiedad.getNombre()) );
+            modelRegistroPropiedad.addElement(new ModelCombo(registroPropiedad.getCodigo(), registroPropiedad.getNombre()));
             tooltips.add(registroPropiedad.getNombre());
         }
         eRegistroPropiedad.setModel(new DefaultComboBoxModel(modelRegistroPropiedad));
         renderer.setTooltips(tooltips);
         /*
-        modelProvincia = new Vector();
-        for (Provincia provincia : listaProvincias) {
-            modelProvincia.addElement( new ModelCombo(provincia.getCodigo(), provincia.getNombre()) );
-        }
-        eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
-        */
+         modelProvincia = new Vector();
+         for (Provincia provincia : listaProvincias) {
+         modelProvincia.addElement( new ModelCombo(provincia.getCodigo(), provincia.getNombre()) );
+         }
+         eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
+         */
     }
 
     /**
@@ -1432,119 +1486,147 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
     private void jButtonAdicionarTitularMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAdicionarTitularMousePressed
         FormaTitularTasacion formaTitularTasacion = new FormaTitularTasacion(this, true, 1, -1);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaTitularTasacion.setLocation(GEnv.getCenterPoint().x-formaTitularTasacion.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaTitularTasacion.getHeight()/2 + 25);
+        formaTitularTasacion.setLocation(GEnv.getCenterPoint().x - formaTitularTasacion.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaTitularTasacion.getHeight() / 2 + 25);
 
         formaTitularTasacion.setResizable(false);
         formaTitularTasacion.setVisible(true);
 
-        Utiles.llenarTabla(jTable1,listaTitulares, "Titulares");
+        Utiles.llenarTabla(jTable1, listaTitulares, "Titulares");
     }//GEN-LAST:event_jButtonAdicionarTitularMousePressed
 
     private void jButtonConvertirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConvertirMousePressed
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea Salvar?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0){
+        if (respuesta == 0) {
             JComponent comp1 = Utiles.ValidaControles(jPanel1);
             JComponent comp2 = Utiles.ValidaControles(jPanel6);
-            if (comp1 == null){
-                if (comp2 == null){
+            if (comp1 == null) {
+                if (comp2 == null) {
                     if (Utiles.validarFecha(eFechaVerificación) && Utiles.validarFecha(eFechaCalificacion)) {
                         //esErronea();
                         new TareaSegundoPlano(this, Utiles.msgTareaAnadiendoFinca) {
                             @Override
                             protected void tareaHaRealizar() {
-                                JComponent compTemp = (JComponent)eFechaVerificación;
+                                JComponent compTemp = (JComponent) eFechaVerificación;
                                 String atributo;
                                 ArrayList<ComponenteFormulario> listaComponentesXML = new ArrayList<>();
-                                while (compTemp != null){
+                                while (compTemp != null) {
                                     atributo = compTemp.getName();
-                                    if (atributo.endsWith("."))
+                                    if (atributo.endsWith(".")) {
                                         atributo = atributo.substring(0, atributo.length() - 1);
-                                    if (compTemp instanceof JFormattedTextField) {
-                                            System.out.println(((JFormattedTextField)compTemp).getText());
-                                            if (((JFormattedTextField)compTemp).getText().equals("   .  ")) 
-                                                listaComponentesXML.add(new ComponenteFormulario(atributo, ""));
-                                            else listaComponentesXML.add(new ComponenteFormulario(atributo, ((JFormattedTextField)compTemp).getText()));
-                                    }else if (compTemp instanceof JTextField){
-                                        listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextField)compTemp).getText()));
-                                    } else if (compTemp instanceof JComboBox) {
-                                            /*if ((true) && (!atributo.equals("ESTADO_SOLICITUD")))
-                                                listaComponentesXML.add(new ComponenteFormulario(atributo, ""));
-                                            else */
-                                                listaComponentesXML.add(new ComponenteFormulario(atributo, ((ModelCombo)((JComboBox)compTemp).getSelectedItem()).getClave()));
-                                    } else if (compTemp instanceof DateControl) {
-                                        if (((DateControl)compTemp).getDate() != null)
-                                            listaComponentesXML.add(new ComponenteFormulario(atributo,  Utiles.convertirFechaYYYYMMDD( ((DateControl)compTemp).getDate())));
-                                        else listaComponentesXML.add(new ComponenteFormulario(atributo,  ""));
-                                    } else if (compTemp instanceof JTextArea){
-                                        listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextArea)compTemp).getText()));
                                     }
-                                    compTemp = (JComponent)compTemp.getNextFocusableComponent();
+                                    if (compTemp instanceof JFormattedTextField) {
+                                        System.out.println(((JFormattedTextField) compTemp).getText());
+                                        if (((JFormattedTextField) compTemp).getText().equals("   .  ")) {
+                                            listaComponentesXML.add(new ComponenteFormulario(atributo, ""));
+                                        } else {
+                                            listaComponentesXML.add(new ComponenteFormulario(atributo, ((JFormattedTextField) compTemp).getText()));
+                                        }
+                                    } else if (compTemp instanceof JTextField) {
+                                        listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextField) compTemp).getText()));
+                                    } else if (compTemp instanceof JComboBox) {
+                                        /*if ((true) && (!atributo.equals("ESTADO_SOLICITUD")))
+                                         listaComponentesXML.add(new ComponenteFormulario(atributo, ""));
+                                         else */
+                                        listaComponentesXML.add(new ComponenteFormulario(atributo, ((ModelCombo) ((JComboBox) compTemp).getSelectedItem()).getClave()));
+                                    } else if (compTemp instanceof DateControl) {
+                                        if (((DateControl) compTemp).getDate() != null) {
+                                            listaComponentesXML.add(new ComponenteFormulario(atributo, Utiles.convertirFechaYYYYMMDD(((DateControl) compTemp).getDate())));
+                                        } else {
+                                            listaComponentesXML.add(new ComponenteFormulario(atributo, ""));
+                                        }
+                                    } else if (compTemp instanceof JTextArea) {
+                                        listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextArea) compTemp).getText()));
+                                    }
+                                    compTemp = (JComponent) compTemp.getNextFocusableComponent();
                                 }
                                 ArrayList<ArrayList<ComponenteFormulario>> listaAnejosTemp = new ArrayList<>();
                                 for (ArrayList<ComponenteFormulario> anejo : listaAnejos) {
                                     listaAnejosTemp.add(anejo);
                                 }
-                                if (tipoLLamada == -1)
+                                if (tipoLLamada == -1) {
                                     formaTasacion.getListaFincas().add(new Finca(listaComponentesXML, listaTitulares, listaAnejosTemp));
-                                else 
+                                } else {
                                     formaTasacion.getListaFincas().set(tipoLLamada, new Finca(listaComponentesXML, listaTitulares, listaAnejosTemp));
+                                }
                                 //formaTasacion.setListaTitulares(listaTitulares);
                                 //formaTasacion.setListaAnejos(listaAnejos);
                                 //Utiles.generarXML(eNombreXML, listaTitulares, "Convertir", listaAnejos, listaCargas);
                                 /*
-                                listaDocumentos.remove(elementoSeleccionadoTabla);
-                                DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
-                                modelo.removeRow(elementoSeleccionadoTabla);
-                                jXTable1.setModel(modelo);
-                                */
+                                 listaDocumentos.remove(elementoSeleccionadoTabla);
+                                 DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
+                                 modelo.removeRow(elementoSeleccionadoTabla);
+                                 jXTable1.setModel(modelo);
+                                 */
                                 limpiarComponentes();
                             }
                         }.ejecutarTarea();
 
                     } else {
-                        JOptionPane.showMessageDialog(null,"Ha definido alguna fecha incorrectamente.");
+                        JOptionPane.showMessageDialog(null, "Ha definido alguna fecha incorrectamente.");
                     }
 
-                }else {
-                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp2.getName());
-                    comp2.requestFocus();
+                } 
+                else 
+                {
+                    if (comp2 instanceof DateControl && ((DateControl) comp2).getValue() != null) 
+                    {
+                        JOptionPane.showMessageDialog(null, Utiles.msgFechaIncorrecta + comp2.getName());
+                        comp2.requestFocus();
+                    }
+                    else 
+                    {
+                        JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp2.getName());
+                        comp2.requestFocus();
+                    }
                 }
-            }else {
-                JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp1.getName());
-                comp1.requestFocus();
+            } else 
+            {
+                if (comp1 instanceof DateControl && ((DateControl) comp1).getValue() != null) 
+                {
+                    JOptionPane.showMessageDialog(null, Utiles.msgFechaIncorrecta + comp1.getName());
+                    comp1.requestFocus();
+                } 
+                else 
+                {
+                    JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp1.getName());
+                    comp1.requestFocus();
+                }
             }
         }
     }//GEN-LAST:event_jButtonConvertirMousePressed
 
     private void jButtonEliminarTitularMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEliminarTitularMousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1){
-            DefaultTableModel tabla = (DefaultTableModel)jTable1.getModel();
+        if (indiceSeleccionado != -1) {
+            DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
             tabla.removeRow(indiceSeleccionado);
             jTable1.setModel(tabla);
             listaTitulares.remove(indiceSeleccionado);
-        } else
+        } else {
             JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularEliminar);
+        }
     }//GEN-LAST:event_jButtonEliminarTitularMousePressed
 
     private void jButtonModificarTitularMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModificarTitularMousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1){
-            FormaTitularTasacion formaTitularTasacion = new FormaTitularTasacion(this, true, 2,indiceSeleccionado);
+        if (indiceSeleccionado != -1) {
+            FormaTitularTasacion formaTitularTasacion = new FormaTitularTasacion(this, true, 2, indiceSeleccionado);
             GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            formaTitularTasacion.setLocation(GEnv.getCenterPoint().x-formaTitularTasacion.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaTitularTasacion.getHeight()/2 + 25);
+            formaTitularTasacion.setLocation(GEnv.getCenterPoint().x - formaTitularTasacion.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaTitularTasacion.getHeight() / 2 + 25);
 
             formaTitularTasacion.setResizable(false);
             formaTitularTasacion.setVisible(true);
 
-            Utiles.llenarTabla(jTable1,listaTitulares, "Titulares");
-        } else JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularModificar);
+            Utiles.llenarTabla(jTable1, listaTitulares, "Titulares");
+        } else {
+            JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularModificar);
+        }
     }//GEN-LAST:event_jButtonModificarTitularMousePressed
 
     private void jButtonCargas1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCargas1MousePressed
         FormaAnejoTasacion formaAnejoTasacion = new FormaAnejoTasacion(this, true);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaAnejoTasacion.setLocation(GEnv.getCenterPoint().x-formaAnejoTasacion.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaAnejoTasacion.getHeight()/2 + 25);
+        formaAnejoTasacion.setLocation(GEnv.getCenterPoint().x - formaAnejoTasacion.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaAnejoTasacion.getHeight() / 2 + 25);
         formaAnejoTasacion.setResizable(false);
         formaAnejoTasacion.setVisible(true);
     }//GEN-LAST:event_jButtonCargas1MousePressed
@@ -1555,16 +1637,18 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
 
     private void jButtonAdicionarTitular1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAdicionarTitular1MousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1){
-            FormaTitularTasacion formaTitular = new FormaTitularTasacion(this, true, 3,indiceSeleccionado);
+        if (indiceSeleccionado != -1) {
+            FormaTitularTasacion formaTitular = new FormaTitularTasacion(this, true, 3, indiceSeleccionado);
             GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            formaTitular.setLocation(GEnv.getCenterPoint().x-formaTitular.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaTitular.getHeight()/2 + 25);
+            formaTitular.setLocation(GEnv.getCenterPoint().x - formaTitular.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaTitular.getHeight() / 2 + 25);
 
             formaTitular.setResizable(false);
             formaTitular.setVisible(true);
 
-            Utiles.llenarTabla(jTable1,listaTitulares, "Titulares");
-        } else JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularModificar);
+            Utiles.llenarTabla(jTable1, listaTitulares, "Titulares");
+        } else {
+            JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularModificar);
+        }
     }//GEN-LAST:event_jButtonAdicionarTitular1MousePressed
 
     private void eTomoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eTomoKeyTyped
@@ -1584,13 +1668,13 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
     }//GEN-LAST:event_eSuperficieTerrenoKeyTyped
 
     private void ePoblacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ePoblacionActionPerformed
-        ModelCombo modelo = (ModelCombo)ePoblacion.getSelectedItem();
+        ModelCombo modelo = (ModelCombo) ePoblacion.getSelectedItem();
         Boolean indiceAsignado = false;
         for (Poblacion poblacion : listaPoblaciones) {
-            if (modelo.getClave().equals(poblacion.getCodigo())){
+            if (modelo.getClave().equals(poblacion.getCodigo())) {
                 int indice = 0;
                 for (Provincia provincia : listaProvincias) {
-                    if (poblacion.getCodigoProvincia().equals(provincia.getCodigo())){
+                    if (poblacion.getCodigoProvincia().equals(provincia.getCodigo())) {
                         eProvincia.setSelectedIndex(indice);
                         indiceAsignado = true;
                         break;
@@ -1598,8 +1682,9 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
                     indice++;
                 }
             }
-            if (indiceAsignado)
-            break;
+            if (indiceAsignado) {
+                break;
+            }
         }
 
     }//GEN-LAST:event_ePoblacionActionPerformed
@@ -1612,7 +1697,7 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
         llenarPoblaciones();
         listaAnejos.clear();
         listaTitulares.clear();
-        if (tipoLLamada != -1){
+        if (tipoLLamada != -1) {
             llenarCamposDocumentoGuardado(this.fincaModificar.getListaComponentesXML());
         }
     }//GEN-LAST:event_formWindowOpened
@@ -1630,7 +1715,10 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
     }//GEN-LAST:event_eValorSueloKeyTyped
 
     private void eValorTasacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eValorTasacionKeyTyped
-       Utiles.validarNumeroReal(evt, eValorTasacion, 9, 2);
+        Utiles.validarNumeroReal(evt, eValorTasacion, 9, 2);
+
+        eValoracion.setText(eValorTasacion.getText() + (evt.getKeyChar() != '\b' ? evt.getKeyChar() : ""));
+        eValorHipotecario.setText(eValorTasacion.getText() + (evt.getKeyChar() != '\b' ? evt.getKeyChar() : ""));
     }//GEN-LAST:event_eValorTasacionKeyTyped
 
     private void eValoracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eValoracionKeyTyped
@@ -1658,7 +1746,7 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
     }//GEN-LAST:event_eFolioKeyTyped
 
     private void eCodigoPostalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eCodigoPostalKeyTyped
-         //Utiles.validarNumeroEntero(evt, eCodigoPostal, 5);
+        //Utiles.validarNumeroEntero(evt, eCodigoPostal, 5);
     }//GEN-LAST:event_eCodigoPostalKeyTyped
 
     private void eSeccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eSeccionKeyTyped
@@ -1674,75 +1762,84 @@ public class FormaProcesarFinca extends javax.swing.JDialog {
     }//GEN-LAST:event_eSuperficieUtilActionPerformed
 
     private void eSuperficieConstruidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eSuperficieConstruidaFocusLost
-        if (!eSuperficieConstruida.getText().equals(""))
-            if (eSuperficieConstruida.getText().contains(".")){
+        if (!eSuperficieConstruida.getText().equals("")) {
+            if (eSuperficieConstruida.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eSuperficieConstruida.requestFocus();
             }
+        }
     }//GEN-LAST:event_eSuperficieConstruidaFocusLost
 
     private void eSuperficieUtilFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eSuperficieUtilFocusLost
-        if (!eSuperficieUtil.getText().equals(""))
-            if (eSuperficieUtil.getText().contains(".")){
+        if (!eSuperficieUtil.getText().equals("")) {
+            if (eSuperficieUtil.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eSuperficieUtil.requestFocus();
             }
+        }
     }//GEN-LAST:event_eSuperficieUtilFocusLost
 
     private void eSuperficieTerrenoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eSuperficieTerrenoFocusLost
-        if (!eSuperficieTerreno.getText().equals(""))
-            if (eSuperficieTerreno.getText().contains(".")){
+        if (!eSuperficieTerreno.getText().equals("")) {
+            if (eSuperficieTerreno.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eSuperficieTerreno.requestFocus();
             }
+        }
     }//GEN-LAST:event_eSuperficieTerrenoFocusLost
 
     private void eValorSeguroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eValorSeguroFocusLost
-        if (!eValorSeguro.getText().equals(""))
-            if (eValorSeguro.getText().contains(".")){
+        if (!eValorSeguro.getText().equals("")) {
+            if (eValorSeguro.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eValorSeguro.requestFocus();
             }
+        }
     }//GEN-LAST:event_eValorSeguroFocusLost
 
     private void eSuperficieComprobadaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eSuperficieComprobadaFocusLost
-        if (!eSuperficieComprobada.getText().equals(""))
-            if (eSuperficieComprobada.getText().contains(".")){
+        if (!eSuperficieComprobada.getText().equals("")) {
+            if (eSuperficieComprobada.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eSuperficieComprobada.requestFocus();
             }
+        }
     }//GEN-LAST:event_eSuperficieComprobadaFocusLost
 
     private void eValorSueloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eValorSueloFocusLost
-        if (!eValorSuelo.getText().equals(""))
-            if (eValorSuelo.getText().contains(".")){
+        if (!eValorSuelo.getText().equals("")) {
+            if (eValorSuelo.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eValorSuelo.requestFocus();
             }
+        }
     }//GEN-LAST:event_eValorSueloFocusLost
 
     private void eValorTasacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eValorTasacionFocusLost
-        if (!eValorTasacion.getText().equals(""))
-            if (eValorTasacion.getText().contains(".")){
+        if (!eValorTasacion.getText().equals("")) {
+            if (eValorTasacion.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eValorTasacion.requestFocus();
             }
+        }
     }//GEN-LAST:event_eValorTasacionFocusLost
 
     private void eValoracionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eValoracionFocusLost
-        if (!eValoracion.getText().equals(""))
-            if (eValoracion.getText().contains(".")){
+        if (!eValoracion.getText().equals("")) {
+            if (eValoracion.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eValoracion.requestFocus();
             }
+        }
     }//GEN-LAST:event_eValoracionFocusLost
 
     private void eValorHipotecarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eValorHipotecarioFocusLost
-        if (!eValorHipotecario.getText().equals(""))
-            if (eValorHipotecario.getText().contains(".")){
+        if (!eValorHipotecario.getText().equals("")) {
+            if (eValorHipotecario.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eValorHipotecario.requestFocus();
             }
+        }
     }//GEN-LAST:event_eValorHipotecarioFocusLost
 
     /**

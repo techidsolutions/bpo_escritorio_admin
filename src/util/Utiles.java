@@ -175,6 +175,7 @@ public static String msgTareaDescargarArchivos = "Descargando archivos...";
     public static String msgDefinirCargas = "Debe definir las cargas para generar el XML correspondiente.";
     public static String msgTipoXmlGenerar = "Seleccione el tipo de XML a generar.";
     public static String msgDebeIntroducir = "Debe introducir: ";
+    public static String msgFechaIncorrecta = "Fecha incorrecta: ";
     public static String msgDocumentoProcesar = "Seleccione el documento a procesar en la tabla.";
     public static String msgDefinirNombreArchivo = "Debe definir el nombre del archivo.";
     public static String msgSeleccioneDocumento = "Seleccione el documento en la tabla.";
@@ -253,6 +254,10 @@ public static String msgTareaDescargarArchivos = "Descargando archivos...";
             }
 
             if (comp instanceof DateControl) {
+                if(((DateControl) comp).getDate() != null && !FechaValida(((DateControl) comp).getDate()))
+                {
+                    return (JComponent) comp;
+                }
                 if ((((DateControl) comp).getName().substring(((DateControl) comp).getName().length() - 1)).compareTo(".") != 0) {//esta validacion es para los campos no requeridos, hay que nombrarlos con un punto al final.
                     if (((DateControl) comp).getValue() == null) {
                         return (JComponent) comp;
@@ -2635,4 +2640,8 @@ public static String msgTareaDescargarArchivos = "Descargando archivos...";
      eFechaVerificación.setName("FECHA_VERRIF_REG.");
      
      */
+
+    private static boolean FechaValida(Date date) {          
+       return (date.getYear() + 1900 >= 1492 && date.getYear() + 1900 <= 2500);
+    }
 }

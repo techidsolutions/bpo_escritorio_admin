@@ -14,18 +14,19 @@ import javax.swing.ListSelectionModel;
 public class FormaCondicionantes extends javax.swing.JDialog {
 
     private FormaProcesarTasacion formaTasacion;
-    
+
     /**
      * Creates new form FormaAdvertencia
+     *
      * @param parent
      * @param modal
      */
     public FormaCondicionantes(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.formaTasacion = (FormaProcesarTasacion)parent;
+        this.formaTasacion = (FormaProcesarTasacion) parent;
         jXList2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
+
     }
 
     /**
@@ -129,11 +130,23 @@ public class FormaCondicionantes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-        formaTasacion.getListaCondicionantesSeleccionada().addAll(jXList2.getSelectedValuesList());
+        if (jXList2.getSelectedValuesList().size() > 0) {
+            for (Object selected : jXList2.getSelectedValuesList()) {
+
+                if (!formaTasacion.getListaCondicionantesSeleccionada().contains((String) selected)) {
+                    formaTasacion.getListaCondicionantesSeleccionada().add((String) selected);
+                }
+            }
+        } else {
+            if (formaTasacion.getListaCondicionantesSeleccionada().size() == 0) {
+                formaTasacion.getListaCondicionantesSeleccionada().add("NoExistenCondicionantesParaElCasoConcretoDeEsteInforme");
+            }
+        }
         jXList2.clearSelection();
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+
         jXList2.clearSelection();
     }//GEN-LAST:event_jButton2MousePressed
 
@@ -142,6 +155,9 @@ public class FormaCondicionantes extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
+        if (formaTasacion.getListaCondicionantesSeleccionada().size() == 0) {
+            formaTasacion.getListaCondicionantesSeleccionada().add("NoExistenCondicionantesParaElCasoConcretoDeEsteInforme");
+        }
         dispose();
     }//GEN-LAST:event_jButton3MousePressed
 

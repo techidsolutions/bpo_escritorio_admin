@@ -14,18 +14,19 @@ import javax.swing.ListSelectionModel;
 public class FormaAdvertencia extends javax.swing.JDialog {
 
     private FormaProcesarTasacion formaTasacion;
-    
+
     /**
      * Creates new form FormaAdvertencia
+     *
      * @param parent
      * @param modal
      */
     public FormaAdvertencia(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.formaTasacion = (FormaProcesarTasacion)parent;
+        this.formaTasacion = (FormaProcesarTasacion) parent;
         jXList2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        
+
     }
 
     /**
@@ -134,11 +135,24 @@ public class FormaAdvertencia extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-        formaTasacion.getListaAdvertenciasSeleccionada().addAll(jXList2.getSelectedValuesList());
+
+        if (jXList2.getSelectedValuesList().size() > 0) {
+            for (Object selected : jXList2.getSelectedValuesList()) {
+
+                if (!formaTasacion.getListaAdvertenciasSeleccionada().contains((String) selected)) {
+                    formaTasacion.getListaAdvertenciasSeleccionada().add((String) selected);
+                }
+            }
+        } else {
+            if (formaTasacion.getListaAdvertenciasSeleccionada().size() == 0) {
+                formaTasacion.getListaAdvertenciasSeleccionada().add("NoExistenAdvertenciasParaElCasoConcretoDeEsteInforme");
+            }
+        }
         jXList2.clearSelection();
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+
         jXList2.clearSelection();
     }//GEN-LAST:event_jButton2MousePressed
 
@@ -147,6 +161,10 @@ public class FormaAdvertencia extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
+        if (formaTasacion.getListaAdvertenciasSeleccionada().size() == 0) {
+            formaTasacion.getListaAdvertenciasSeleccionada().add("NoExistenAdvertenciasParaElCasoConcretoDeEsteInforme");
+
+        }
         dispose();
     }//GEN-LAST:event_jButton3MousePressed
 

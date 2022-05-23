@@ -205,6 +205,73 @@ public class FormaTitular extends javax.swing.JDialog {
         seleccionarElementoCombo(modelTipoPropiedad, eTipoPropiedad, listaComponentesXML.get(13).getValor());
     }
     
+    private void llenarCamposAdicionados(){
+        ArrayList<ComponenteFormulario> listaComponentesXML = fp.getListaTitularData();
+        eNombreRazon.setText("");
+        ePrimerApellido.setText("");
+        eSegundoApellido.setText("");
+        eDocumento.setText("");
+        
+        
+        switch(listaComponentesXML.get(3).getValor()){
+            case "Unknwon":eTipoDocumento.setSelectedIndex(0);
+                    break;
+            case "Nif":eTipoDocumento.setSelectedIndex(1);
+                    break;
+            case "Cif":eTipoDocumento.setSelectedIndex(2);
+                    break; 
+            case "Passport":eTipoDocumento.setSelectedIndex(3);
+                    break; 
+            case "TarjetaResidente":eTipoDocumento.setSelectedIndex(4);
+                    break; 
+            case "IdentificacionFiscalMenor":eTipoDocumento.setSelectedIndex(5);
+                    break;         
+        }
+        
+        switch(listaComponentesXML.get(14).getValor()){
+            case "Gananciales":eRegimenEconomico.setSelectedIndex(1);
+                    break;
+            case "SeparacionBienes":eRegimenEconomico.setSelectedIndex(2);
+                    break;
+            case "Participacion":eRegimenEconomico.setSelectedIndex(3);
+                    break; 
+            default:eRegimenEconomico.setSelectedIndex(0);
+        }
+        
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date fecha;
+            if (!listaComponentesXML.get(5).getValor().equals("")){
+                fecha = formato.parse(listaComponentesXML.get(5).getValor());
+                eFechaEscritura.setDate(fecha);
+            }
+            if (!listaComponentesXML.get(9).getValor().equals("")){
+                fecha = formato.parse(listaComponentesXML.get(9).getValor());
+                eFechaInscripcionTitular.setDate(fecha);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(FormaTitular.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        eNumeroProtocolo.setText(listaComponentesXML.get(6).getValor());
+        eNotario.setText(listaComponentesXML.get(7).getValor());
+        eNumeroInscripcion.setText(listaComponentesXML.get(8).getValor());
+        
+        switch(listaComponentesXML.get(10).getValor()){
+            case "Propietario":eTipoParticipacion.setSelectedIndex(0);
+                    break;
+            case "Nudo_propietario":eTipoParticipacion.setSelectedIndex(1);
+                    break;
+            case "Usufructuario":eTipoParticipacion.setSelectedIndex(2);
+                    break;        
+            case "Arrendatario_Ocupante":eTipoParticipacion.setSelectedIndex(3);
+                    break;        
+        }
+        ePorcientoParticipacion.setText(listaComponentesXML.get(11).getValor());
+        
+        seleccionarElementoCombo(modelTipoTitulo, eTipoTitulo, listaComponentesXML.get(12).getValor());
+        seleccionarElementoCombo(modelTipoPropiedad, eTipoPropiedad, listaComponentesXML.get(13).getValor());
+    }
+    
     /**
      * 
      * @param parent
@@ -248,7 +315,9 @@ public class FormaTitular extends javax.swing.JDialog {
         llenarComboTipoInmueble("Regimen economico");
         llenarComboTipoInmueble("Tipo de titulo");
         
-        if (tipoLLamada == 2)
+        if (tipoLLamada == 1)
+            llenarCamposAdicionados();
+        else if (tipoLLamada == 2)
             llenarFormulario();
         else if (tipoLLamada == 3){
             llenarFormulario();
@@ -604,8 +673,16 @@ public class FormaTitular extends javax.swing.JDialog {
             eDocumento.requestFocus();
           }   
         }else {
-            JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
-            comp.requestFocus();
+             if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgFechaIncorrecta + comp.getName());
+                    comp.requestFocus();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
+                    comp.requestFocus();
+                } 
         }
         
     }//GEN-LAST:event_jButton1MousePressed

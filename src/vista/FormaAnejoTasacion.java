@@ -323,8 +323,16 @@ public class FormaAnejoTasacion extends javax.swing.JDialog {
             eSupUtil.setText("");
             JOptionPane.showMessageDialog(null, Utiles.msgOperacionRealizada);
         }else {
-            JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
-            comp.requestFocus();
+             if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgFechaIncorrecta + comp.getName());
+                    comp.requestFocus();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
+                    comp.requestFocus();
+                }
         }
     }//GEN-LAST:event_eAdicionarMousePressed
 

@@ -26,6 +26,7 @@ import javax.swing.table.TableColumn;
 import modelo.Documento;
 import modelo.ModelCombo;
 import org.jdesktop.swingx.JXTable;
+import org.openswing.swing.client.DateControl;
 import org.openswing.swing.internationalization.java.Resources;
 import org.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import util.TareaSegundoPlano;
@@ -590,8 +591,16 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null,"Fecha incorrecta.");
                 }
             }else {
-                JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
-                comp.requestFocus();
+                 if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgFechaIncorrecta + comp.getName());
+                    comp.requestFocus();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
+                    comp.requestFocus();
+                } 
             }
         }
     }//GEN-LAST:event_bConvertirMousePressed

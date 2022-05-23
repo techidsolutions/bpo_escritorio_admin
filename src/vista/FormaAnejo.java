@@ -303,9 +303,18 @@ public class FormaAnejo extends javax.swing.JDialog {
             eSupConstruida.setText("");
             eSupUtil.setText("");
             JOptionPane.showMessageDialog(null, Utiles.msgOperacionRealizada);
-        }else {
-            JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
-            comp.requestFocus();
+        }
+        else {
+             if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgFechaIncorrecta + comp.getName());
+                    comp.requestFocus();
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
+                    comp.requestFocus();
+                }
         }
     }//GEN-LAST:event_eAdicionarMousePressed
 

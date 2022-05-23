@@ -27,6 +27,7 @@ import javax.swing.table.TableColumn;
 import modelo.Documento;
 import modelo.ModelCombo;
 import org.jdesktop.swingx.JXTable;
+import org.openswing.swing.client.DateControl;
 import org.openswing.swing.internationalization.java.Resources;
 import org.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import util.TareaSegundoPlano;
@@ -37,61 +38,64 @@ import util.Utiles;
  * @author TECH ID SOLUTIONS
  */
 public class FormaProcesarNomina extends javax.swing.JDialog {
+
     Vector modelGrupoCotizacion;
     final int filas = 20;
     ArrayList<Documento> listaDocumentos;
     int elementoSeleccionadoTabla = -1;
     Documento documentoSeleccionado;
-    
+
     /**
      * Creates new form FormaProcesarIRPF
+     *
      * @param parent
      * @param modal
      */
     public FormaProcesarNomina(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         RestrictedTextField restriccionNif = new RestrictedTextField(eNIF);
         restriccionNif.setLimit(10);
-        
+
         eFecha.setFormat(Resources.DMY);
         eFecha.setName("FECHA");
         eFecha.setNextFocusableComponent(eFechaAntiguedad);
-        
+
         eFechaAntiguedad.setFormat(Resources.DMY);
         eFechaAntiguedad.setName("FECHA_ANTIGUEDAD.");
         eFechaAntiguedad.setNextFocusableComponent(eGrupoCotizacion);
     }
-    
+
     /**
-     * 
-     * @param TipoCombo 
+     *
+     * @param TipoCombo
      */
-    private void llenarCombo(String TipoCombo){
-        switch(TipoCombo){
-            case "Grupo Cotizacion":modelGrupoCotizacion = new Vector();
-                                modelGrupoCotizacion.addElement( new ModelCombo("SinGrupo", "SinGrupo" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo1_Ingenieros_Licenciados", "Grupo1_Ingenieros_Licenciados" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo2_Ingenieros_Tecnicos_Peritos_AyudantesTitulados", "Grupo2_Ingenieros_Tecnicos_Peritos_AyudantesTitulados" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo3_Jefes_Administrativos_deTaller", "Grupo3_Jefes_Administrativos_deTaller" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo4_AyudantesNoTitulados", "Grupo4_AyudantesNoTitulados" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo5_Oficiales_Administrativos", "Grupo5_Oficiales_Administrativos" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo6_Subalternos", "Grupo6_Subalternos" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo7_AuxiliaresAdministrativos", "Grupo7_AuxiliaresAdministrativos" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo8_OficialesPrimera_Segunda", "Grupo8_OficialesPrimera_Segunda" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo9_OficialesTercera_Especialistas", "Grupo9_OficialesTercera_Especialistas" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo10_Peones", "Grupo10_Peones" ) );
-                                modelGrupoCotizacion.addElement( new ModelCombo("Grupo11_Menores18", "Grupo11_Menores18" ) );
-                                eGrupoCotizacion.setModel(new DefaultComboBoxModel(modelGrupoCotizacion));
-                                break; 
+    private void llenarCombo(String TipoCombo) {
+        switch (TipoCombo) {
+            case "Grupo Cotizacion":
+                modelGrupoCotizacion = new Vector();
+                modelGrupoCotizacion.addElement(new ModelCombo("SinGrupo", "SinGrupo"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo1_Ingenieros_Licenciados", "Grupo1_Ingenieros_Licenciados"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo2_Ingenieros_Tecnicos_Peritos_AyudantesTitulados", "Grupo2_Ingenieros_Tecnicos_Peritos_AyudantesTitulados"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo3_Jefes_Administrativos_deTaller", "Grupo3_Jefes_Administrativos_deTaller"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo4_AyudantesNoTitulados", "Grupo4_AyudantesNoTitulados"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo5_Oficiales_Administrativos", "Grupo5_Oficiales_Administrativos"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo6_Subalternos", "Grupo6_Subalternos"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo7_AuxiliaresAdministrativos", "Grupo7_AuxiliaresAdministrativos"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo8_OficialesPrimera_Segunda", "Grupo8_OficialesPrimera_Segunda"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo9_OficialesTercera_Especialistas", "Grupo9_OficialesTercera_Especialistas"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo10_Peones", "Grupo10_Peones"));
+                modelGrupoCotizacion.addElement(new ModelCombo("Grupo11_Menores18", "Grupo11_Menores18"));
+                eGrupoCotizacion.setModel(new DefaultComboBoxModel(modelGrupoCotizacion));
+                break;
         }
     }
-    
+
     /**
-     * 
+     *
      */
-    private void limpiarComponentesFormulario(){
+    private void limpiarComponentesFormulario() {
         eBaseImponible.setText("");
         eCNAE.setText("");
         eContingenciasComunes.setText("");
@@ -104,24 +108,24 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
         eRetencionSeguridadSocial.setText("");
         eTipoIRPF.setText("");
         eNombreTitular.setText("");
-                
+
         //Combo
-        eGrupoCotizacion.setSelectedIndex(0); 
+        eGrupoCotizacion.setSelectedIndex(0);
 
         //Fechas
         Date fecha = null;
         eFecha.setDate(fecha);
         eFechaAntiguedad.setDate(fecha);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public static ArrayList<Documento> cargarListaDocumentos(){
+    public static ArrayList<Documento> cargarListaDocumentos() {
         ArrayList<Documento> listaDocumentos = new ArrayList<>();
         String caminoDirectorioRaiz = Utiles.rutaEnviadosNomina;
-	File dirRaiz = new File(caminoDirectorioRaiz);
+        File dirRaiz = new File(caminoDirectorioRaiz);
         String archivos[] = dirRaiz.list();
         File dirTemp;
         Documento documento;
@@ -132,23 +136,22 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
         }
         return listaDocumentos;
     }
-    
+
     /**
-     * 
-     * @param mensaje 
+     *
+     * @param mensaje
      */
-    private void actualizarInfoDocumentos(String mensaje){
-            new TareaSegundoPlano(this, mensaje) {
-                @Override
-                    protected void tareaHaRealizar() {
-                        listaDocumentos = cargarListaDocumentos();
-                        Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
-                        Dimension dimension = jXTable1.getPreferredSize();
-                        jScrollPane1.setPreferredSize(new Dimension(dimension.width,jXTable1.getRowHeight()*filas));
-                    }
-            }.ejecutarTarea();
+    private void actualizarInfoDocumentos(String mensaje) {
+        new TareaSegundoPlano(this, mensaje) {
+            @Override
+            protected void tareaHaRealizar() {
+                listaDocumentos = cargarListaDocumentos();
+                Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
+                Dimension dimension = jXTable1.getPreferredSize();
+                jScrollPane1.setPreferredSize(new Dimension(dimension.width, jXTable1.getRowHeight() * filas));
+            }
+        }.ejecutarTarea();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -585,43 +588,57 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
 
     private void bConvertirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bConvertirMousePressed
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea Convertir?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0){
+        if (respuesta == 0) {
             JComponent comp = Utiles.ValidaControles(jPanel2);
-            if (comp == null){
-                if (Utiles.validarFecha(eFecha) && Utiles.validarFecha(eFechaAntiguedad)){
-                    if (eNIF.getText().length() <= 10){
+            if (comp == null) {
+                if (Utiles.validarFecha(eFecha) && Utiles.validarFecha(eFechaAntiguedad)) {
+                    if (eNIF.getText().length() <= 10) {
                         new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
                             @Override
                             protected void tareaHaRealizar() {
                                 File archivo = new File(Utiles.rutaEnviadosNomina.concat(eNombreDocumento.getText()));
                                 Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosNominaPDF.concat(eNombreDocumento.getText())));
-                                if (movido){
+                                if (movido) {
                                     Utiles.generarXMLNomina(eNombreDocumento);
                                     listaDocumentos.remove(elementoSeleccionadoTabla);
-                                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
+                                    DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
                                     modelo.removeRow(elementoSeleccionadoTabla);
                                     jXTable1.setModel(modelo);
                                     limpiarComponentesFormulario();
-                                }else JOptionPane.showMessageDialog(null,"Debe cerrar el documento PDF antes de convertir.");
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Debe cerrar el documento PDF antes de convertir.");
+                                }
                             }
-                            }.ejecutarTarea();
-                    }else {
-                            JOptionPane.showMessageDialog(null,"NIF incorrecto, a lo sumo debe tener 10 caracteres.");
-                            eNIF.requestFocus();
-                    } 
-                }else {
-                    JOptionPane.showMessageDialog(null,"Fecha incorrecta.");
-            
-                }    
-            }else {
-                 String valorReal = "";
-                if(comp instanceof JTextField){
-                    if (((JTextField)comp).getAccessibleContext().getAccessibleName() != null)
-                        valorReal = " o no se acepta el caracter \".\""; 
+                        }.ejecutarTarea();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "NIF incorrecto, a lo sumo debe tener 10 caracteres.");
+                        eNIF.requestFocus();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fecha incorrecta.");
 
+                }
+            } 
+            else 
+            {
+                if (comp instanceof JTextField) {
+                    String valorReal = "";
+                    if (((JTextField) comp).getAccessibleContext().getAccessibleName() != null) {
+                        valorReal = " o no se acepta el caracter \".\"";
+                    }
+                    JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName() + valorReal);
+                    comp.requestFocus();
                 } 
-                JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName() + valorReal);
-                comp.requestFocus();
+                else if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
+                {
+                    JOptionPane.showMessageDialog(null, Utiles.msgFechaIncorrecta + comp.getName());
+                    comp.requestFocus();
+                } 
+                else 
+                {
+                    JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
+                    comp.requestFocus();
+                }
             }
         }
     }//GEN-LAST:event_bConvertirMousePressed
@@ -638,21 +655,20 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
         columna.setPreferredWidth(200);
         columna = jXTable1.getColumn("Estado");
         columna.setPreferredWidth(200);
-        
-        
+
         jXTable1.setAutoCreateRowSorter(true);
         jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jXTable1.setColumnControlVisible(true); 
+        jXTable1.setColumnControlVisible(true);
         jXFindBar1.setSearchable(jXTable1.getSearchable());
         jXTable1.setColumnControlVisible(true);
         TableRowFilterSupport.forTable(jXTable1).searchable(true).apply();
-        
-        jXTable1.addMouseListener(new MouseAdapter(){
-        @Override
-        public void mouseClicked(MouseEvent e){
-           elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-           jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
-        }
+
+        jXTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+            }
         });
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_formWindowOpened
@@ -670,7 +686,7 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
     }//GEN-LAST:event_eRetencionKeyTyped
 
     private void eRetencionSeguridadSocialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eRetencionSeguridadSocialKeyTyped
-       Utiles.validarNumeroReal(evt, eRetencionSeguridadSocial, 9, 2);
+        Utiles.validarNumeroReal(evt, eRetencionSeguridadSocial, 9, 2);
     }//GEN-LAST:event_eRetencionSeguridadSocialKeyTyped
 
     private void eTipoIRPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eTipoIRPFKeyTyped
@@ -678,7 +694,7 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
     }//GEN-LAST:event_eTipoIRPFKeyTyped
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-        if (jXTable1.getSelectedRow() != -1){
+        if (jXTable1.getSelectedRow() != -1) {
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -688,13 +704,15 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
                     eNombreDocumento.setText(documentoSeleccionado.getNombre());
                     jXTable1.clearSelection();
                     File archivo = new File(Utiles.rutaEnviadosNomina.concat("\\").concat(documentoSeleccionado.getNombre()));
-                        try {
-                            Desktop.getDesktop().open(archivo);
-                        }catch (IOException ex) {
-                        }
+                    try {
+                        Desktop.getDesktop().open(archivo);
+                    } catch (IOException ex) {
                     }
-                }.ejecutarTarea();
-            }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
+                }
+            }.ejecutarTarea();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
+        }
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
@@ -702,7 +720,7 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
-        if (jXTable1.getSelectedRow() != -1){
+        if (jXTable1.getSelectedRow() != -1) {
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -711,61 +729,69 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
                     File archivo = new File(Utiles.rutaEnviadosNomina.concat(documentoSeleccionado.getNombre()));
                     archivo.renameTo(new File(Utiles.rutaEnviadosDocumentosKO.concat(documentoSeleccionado.getNombre())));
                     listaDocumentos.remove(elementoSeleccionadoTabla);
-                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
+                    DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
                     modelo.removeRow(elementoSeleccionadoTabla);
                     jXTable1.setModel(modelo);
                     limpiarComponentesFormulario();
                 }
             }.ejecutarTarea();
-        }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
+        }
     }//GEN-LAST:event_jButton3MousePressed
 
     private void eBaseImponibleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eBaseImponibleFocusLost
-        if (!eBaseImponible.getText().equals(""))
-            if (eBaseImponible.getText().contains(".")){
+        if (!eBaseImponible.getText().equals("")) {
+            if (eBaseImponible.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eBaseImponible.requestFocus();
             }
+        }
     }//GEN-LAST:event_eBaseImponibleFocusLost
 
     private void eContingenciasComunesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eContingenciasComunesFocusLost
-        if (!eContingenciasComunes.getText().equals(""))
-            if (eContingenciasComunes.getText().contains(".")){
+        if (!eContingenciasComunes.getText().equals("")) {
+            if (eContingenciasComunes.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eContingenciasComunes.requestFocus();
             }
+        }
     }//GEN-LAST:event_eContingenciasComunesFocusLost
 
     private void eImporteRecibirFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eImporteRecibirFocusLost
-        if (!eImporteRecibir.getText().equals(""))
-            if (eImporteRecibir.getText().contains(".")){
+        if (!eImporteRecibir.getText().equals("")) {
+            if (eImporteRecibir.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eImporteRecibir.requestFocus();
             }
+        }
     }//GEN-LAST:event_eImporteRecibirFocusLost
 
     private void eRetencionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eRetencionFocusLost
-        if (!eRetencion.getText().equals(""))
-            if (eRetencion.getText().contains(".")){
+        if (!eRetencion.getText().equals("")) {
+            if (eRetencion.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eRetencion.requestFocus();
             }
+        }
     }//GEN-LAST:event_eRetencionFocusLost
 
     private void eRetencionSeguridadSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eRetencionSeguridadSocialFocusLost
-        if (!eRetencionSeguridadSocial.getText().equals(""))
-            if (eRetencionSeguridadSocial.getText().contains(".")){
+        if (!eRetencionSeguridadSocial.getText().equals("")) {
+            if (eRetencionSeguridadSocial.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eRetencionSeguridadSocial.requestFocus();
             }
+        }
     }//GEN-LAST:event_eRetencionSeguridadSocialFocusLost
 
     private void eTipoIRPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eTipoIRPFFocusLost
-        if (!eTipoIRPF.getText().equals(""))
-            if (eTipoIRPF.getText().contains(".")){
+        if (!eTipoIRPF.getText().equals("")) {
+            if (eTipoIRPF.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eTipoIRPF.requestFocus();
             }
+        }
     }//GEN-LAST:event_eTipoIRPFFocusLost
 
     /**
@@ -789,7 +815,7 @@ public class FormaProcesarNomina extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 
