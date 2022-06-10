@@ -91,8 +91,8 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private List<Poblacion> listaPoblaciones;
     private ArrayList<Provincia> listaProvincias;
     private List<RegistroPropiedad> listaRegistros;
-    
-    private ArrayList<ComponenteFormulario> listaTitularData; 
+
+    private ArrayList<ComponenteFormulario> listaTitularData;
 
     public static void setUsuario(Usuario usuario) {
         FormaPrincipal.usuario = usuario;
@@ -899,6 +899,10 @@ public class FormaPrincipal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
@@ -1932,6 +1936,38 @@ public class FormaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jMenuItem16.setText("Descargar Vida laboral");
+        jMenuItem16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jMenuItem16MouseReleased(evt);
+            }
+        });
+        jMenu2.add(jMenuItem16);
+
+        jMenuItem17.setText("Descargar IRPF");
+        jMenuItem17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jMenuItem17MouseReleased(evt);
+            }
+        });
+        jMenu2.add(jMenuItem17);
+
+        jMenuItem18.setText("Descargar Nóminas");
+        jMenuItem18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jMenuItem18MouseReleased(evt);
+            }
+        });
+        jMenu2.add(jMenuItem18);
+
+        jMenuItem19.setText("Descargar Recibos");
+        jMenuItem19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jMenuItem19MouseReleased(evt);
+            }
+        });
+        jMenu2.add(jMenuItem19);
+
         jMenuItem9.setText("Descargar (Vida laboral, IRPF, Nóminas, Recibos)");
         jMenuItem9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -2548,8 +2584,60 @@ public class FormaPrincipal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eSuperficieTerreno.requestFocus();
             }
-        }
     }//GEN-LAST:event_eSuperficieTerrenoFocusLost
+    }
+    private void jMenuItem16MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem16MouseReleased
+        int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (respuesta == 0) {
+            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+                @Override
+                protected void tareaHaRealizar() {
+                    Utiles.copiarVidaLaboralFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                    jButton1MousePressed(null);
+                }
+            }.ejecutarTarea();
+        }
+//        
+    }//GEN-LAST:event_jMenuItem16MouseReleased
+
+    private void jMenuItem17MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem17MouseReleased
+        int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (respuesta == 0) {
+            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+                @Override
+                protected void tareaHaRealizar() {
+                    Utiles.copiarIRPFFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                    jButton1MousePressed(null);
+                }
+            }.ejecutarTarea();
+        }
+    }//GEN-LAST:event_jMenuItem17MouseReleased
+
+    private void jMenuItem18MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem18MouseReleased
+        int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (respuesta == 0) {
+            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+                @Override
+                protected void tareaHaRealizar() {
+                    Utiles.copiarNominasFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                    jButton1MousePressed(null);
+                }
+            }.ejecutarTarea();
+        }
+    }//GEN-LAST:event_jMenuItem18MouseReleased
+
+    private void jMenuItem19MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem19MouseReleased
+        int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (respuesta == 0) {
+            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+                @Override
+                protected void tareaHaRealizar() {
+                    Utiles.copiarRecibosFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                    jButton1MousePressed(null);
+                }
+            }.ejecutarTarea();
+        }
+    }//GEN-LAST:event_jMenuItem19MouseReleased
 
     /**
      * @param args the command line arguments
@@ -2691,6 +2779,10 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -2720,11 +2812,12 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private void BuildTitularData() {
         JComponent compTemp = (JComponent) eNombreRazon;
         String atributo;
-        if(listaTitularData == null)
+        if (listaTitularData == null) {
             listaTitularData = new ArrayList<ComponenteFormulario>();
-        else
+        } else {
             listaTitularData.clear();
-            
+        }
+
         while (compTemp != null) {
             atributo = compTemp.getName();
             if (atributo.endsWith(".")) {

@@ -6,6 +6,8 @@
 package extracciondatosns;
 
 import java.awt.GraphicsEnvironment;
+import util.TimerTaskSchedule;
+import util.Utiles;
 import vista.FormaInicio;
 
 /**
@@ -28,6 +30,10 @@ public class ExtraccionDatosNS {
             formaInicial.setLocation(CentroPantalla().getCenterPoint().x - formaInicial.getWidth()/2,
                     CentroPantalla().getCenterPoint().y - formaInicial.getHeight()/2);
             formaInicial.setVisible(true);
+            
+            TimerTaskSchedule  timerTaskSchedule = new TimerTaskSchedule();
+            timerTaskSchedule.setTimerTaskSchedule();
+           
     }
     
 }

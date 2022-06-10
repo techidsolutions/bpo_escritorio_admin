@@ -26,6 +26,7 @@ import difflib.Patch;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -38,10 +39,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.SocketException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -81,6 +85,7 @@ import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.bind.JAXBElement;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import jxl.Cell;
@@ -96,6 +101,7 @@ import modelo.NotaSimpleCaixa;
 import modelo.Poblacion;
 import modelo.Provincia;
 import modelo.RegistroPropiedad;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -1871,6 +1877,258 @@ public static String msgTareaDescargarArchivos = "Descargando archivos...";
         }
         return numberOfDocuments;
     }
+    
+    public static int copiarIRPFFromFTP(TareaSegundoPlano tarea, ArrayList<Documento> listaDocumentos, String nombreUsuario) {
+        ArrayList<String> listaDirectorio = new ArrayList<>();
+        listaDirectorio.add("EnviadosWS/IRPF/");
+        //listaDirectorio.add("Test/");
+
+        int cantidadDocDescargados = 0;
+        Session session = connectFTPbySSH();
+        Integer cantidadDocumentos = 0;
+        try {
+                if (session != null && session.isConnected()) {
+                    ChannelSftp channelSftp;
+                    channelSftp = (ChannelSftp) session.openChannel("sftp");
+                    channelSftp.connect();
+                    for (String fileName : listaDirectorio) {
+                        Vector listaArchivos = channelSftp.ls("/home/BPO/".concat(fileName));
+
+                        /**
+                         * ** Ordenar por la fecha de modificación **
+                         */
+                        List<ChannelSftp.LsEntry> listaEntry = new ArrayList<>();
+                        for (Object archivo : listaArchivos) {
+                            if (!((ChannelSftp.LsEntry) archivo).getFilename().equals(".") && !((ChannelSftp.LsEntry) archivo).getFilename().equals("..")) {
+                                listaEntry.add((ChannelSftp.LsEntry) archivo);
+                            }
+                        }
+                        listaEntry = ordenar(listaEntry);
+                        /**
+                         * **********************************************
+                         */
+
+                        if (listaArchivos.size() >= 12) {
+                            cantidadDocumentos = 9;
+                        } else {
+                            cantidadDocumentos = listaArchivos.size() - 2;
+                        }
+                        for (int j = 0; j < cantidadDocumentos; j++) {
+                            //ChannelSftp.LsEntry archivo = listaEntry.get(j);
+                            ChannelSftp.LsEntry archivo = listaEntry.get(j);
+                            //if (!archivo.getFilename().equals(".") && !archivo.getFilename().equals("..")){
+                            String directorioAdecuado[] = fileName.split("/");
+                            String destino = rutaEnviados.concat(directorioAdecuado[1]).concat("\\").concat("ocr").concat("\\").concat(archivo.getFilename());
+                            channelSftp.get("/home/BPO/".concat(fileName).concat("/").concat(archivo.getFilename()), destino);
+                            String rutaEliminar = "/home/BPO/".concat(fileName).concat("/").concat(archivo.getFilename());
+                            channelSftp.rm(rutaEliminar);
+
+                            channelSftp.put(destino, "/home/BPO/ConvirtiendoWS/".concat(directorioAdecuado[1]).concat("/").concat(archivo.getFilename()));
+                            generarTraza(archivo.getFilename(), "Convirtiendo", nombreUsuario);
+                            cantidadDocDescargados++;
+                            tarea.setCantidad(cantidadDocDescargados);
+                            
+                        }
+                    }
+                    channelSftp.exit();
+                    channelSftp.disconnect();
+                    session.disconnect();
+                }
+        } catch (JSchException | SftpException ex) {
+                System.out.println(ex.getMessage());
+              }
+        
+        return 1;
+    }
+    
+    public static int copiarVidaLaboralFromFTP(TareaSegundoPlano tarea, ArrayList<Documento> listaDocumentos, String nombreUsuario) {
+        ArrayList<String> listaDirectorio = new ArrayList<>();
+        listaDirectorio.add("EnviadosWS/Vida Laboral/");
+        //listaDirectorio.add("Test/");
+
+        int cantidadDocDescargados = 0;
+        Session session = connectFTPbySSH();
+        Integer cantidadDocumentos = 0;
+        try {
+                if (session != null && session.isConnected()) {
+                    ChannelSftp channelSftp;
+                    channelSftp = (ChannelSftp) session.openChannel("sftp");
+                    channelSftp.connect();
+                    for (String fileName : listaDirectorio) {
+                        Vector listaArchivos = channelSftp.ls("/home/BPO/".concat(fileName));
+
+                        /**
+                         * ** Ordenar por la fecha de modificación **
+                         */
+                        List<ChannelSftp.LsEntry> listaEntry = new ArrayList<>();
+                        for (Object archivo : listaArchivos) {
+                            if (!((ChannelSftp.LsEntry) archivo).getFilename().equals(".") && !((ChannelSftp.LsEntry) archivo).getFilename().equals("..")) {
+                                listaEntry.add((ChannelSftp.LsEntry) archivo);
+                            }
+                        }
+                        listaEntry = ordenar(listaEntry);
+                        /**
+                         * **********************************************
+                         */
+
+                        if (listaArchivos.size() >= 12) {
+                            cantidadDocumentos = 9;
+                        } else {
+                            cantidadDocumentos = listaArchivos.size() - 2;
+                        }
+                        for (int j = 0; j < cantidadDocumentos; j++) {
+                            //ChannelSftp.LsEntry archivo = listaEntry.get(j);
+                            ChannelSftp.LsEntry archivo = listaEntry.get(j);
+                            //if (!archivo.getFilename().equals(".") && !archivo.getFilename().equals("..")){
+                            String directorioAdecuado[] = fileName.split("/");
+                            String destino = rutaEnviados.concat(directorioAdecuado[1]).concat("\\").concat("ocr").concat("\\").concat(archivo.getFilename());
+                            channelSftp.get("/home/BPO/".concat(fileName).concat("/").concat(archivo.getFilename()), destino);
+                            String rutaEliminar = "/home/BPO/".concat(fileName).concat("/").concat(archivo.getFilename());
+                            channelSftp.rm(rutaEliminar);
+
+                            channelSftp.put(destino, "/home/BPO/ConvirtiendoWS/".concat(directorioAdecuado[1]).concat("/").concat(archivo.getFilename()));
+                            generarTraza(archivo.getFilename(), "Convirtiendo", nombreUsuario);
+                            cantidadDocDescargados++;
+                            tarea.setCantidad(cantidadDocDescargados);
+                            
+                        }
+                    }
+                    channelSftp.exit();
+                    channelSftp.disconnect();
+                    session.disconnect();
+                }
+        } catch (JSchException | SftpException ex) {
+                System.out.println(ex.getMessage());
+              }
+        
+        return 1;
+    }
+
+    public static int copiarNominasFromFTP(TareaSegundoPlano tarea, ArrayList<Documento> listaDocumentos, String nombreUsuario) {
+        ArrayList<String> listaDirectorio = new ArrayList<>();
+        listaDirectorio.add("EnviadosWS/Nomina/");
+        //listaDirectorio.add("Test/");
+
+        int cantidadDocDescargados = 0;
+        Session session = connectFTPbySSH();
+        Integer cantidadDocumentos = 0;
+        try {
+                if (session != null && session.isConnected()) {
+                    ChannelSftp channelSftp;
+                    channelSftp = (ChannelSftp) session.openChannel("sftp");
+                    channelSftp.connect();
+                    for (String fileName : listaDirectorio) {
+                        Vector listaArchivos = channelSftp.ls("/home/BPO/".concat(fileName));
+
+                        /**
+                         * ** Ordenar por la fecha de modificación **
+                         */
+                        List<ChannelSftp.LsEntry> listaEntry = new ArrayList<>();
+                        for (Object archivo : listaArchivos) {
+                            if (!((ChannelSftp.LsEntry) archivo).getFilename().equals(".") && !((ChannelSftp.LsEntry) archivo).getFilename().equals("..")) {
+                                listaEntry.add((ChannelSftp.LsEntry) archivo);
+                            }
+                        }
+                        listaEntry = ordenar(listaEntry);
+                        /**
+                         * **********************************************
+                         */
+
+                        if (listaArchivos.size() >= 12) {
+                            cantidadDocumentos = 9;
+                        } else {
+                            cantidadDocumentos = listaArchivos.size() - 2;
+                        }
+                        for (int j = 0; j < cantidadDocumentos; j++) {
+                            //ChannelSftp.LsEntry archivo = listaEntry.get(j);
+                            ChannelSftp.LsEntry archivo = listaEntry.get(j);
+                            //if (!archivo.getFilename().equals(".") && !archivo.getFilename().equals("..")){
+                            String directorioAdecuado[] = fileName.split("/");
+                            String destino = rutaEnviados.concat(directorioAdecuado[1]).concat("\\").concat("ocr").concat("\\").concat(archivo.getFilename());
+                            channelSftp.get("/home/BPO/".concat(fileName).concat("/").concat(archivo.getFilename()), destino);
+                            String rutaEliminar = "/home/BPO/".concat(fileName).concat("/").concat(archivo.getFilename());
+                            channelSftp.rm(rutaEliminar);
+
+                            channelSftp.put(destino, "/home/BPO/ConvirtiendoWS/".concat(directorioAdecuado[1]).concat("/").concat(archivo.getFilename()));
+                            generarTraza(archivo.getFilename(), "Convirtiendo", nombreUsuario);
+                            cantidadDocDescargados++;
+                            tarea.setCantidad(cantidadDocDescargados);
+                            
+                        }
+                    }
+                    channelSftp.exit();
+                    channelSftp.disconnect();
+                    session.disconnect();
+                }
+        } catch (JSchException | SftpException ex) {
+                System.out.println(ex.getMessage());
+              }
+        
+        return 1;
+    }
+    
+    public static int copiarRecibosFromFTP(TareaSegundoPlano tarea, ArrayList<Documento> listaDocumentos, String nombreUsuario) {
+        ArrayList<String> listaDirectorio = new ArrayList<>();
+        listaDirectorio.add("EnviadosWS/Recibo/");
+        //listaDirectorio.add("Test/");
+
+        int cantidadDocDescargados = 0;
+        Session session = connectFTPbySSH();
+        Integer cantidadDocumentos = 0;
+        try {
+                if (session != null && session.isConnected()) {
+                    ChannelSftp channelSftp;
+                    channelSftp = (ChannelSftp) session.openChannel("sftp");
+                    channelSftp.connect();
+                    for (String fileName : listaDirectorio) {
+                        Vector listaArchivos = channelSftp.ls("/home/BPO/".concat(fileName));
+
+                        /**
+                         * ** Ordenar por la fecha de modificación **
+                         */
+                        List<ChannelSftp.LsEntry> listaEntry = new ArrayList<>();
+                        for (Object archivo : listaArchivos) {
+                            if (!((ChannelSftp.LsEntry) archivo).getFilename().equals(".") && !((ChannelSftp.LsEntry) archivo).getFilename().equals("..")) {
+                                listaEntry.add((ChannelSftp.LsEntry) archivo);
+                            }
+                        }
+                        listaEntry = ordenar(listaEntry);
+                        /**
+                         * **********************************************
+                         */
+
+                        if (listaArchivos.size() >= 12) {
+                            cantidadDocumentos = 9;
+                        } else {
+                            cantidadDocumentos = listaArchivos.size() - 2;
+                        }
+                        for (int j = 0; j < cantidadDocumentos; j++) {
+                            //ChannelSftp.LsEntry archivo = listaEntry.get(j);
+                            ChannelSftp.LsEntry archivo = listaEntry.get(j);
+                            //if (!archivo.getFilename().equals(".") && !archivo.getFilename().equals("..")){
+                            String directorioAdecuado[] = fileName.split("/");
+                            String destino = rutaEnviados.concat(directorioAdecuado[1]).concat("\\").concat("ocr").concat("\\").concat(archivo.getFilename());
+                            channelSftp.get("/home/BPO/".concat(fileName).concat("/").concat(archivo.getFilename()), destino);
+                            String rutaEliminar = "/home/BPO/".concat(fileName).concat("/").concat(archivo.getFilename());
+                            channelSftp.rm(rutaEliminar);
+
+                            channelSftp.put(destino, "/home/BPO/ConvirtiendoWS/".concat(directorioAdecuado[1]).concat("/").concat(archivo.getFilename()));
+                            generarTraza(archivo.getFilename(), "Convirtiendo", nombreUsuario);
+                            cantidadDocDescargados++;
+                            tarea.setCantidad(cantidadDocDescargados);
+                            
+                        }
+                    }
+                    channelSftp.exit();
+                    channelSftp.disconnect();
+                    session.disconnect();
+                }
+        } catch (JSchException | SftpException ex) {
+                System.out.println(ex.getMessage());
+              }
+        
+        return 1;
+    }
 
     public static int copiarNotasSimplesFromFTP(TareaSegundoPlano tarea, ArrayList<Documento> listaDocumentos, String nombreUsuario) {
         ArrayList<String> listaDirectorio = new ArrayList<>();
@@ -2640,7 +2898,62 @@ public static String msgTareaDescargarArchivos = "Descargando archivos...";
      eFechaVerificación.setName("FECHA_VERRIF_REG.");
      
      */
+    static  URL getUrl() {
+        String serviceUrl = "";
+        try {
+            File file = new File(direcion.concat("/conf/configFtp_WS.properties"));
+            FileInputStream fileInputStream = new FileInputStream(file);
+            Properties mainProperties = new Properties();
+            mainProperties.load(fileInputStream);
+            serviceUrl = mainProperties.getProperty("serviceUrl");
+            //Cerrando el fichero
+            fileInputStream.close();
+} catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (serviceUrl != "") {
+            try {
+                URL url = new URL(serviceUrl);
+                return url;
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(Utiles.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+	public static DocumentosDescargados DocumentosEnviadosws() {
+        FTPClient client = new FTPClient();
 
+        try {
+            client.connect("31.47.76.216", 21);
+            int respuesta = client.getReplyCode();
+            if(!FTPReply.isPositiveCompletion(respuesta)){
+                JOptionPane.showMessageDialog(null, "ALGO HA SALIDO MAL. EL SERVIDOR RESPONDIO:" + respuesta);
+            }
+            boolean loginsatisfactorio = client.login("bpo", "Tech1D01");
+            if(loginsatisfactorio){
+                JOptionPane.showMessageDialog(null, "Se ha iniciado sesión en el servidor FTP");
+                int enviadoswsirpf = client.listFiles("/home/BPO/EnviadosWS/IRPF").length;
+                int enviadoswsvidalaboral = client.listFiles("/home/BPO/EnviadosWS/Vida Laboral").length;            
+                int enviadoswsnotasimple = client.listFiles("/home/BPO/EnviadosWS/Nota Simple").length;
+                int enviadoswsnomina = client.listFiles("/home/BPO/EnviadosWS/Nomina").length;
+                int enviadoswsrecibo = client.listFiles("/home/BPO/EnviadosWS/Recibo").length;
+                int enviadoswstasacion = client.listFiles("/home/BPO/EnviadosWS/Tasacion").length;
+                int enviadoswsnotasimplenodulos = client.listFiles("/home/BPO/EnviadosWS/NotaSimpleOCR").length;
+                DocumentosDescargados documentosDescargados = new DocumentosDescargados(enviadoswsirpf + enviadoswsvidalaboral + enviadoswsnotasimple + enviadoswsnomina + enviadoswsrecibo + enviadoswstasacion + enviadoswsnotasimplenodulos,
+                enviadoswsnotasimple, enviadoswsirpf, enviadoswsnomina, enviadoswsrecibo, enviadoswstasacion, enviadoswsvidalaboral, enviadoswsnotasimplenodulos);
+
+                return documentosDescargados;
+            }else{
+                JOptionPane.showMessageDialog(null, "Las credenciales son inválidas");
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        } 
+        return null;
+    }
+	
     private static boolean FechaValida(Date date) {          
        return (date.getYear() + 1900 >= 1492 && date.getYear() + 1900 <= 2500);
     }
