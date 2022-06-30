@@ -14,19 +14,18 @@ import javax.swing.ListSelectionModel;
 public class FormaCondicionantes extends javax.swing.JDialog {
 
     private FormaProcesarTasacion formaTasacion;
-
+    
     /**
      * Creates new form FormaAdvertencia
-     *
      * @param parent
      * @param modal
      */
     public FormaCondicionantes(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.formaTasacion = (FormaProcesarTasacion) parent;
+        this.formaTasacion = (FormaProcesarTasacion)parent;
         jXList2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
+        
     }
 
     /**
@@ -146,7 +145,6 @@ public class FormaCondicionantes extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-
         jXList2.clearSelection();
     }//GEN-LAST:event_jButton2MousePressed
 

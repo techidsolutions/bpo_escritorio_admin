@@ -14,19 +14,18 @@ import javax.swing.ListSelectionModel;
 public class FormaAdvertencia extends javax.swing.JDialog {
 
     private FormaProcesarTasacion formaTasacion;
-
+    
     /**
      * Creates new form FormaAdvertencia
-     *
      * @param parent
      * @param modal
      */
     public FormaAdvertencia(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.formaTasacion = (FormaProcesarTasacion) parent;
+        this.formaTasacion = (FormaProcesarTasacion)parent;
         jXList2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
+        
     }
 
     /**

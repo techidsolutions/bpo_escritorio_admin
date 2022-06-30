@@ -40,7 +40,6 @@ import static vista.FormaPrincipal.cargarListaDocumentos;
  * @author TECH ID SOLUTIONS
  */
 public class FormaProcesarTasacion extends javax.swing.JDialog {
-
     Vector modelOcupacion;
     Vector modelTipoIdentificacion;
     Vector modelProvincia;
@@ -64,10 +63,10 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
     Documento documentoSeleccionado;
     ArrayList<Documento> listaDocumentos;
     int elementoSeleccionadoTabla = -1;
-
-    private ArrayList<ArrayList<ComponenteFormulario>> listaTitulares;
-    private ArrayList<ArrayList<ComponenteFormulario>> listaCargas;
-    private ArrayList<ArrayList<ComponenteFormulario>> listaAnejos;
+    
+    private ArrayList<ArrayList<ComponenteFormulario>> listaTitulares; 
+    private ArrayList<ArrayList<ComponenteFormulario>> listaCargas; 
+    private ArrayList<ArrayList<ComponenteFormulario>> listaAnejos; 
     //private ArrayList<ArrayList<ComponenteFormulario>> listaFincas;
     private ArrayList<Finca> listaFincas;
     private ArrayList<ModelTooltips> listaModelTooltips;
@@ -118,46 +117,46 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
     public void setListaCondicionantesSeleccionada(List<String> listaCondicionantesSeleccionada) {
         this.listaCondicionantesSeleccionada = listaCondicionantesSeleccionada;
     }
-
+    
     /**
      * Creates new form FormaProcesarIRPF
-     *
      * @param parent
      * @param modal
      */
     public FormaProcesarTasacion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        
         /*
-         RestrictedTextField restriccionSeccion = new RestrictedTextField(eSeccion);
-         restriccionSeccion.setLimit(5);
-         restriccionSeccion.setOnlyNums(true);
-         */
+        RestrictedTextField restriccionSeccion = new RestrictedTextField(eSeccion);
+        restriccionSeccion.setLimit(5);
+        restriccionSeccion.setOnlyNums(true);
+        */
+        
         eFechaCaducidad.setFormat(Resources.DMY);
         eFechaCaducidad.setName("FECHA_CADUCIDAD");
         eFechaCaducidad.setNextFocusableComponent(eFechaTasacion);
-
+        
         eFechaTasacion.setFormat(Resources.DMY);
         eFechaTasacion.setName("FECHA_TASACION");
         eFechaTasacion.setNextFocusableComponent(eFechaValoracionEstadistico);
-
+        
         eFechaValoracionEstadistico.setFormat(Resources.DMY);
         eFechaValoracionEstadistico.setName("FECHA_VALORACION_ESTADISTICO.");
         eFechaValoracionEstadistico.setNextFocusableComponent(eFechaVisita);
-
+        
         eFechaVisita.setFormat(Resources.DMY);
         eFechaVisita.setName("FECHA_VISITA");
         eFechaVisita.setNextFocusableComponent(eFinalidadTasacion);
         listaFincas = new ArrayList<>();
-
+        
         listaAdvertenciasSeleccionada = new ArrayList<>();
         listaCondicionantesSeleccionada = new ArrayList<>();
-
+        
         //AutoCompleteDecorator.decorate(eCapturarAvertencias);
     }
-
-    private void limpiarComponentes() {
+    
+    private void limpiarComponentes(){
         eCodigoTasacion.setText("");
         eCodigoTasacionEstadistica.setText("");
         eNombreDocumento.setText("");
@@ -167,7 +166,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         eValorHipotecario.setText("");
         eValorTasacion.setText("");
         eValorTasacionEstadistico.setText("");
-
+        
         //Combo
         eFinalidadTasacion.setSelectedIndex(3);
         eFuenteDatos.setSelectedIndex(0);
@@ -183,90 +182,90 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         eFechaTasacion.setDate(fecha);
         eFechaValoracionEstadistico.setDate(fecha);
         eFechaVisita.setDate(fecha);
-
+        
         //List
         eCondicionantes.setModel(new DefaultListModel<String>());
         eAdvertencias.setModel(new DefaultListModel<String>());
-
+        
         listaAdvertenciasSeleccionada.clear();
         listaCondicionantesSeleccionada.clear();
         listaFincas.clear();
-
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        
+        DefaultTableModel modelo = (DefaultTableModel)jTable1.getModel();
         modelo.setRowCount(0);
 
         SelectEmpresaTasadoraInfo(0);
     }
-
-    private void limpiarComponentesFormulario() {
+    
+    private void limpiarComponentesFormulario(){
         eNombreDocumento.setText("");
         listaFincas.clear();
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel modelo = (DefaultTableModel)jTable1.getModel();
         modelo.setRowCount(0);
     }
-
+    
     /**
-     *
-     * @param TipoCombo
+     * 
+     * @param TipoCombo 
      */
-    private void llenarCombo(String TipoCombo) {
-        switch (TipoCombo) {
+    private void llenarCombo(String TipoCombo){
+        switch(TipoCombo){
             /* 
-             case "Provincia":modelProvincia = new Vector();
-             modelProvincia.addElement( new ModelCombo("ALAVA", "ALAVA" ) );
-             modelProvincia.addElement( new ModelCombo("ALBACETE", "ALBACETE" ) );
-             modelProvincia.addElement( new ModelCombo("ALICANTE", "ALICANTE" ) );
-             modelProvincia.addElement( new ModelCombo("ALMERIA", "ALMERIA" ) );
-             modelProvincia.addElement( new ModelCombo("AVILA", "AVILA" ) );
-             modelProvincia.addElement( new ModelCombo("BADAJOZ", "BADAJOZ" ) );
-             modelProvincia.addElement( new ModelCombo("BALEARES", "BALEARES" ) );
-             modelProvincia.addElement( new ModelCombo("BARCELONA", "BARCELONA" ) );
-             modelProvincia.addElement( new ModelCombo("BURGOS", "BURGOS" ) );
-             modelProvincia.addElement( new ModelCombo("CACERES", "CACERES" ) );
-             modelProvincia.addElement( new ModelCombo("CADIZ", "CADIZ" ) );
-             modelProvincia.addElement( new ModelCombo("CASTELLON", "CASTELLON" ) );
-             modelProvincia.addElement( new ModelCombo("CIUDAD_REAL", "CIUDAD_REAL" ) );
-             modelProvincia.addElement( new ModelCombo("CORDOBA", "CORDOBA" ) );
-             modelProvincia.addElement( new ModelCombo("A_CORUNA", "A_CORUNA" ) );
-             modelProvincia.addElement( new ModelCombo("CUENCA", "CUENCA" ) );
-             modelProvincia.addElement( new ModelCombo("GIRONA", "GIRONA" ) );
-             modelProvincia.addElement( new ModelCombo("GRANADA", "GRANADA" ) );
-             modelProvincia.addElement( new ModelCombo("GUADALAJARA", "GUADALAJARA" ) );
-             modelProvincia.addElement( new ModelCombo("GUIPUZCOA", "GUIPUZCOA" ) );
-             modelProvincia.addElement( new ModelCombo("HUELVA", "HUELVA" ) );
-             modelProvincia.addElement( new ModelCombo("HUESCA", "HUESCA" ) );
-             modelProvincia.addElement( new ModelCombo("JAEN", "JAEN" ) );
-             modelProvincia.addElement( new ModelCombo("LEON", "LEON" ) );
-             modelProvincia.addElement( new ModelCombo("LLEIDA", "LLEIDA" ) );
-             modelProvincia.addElement( new ModelCombo("LA_RIOJA", "LA_RIOJA" ) );
-             modelProvincia.addElement( new ModelCombo("LUGO", "LUGO" ) );
-             modelProvincia.addElement( new ModelCombo("MADRID", "MADRID" ) );
-             modelProvincia.addElement( new ModelCombo("MALAGA", "MALAGA" ) );
-             modelProvincia.addElement( new ModelCombo("MURCIA", "MURCIA" ) );
-             modelProvincia.addElement( new ModelCombo("NAVARRA", "NAVARRA" ) );
-             modelProvincia.addElement( new ModelCombo("OURENSE", "OURENSE" ) );
-             modelProvincia.addElement( new ModelCombo("ASTURIAS", "ASTURIAS" ) );
-             modelProvincia.addElement( new ModelCombo("PALENCIA", "PALENCIA" ) );
-             modelProvincia.addElement( new ModelCombo("LAS_PALMAS", "LAS_PALMAS" ) );
-             modelProvincia.addElement( new ModelCombo("PONTEVEDRA", "PONTEVEDRA" ) );
-             modelProvincia.addElement( new ModelCombo("SALAMANCA", "SALAMANCA" ) );
-             modelProvincia.addElement( new ModelCombo("SC_TENERIFE", "SC_TENERIFE" ) );
-             modelProvincia.addElement( new ModelCombo("CANTABRIA", "CANTABRIA" ) );
-             modelProvincia.addElement( new ModelCombo("SEGOVIA", "SEGOVIA" ) );
-             modelProvincia.addElement( new ModelCombo("SEVILLA", "SEVILLA" ) );
-             modelProvincia.addElement( new ModelCombo("SORIA", "SORIA" ) );
-             modelProvincia.addElement( new ModelCombo("TARRAGONA", "TARRAGONA" ) );
-             modelProvincia.addElement( new ModelCombo("TERUEL", "TERUEL" ) );
-             modelProvincia.addElement( new ModelCombo("TOLEDO", "TOLEDO" ) );
-             modelProvincia.addElement( new ModelCombo("VALENCIA", "VALENCIA" ) );
-             modelProvincia.addElement( new ModelCombo("VALLADOLID", "VALLADOLID" ) );
-             modelProvincia.addElement( new ModelCombo("VIZCAYA", "VIZCAYA" ) );
-             modelProvincia.addElement( new ModelCombo("ZAMORA", "ZAMORA" ) );
-             modelProvincia.addElement( new ModelCombo("ZARAGOZA", "ZARAGOZA" ) );
-             modelProvincia.addElement( new ModelCombo("CEUTA", "CEUTA" ) );
-             modelProvincia.addElement( new ModelCombo("MELILLA", "MELILLA" ) );
-             eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
-             break; */
+            case "Provincia":modelProvincia = new Vector();
+                                modelProvincia.addElement( new ModelCombo("ALAVA", "ALAVA" ) );
+                                modelProvincia.addElement( new ModelCombo("ALBACETE", "ALBACETE" ) );
+                                modelProvincia.addElement( new ModelCombo("ALICANTE", "ALICANTE" ) );
+                                modelProvincia.addElement( new ModelCombo("ALMERIA", "ALMERIA" ) );
+                                modelProvincia.addElement( new ModelCombo("AVILA", "AVILA" ) );
+                                modelProvincia.addElement( new ModelCombo("BADAJOZ", "BADAJOZ" ) );
+                                modelProvincia.addElement( new ModelCombo("BALEARES", "BALEARES" ) );
+                                modelProvincia.addElement( new ModelCombo("BARCELONA", "BARCELONA" ) );
+                                modelProvincia.addElement( new ModelCombo("BURGOS", "BURGOS" ) );
+                                modelProvincia.addElement( new ModelCombo("CACERES", "CACERES" ) );
+                                modelProvincia.addElement( new ModelCombo("CADIZ", "CADIZ" ) );
+                                modelProvincia.addElement( new ModelCombo("CASTELLON", "CASTELLON" ) );
+                                modelProvincia.addElement( new ModelCombo("CIUDAD_REAL", "CIUDAD_REAL" ) );
+                                modelProvincia.addElement( new ModelCombo("CORDOBA", "CORDOBA" ) );
+                                modelProvincia.addElement( new ModelCombo("A_CORUNA", "A_CORUNA" ) );
+                                modelProvincia.addElement( new ModelCombo("CUENCA", "CUENCA" ) );
+                                modelProvincia.addElement( new ModelCombo("GIRONA", "GIRONA" ) );
+                                modelProvincia.addElement( new ModelCombo("GRANADA", "GRANADA" ) );
+                                modelProvincia.addElement( new ModelCombo("GUADALAJARA", "GUADALAJARA" ) );
+                                modelProvincia.addElement( new ModelCombo("GUIPUZCOA", "GUIPUZCOA" ) );
+                                modelProvincia.addElement( new ModelCombo("HUELVA", "HUELVA" ) );
+                                modelProvincia.addElement( new ModelCombo("HUESCA", "HUESCA" ) );
+                                modelProvincia.addElement( new ModelCombo("JAEN", "JAEN" ) );
+                                modelProvincia.addElement( new ModelCombo("LEON", "LEON" ) );
+                                modelProvincia.addElement( new ModelCombo("LLEIDA", "LLEIDA" ) );
+                                modelProvincia.addElement( new ModelCombo("LA_RIOJA", "LA_RIOJA" ) );
+                                modelProvincia.addElement( new ModelCombo("LUGO", "LUGO" ) );
+                                modelProvincia.addElement( new ModelCombo("MADRID", "MADRID" ) );
+                                modelProvincia.addElement( new ModelCombo("MALAGA", "MALAGA" ) );
+                                modelProvincia.addElement( new ModelCombo("MURCIA", "MURCIA" ) );
+                                modelProvincia.addElement( new ModelCombo("NAVARRA", "NAVARRA" ) );
+                                modelProvincia.addElement( new ModelCombo("OURENSE", "OURENSE" ) );
+                                modelProvincia.addElement( new ModelCombo("ASTURIAS", "ASTURIAS" ) );
+                                modelProvincia.addElement( new ModelCombo("PALENCIA", "PALENCIA" ) );
+                                modelProvincia.addElement( new ModelCombo("LAS_PALMAS", "LAS_PALMAS" ) );
+                                modelProvincia.addElement( new ModelCombo("PONTEVEDRA", "PONTEVEDRA" ) );
+                                modelProvincia.addElement( new ModelCombo("SALAMANCA", "SALAMANCA" ) );
+                                modelProvincia.addElement( new ModelCombo("SC_TENERIFE", "SC_TENERIFE" ) );
+                                modelProvincia.addElement( new ModelCombo("CANTABRIA", "CANTABRIA" ) );
+                                modelProvincia.addElement( new ModelCombo("SEGOVIA", "SEGOVIA" ) );
+                                modelProvincia.addElement( new ModelCombo("SEVILLA", "SEVILLA" ) );
+                                modelProvincia.addElement( new ModelCombo("SORIA", "SORIA" ) );
+                                modelProvincia.addElement( new ModelCombo("TARRAGONA", "TARRAGONA" ) );
+                                modelProvincia.addElement( new ModelCombo("TERUEL", "TERUEL" ) );
+                                modelProvincia.addElement( new ModelCombo("TOLEDO", "TOLEDO" ) );
+                                modelProvincia.addElement( new ModelCombo("VALENCIA", "VALENCIA" ) );
+                                modelProvincia.addElement( new ModelCombo("VALLADOLID", "VALLADOLID" ) );
+                                modelProvincia.addElement( new ModelCombo("VIZCAYA", "VIZCAYA" ) );
+                                modelProvincia.addElement( new ModelCombo("ZAMORA", "ZAMORA" ) );
+                                modelProvincia.addElement( new ModelCombo("ZARAGOZA", "ZARAGOZA" ) );
+                                modelProvincia.addElement( new ModelCombo("CEUTA", "CEUTA" ) );
+                                modelProvincia.addElement( new ModelCombo("MELILLA", "MELILLA" ) );
+                                eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
+                                break; */
             /*case "Advertencias":
              listaModelTooltips = new ArrayList<>();
              modelAdvertencias = new Vector();
@@ -432,39 +431,39 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
 
         }
     }
-
-    private void anadirHints() {
+    
+    private void anadirHints(){
         /*
-         ComboboxToolTipRenderer renderer = new ComboboxToolTipRenderer();
-         List<String> tooltips = new ArrayList<>();
-         Collections.sort(listaModelTooltips);
-         eCapturarAvertencias.setRenderer(renderer);
-         modelAdvertencias = new Vector();
-         for (ModelTooltips modelTooltips : listaModelTooltips) {
-         modelAdvertencias.addElement( new ModelCombo(modelTooltips.getCodigo(), modelTooltips.getNombre()) );
-         tooltips.add(modelTooltips.getNombre());
-         }
-         eCapturarAvertencias.setModel(new DefaultComboBoxModel(modelAdvertencias));
+        ComboboxToolTipRenderer renderer = new ComboboxToolTipRenderer();
+        List<String> tooltips = new ArrayList<>();
+        Collections.sort(listaModelTooltips);
+        eCapturarAvertencias.setRenderer(renderer);
+        modelAdvertencias = new Vector();
+        for (ModelTooltips modelTooltips : listaModelTooltips) {
+            modelAdvertencias.addElement( new ModelCombo(modelTooltips.getCodigo(), modelTooltips.getNombre()) );
+            tooltips.add(modelTooltips.getNombre());
+        }
+        eCapturarAvertencias.setModel(new DefaultComboBoxModel(modelAdvertencias));
         
-         renderer.setTooltips(tooltips);
+        renderer.setTooltips(tooltips);
         
-         ComboboxToolTipRenderer rendererCond = new ComboboxToolTipRenderer();
-         List<String> tooltipsCond = new ArrayList<>();
-         eCapturarCondicionantes.setRenderer(rendererCond);
-         modelCondicionantes = new Vector();
-         for (ModelTooltips modelTooltips : listaModelTooltipsCondicionantes) {
-         modelCondicionantes.addElement( new ModelCombo(modelTooltips.getCodigo(), modelTooltips.getNombre()) );
-         tooltipsCond.add(modelTooltips.getNombre());
-         }
-         eCapturarCondicionantes.setModel(new DefaultComboBoxModel(modelCondicionantes));
-         rendererCond.setTooltips(tooltipsCond);
-         */
+        ComboboxToolTipRenderer rendererCond = new ComboboxToolTipRenderer();
+        List<String> tooltipsCond = new ArrayList<>();
+        eCapturarCondicionantes.setRenderer(rendererCond);
+        modelCondicionantes = new Vector();
+        for (ModelTooltips modelTooltips : listaModelTooltipsCondicionantes) {
+            modelCondicionantes.addElement( new ModelCombo(modelTooltips.getCodigo(), modelTooltips.getNombre()) );
+            tooltipsCond.add(modelTooltips.getNombre());
+        }
+        eCapturarCondicionantes.setModel(new DefaultComboBoxModel(modelCondicionantes));
+        rendererCond.setTooltips(tooltipsCond);
+        */
     }
-
-    public static ArrayList<Documento> cargarListaDocumentos() {
+    
+    public static ArrayList<Documento> cargarListaDocumentos(){
         ArrayList<Documento> listaDocumentos = new ArrayList<>();
         String caminoDirectorioRaiz = Utiles.rutaEnviadosTasacion;
-        File dirRaiz = new File(caminoDirectorioRaiz);
+	File dirRaiz = new File(caminoDirectorioRaiz);
         String archivos[] = dirRaiz.list();
         File dirTemp;
         Documento documento;
@@ -475,17 +474,17 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         }
         return listaDocumentos;
     }
-
-    private void actualizarInfoDocumentos(String mensaje) {
-        new TareaSegundoPlano(this, mensaje) {
-            @Override
-            protected void tareaHaRealizar() {
-                listaDocumentos = cargarListaDocumentos();
-                Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
-                Dimension dimension = jXTable1.getPreferredSize();
-                jScrollPane4.setPreferredSize(new Dimension(dimension.width, jXTable1.getRowHeight() * filas));
-            }
-        }.ejecutarTarea();
+    
+    private void actualizarInfoDocumentos(String mensaje){
+            new TareaSegundoPlano(this, mensaje) {
+                @Override
+                    protected void tareaHaRealizar() {
+                        listaDocumentos = cargarListaDocumentos();
+                        Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
+                        Dimension dimension = jXTable1.getPreferredSize();
+                        jScrollPane4.setPreferredSize(new Dimension(dimension.width,jXTable1.getRowHeight()*filas));
+                    }
+            }.ejecutarTarea();
     }
 
     /**
@@ -975,7 +974,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jButton4))
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1086,10 +1085,14 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bConvertir)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(654, 654, 654)
+                        .addComponent(bConvertir))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1166,8 +1169,8 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 756, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -1272,12 +1275,12 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         /*
-         listaAvertencias.addElement(listaModelTooltips.get(eCapturarAvertencias.getSelectedIndex()).getNombre() );
-         eAdvertencias.setModel(listaAvertencias);
-         */
+        listaAvertencias.addElement(listaModelTooltips.get(eCapturarAvertencias.getSelectedIndex()).getNombre() );
+        eAdvertencias.setModel(listaAvertencias);
+        */
         FormaAdvertencia formaAdvertencia = new FormaAdvertencia(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaAdvertencia.setLocation(GEnv.getCenterPoint().x - formaAdvertencia.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaAdvertencia.getHeight() / 2 + 25);
+        formaAdvertencia.setLocation(GEnv.getCenterPoint().x-formaAdvertencia.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaAdvertencia.getHeight()/2 + 25);
 
         formaAdvertencia.setResizable(true);
         formaAdvertencia.setVisible(true);
@@ -1289,24 +1292,24 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
             listaAvertencias.removeElementAt(index);
             listaAdvertenciasSeleccionada.remove(index);
             eAdvertencias.setModel(listaAvertencias);
-        } else {
-            JOptionPane.showMessageDialog(null, Utiles.msgDebeSeleccionarAdvertenciaEliminar);
+        }else{
+            JOptionPane.showMessageDialog(null,Utiles.msgDebeSeleccionarAdvertenciaEliminar);
         }
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
         /*
-         listaCondicionantes.addElement(listaModelTooltipsCondicionantes.get(eCapturarCondicionantes.getSelectedIndex()).getNombre() );
-         eCondicionantes.setModel(listaCondicionantes);
-         */
-
+        listaCondicionantes.addElement(listaModelTooltipsCondicionantes.get(eCapturarCondicionantes.getSelectedIndex()).getNombre() );
+        eCondicionantes.setModel(listaCondicionantes);
+        */
+        
         FormaCondicionantes formaCondicionantes = new FormaCondicionantes(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaCondicionantes.setLocation(GEnv.getCenterPoint().x - formaCondicionantes.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaCondicionantes.getHeight() / 2 + 25);
+        formaCondicionantes.setLocation(GEnv.getCenterPoint().x-formaCondicionantes.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaCondicionantes.getHeight()/2 + 25);
 
         formaCondicionantes.setResizable(true);
         formaCondicionantes.setVisible(true);
-
+          
     }//GEN-LAST:event_jButton3MousePressed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -1319,8 +1322,8 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
             listaCondicionantes.removeElementAt(index);
             listaCondicionantesSeleccionada.remove(index);
             eCondicionantes.setModel(listaCondicionantes);
-        } else {
-            JOptionPane.showMessageDialog(null, Utiles.msgDebeSeleccionarCondicionanteEliminar);
+        }else{
+            JOptionPane.showMessageDialog(null,Utiles.msgDebeSeleccionarCondicionanteEliminar);
         }
     }//GEN-LAST:event_jButton4MousePressed
 
@@ -1333,7 +1336,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jXTable1PropertyChange
 
     private void jButton6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MousePressed
-        if (jXTable1.getSelectedRow() != -1) {
+        if (jXTable1.getSelectedRow() != -1){
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -1342,15 +1345,13 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
                     File archivo = new File(Utiles.rutaEnviadosTasacion.concat(documentoSeleccionado.getNombre()));
                     archivo.renameTo(new File(Utiles.rutaEnviadosDocumentosKO.concat(documentoSeleccionado.getNombre())));
                     listaDocumentos.remove(elementoSeleccionadoTabla);
-                    DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
+                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
                     modelo.removeRow(elementoSeleccionadoTabla);
                     jXTable1.setModel(modelo);
                     limpiarComponentesFormulario();
                 }
             }.ejecutarTarea();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
-        }
+        }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
     }//GEN-LAST:event_jButton6MousePressed
 
     private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
@@ -1358,7 +1359,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton7MousePressed
 
     private void jButton8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MousePressed
-        if (jXTable1.getSelectedRow() != -1) {
+        if (jXTable1.getSelectedRow() != -1){
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -1369,15 +1370,13 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
                     //eReferencia.setText(documentoSeleccionado.getNombre().substring(0, documentoSeleccionado.getNombre().length()-4).split("_")[0]);
                     jXTable1.clearSelection();
                     File archivo = new File(Utiles.rutaEnviadosTasacion.concat("\\").concat(documentoSeleccionado.getNombre()));
-                    try {
-                        Desktop.getDesktop().open(archivo);
-                    } catch (IOException ex) {
+                        try {
+                            Desktop.getDesktop().open(archivo);
+                        }catch (IOException ex) {
+                        }
                     }
-                }
-            }.ejecutarTarea();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
-        }
+                }.ejecutarTarea();
+            }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
     }//GEN-LAST:event_jButton8MousePressed
 
     private void eValorHipotecarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eValorHipotecarioKeyTyped
@@ -1394,12 +1393,12 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
     private void jButton9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MousePressed
         FormaProcesarFinca formaProcesarFinca = new FormaProcesarFinca(null, true, this, -1, null);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaProcesarFinca.setLocation(GEnv.getCenterPoint().x - formaProcesarFinca.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarFinca.getHeight() / 2 + 25);
+        formaProcesarFinca.setLocation(GEnv.getCenterPoint().x-formaProcesarFinca.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarFinca.getHeight()/2 + 25);
 
         formaProcesarFinca.setResizable(false);
         formaProcesarFinca.setVisible(true);
 
-        Utiles.llenarTabla(jTable1, listaFincas, "Fincas");
+        Utiles.llenarTabla(jTable1,listaFincas, "Fincas");
     }//GEN-LAST:event_jButton9MousePressed
 
     private void eFuenteDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eFuenteDatosActionPerformed
@@ -1416,14 +1415,13 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
 
     private void jButton10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1) {
-            DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
+        if (indiceSeleccionado != -1){
+            DefaultTableModel tabla = (DefaultTableModel)jTable1.getModel();
             tabla.removeRow(indiceSeleccionado);
             jTable1.setModel(tabla);
             listaFincas.remove(indiceSeleccionado);
-        } else {
-            JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneFincaEliminar);
-        }
+        } else
+        JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneFincaEliminar);
     }//GEN-LAST:event_jButton10MousePressed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -1432,7 +1430,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
             listaAvertencias.addElement(advertencia);
         }
         eAdvertencias.setModel(listaAvertencias);
-
+        
         listaCondicionantes.removeAllElements();
         for (String condicionante : listaCondicionantesSeleccionada) {
             listaCondicionantes.addElement(condicionante);
@@ -1446,16 +1444,15 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
 
     private void jButton5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1) {
+        if (indiceSeleccionado != -1){
             FormaProcesarFinca formaProcesarFinca = new FormaProcesarFinca(null, true, this, indiceSeleccionado, listaFincas.get(indiceSeleccionado));
             GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            formaProcesarFinca.setLocation(GEnv.getCenterPoint().x - formaProcesarFinca.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarFinca.getHeight() / 2 + 25);
+            formaProcesarFinca.setLocation(GEnv.getCenterPoint().x-formaProcesarFinca.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarFinca.getHeight()/2 + 25);
             formaProcesarFinca.setResizable(false);
             formaProcesarFinca.setVisible(true);
-            Utiles.llenarTabla(jTable1, listaFincas, "Fincas");
-        } else {
+            Utiles.llenarTabla(jTable1,listaFincas, "Fincas");
+        } else
             JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneFincaModificar);
-        }
     }//GEN-LAST:event_jButton5MousePressed
 
     private void bConvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bConvertirActionPerformed
@@ -1463,32 +1460,29 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
     }//GEN-LAST:event_bConvertirActionPerformed
 
     private void eValorHipotecarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eValorHipotecarioFocusLost
-        if (!eValorHipotecario.getText().equals("")) {
-            if (eValorHipotecario.getText().contains(".")) {
+        if (!eValorHipotecario.getText().equals(""))
+            if (eValorHipotecario.getText().contains(".")){
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eValorHipotecario.requestFocus();
             }
-        }
-
-
+                
+        
     }//GEN-LAST:event_eValorHipotecarioFocusLost
 
     private void eValorTasacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eValorTasacionFocusLost
-        if (!eValorTasacion.getText().equals("")) {
-            if (eValorTasacion.getText().contains(".")) {
+        if (!eValorTasacion.getText().equals(""))
+            if (eValorTasacion.getText().contains(".")){
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eValorTasacion.requestFocus();
             }
-        }
     }//GEN-LAST:event_eValorTasacionFocusLost
 
     private void eValorTasacionEstadisticoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eValorTasacionEstadisticoFocusLost
-        if (!eValorTasacionEstadistico.getText().equals("")) {
-            if (eValorTasacionEstadistico.getText().contains(".")) {
+        if (!eValorTasacionEstadistico.getText().equals(""))
+            if (eValorTasacionEstadistico.getText().contains(".")){
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eValorTasacionEstadistico.requestFocus();
             }
-        }
     }//GEN-LAST:event_eValorTasacionEstadisticoFocusLost
 
     private void eEmpresaTasadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eEmpresaTasadoraActionPerformed
@@ -1530,7 +1524,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         //</editor-fold>
         //</editor-fold>
 
@@ -1684,6 +1678,8 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         datosEmpresaTasadora.add(new ComponenteFormulario("4350", "31/10/1988"));
         modelEmpresaTasadora.addElement(new ModelCombo("ZEHAZKI, S.A.", "ZEHAZKI, S.A."));
         datosEmpresaTasadora.add(new ComponenteFormulario("4349", ""));
+        modelEmpresaTasadora.addElement(new ModelCombo("SERVATAS", "SERVATAS"));
+        datosEmpresaTasadora.add(new ComponenteFormulario("4307", "17/09/1984"));
     }
 
     private Date BuildDate(String fecha) {

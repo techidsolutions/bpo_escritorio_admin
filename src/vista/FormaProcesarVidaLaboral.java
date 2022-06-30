@@ -37,114 +37,122 @@ import util.Utiles;
  * @author TECH ID SOLUTIONS
  */
 public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
+
     Vector modelTipoRegimen;
     Vector modelTipoContrato;
     final int filas = 20;
     ArrayList<Documento> listaDocumentos;
     int elementoSeleccionadoTabla = -1;
     Documento documentoSeleccionado;
+
     /**
      * Creates new form FormaProcesarIRPF
+     *
      * @param parent
      * @param modal
      */
     public FormaProcesarVidaLaboral(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         RestrictedTextField restriccionNumeroAnnosTotal = new RestrictedTextField(eNumeroAnnosTotal);
-        restriccionNumeroAnnosTotal.setLimit(15);
+        restriccionNumeroAnnosTotal.setLimit(2);
         restriccionNumeroAnnosTotal.setOnlyNums(true);
-        
+
         RestrictedTextField restriccionNif = new RestrictedTextField(eNif);
         restriccionNif.setLimit(10);
-        
+
+        RestrictedTextField restriccionNumeroSeguridadSocial = new RestrictedTextField(eNumeroSeguridadSocial);
+        restriccionNumeroSeguridadSocial.setLimit(30);
+
         eFechaAltaSS.setFormat(Resources.DMY);
         eFechaAltaSS.setName("FECHA_ALTA_SEGURIDAD_SOCIAL");
         eFechaAltaSS.setNextFocusableComponent(eFechaCEA);
-        
+
         eFechaCEA.setFormat(Resources.DMY);
         eFechaCEA.setName("FECHA_CEA");
         eFechaCEA.setNextFocusableComponent(eFechaAltaUltimaEmpresa);
-        
+
         eFechaAltaUltimaEmpresa.setFormat(Resources.DMY);
         eFechaAltaUltimaEmpresa.setName("FECHA_ALTA_ULTIMA_EMPRESA");
         eFechaAltaUltimaEmpresa.setNextFocusableComponent(eFechaDocumento);
-        
+
         eFechaDocumento.setFormat(Resources.DMY);
         eFechaDocumento.setName("FECHA_DOCUMENTO");
         eFechaDocumento.setNextFocusableComponent(eIdCEA);
-        
+
     }
-    
+
     /**
-     * 
-     * @param TipoCombo 
+     *
+     * @param TipoCombo
      */
-    private void llenarCombo(String TipoCombo){
-        switch(TipoCombo){
-            case "Tipo Regimen":modelTipoRegimen = new Vector();
-                                modelTipoRegimen.addElement( new ModelCombo("General", "General" ) );
-                                modelTipoRegimen.addElement( new ModelCombo("Autonomos", "Autonomos" ) );
-                                modelTipoRegimen.addElement( new ModelCombo("Mar", "Mar" ) );
-                                modelTipoRegimen.addElement( new ModelCombo("Carbion", "Carbion" ) );
-                                modelTipoRegimen.addElement( new ModelCombo("Hogar", "Hogar" ) );
-                                modelTipoRegimen.addElement( new ModelCombo("Gral_RepresentantesComercio", "Gral_RepresentantesComercio" ) );
-                                modelTipoRegimen.addElement( new ModelCombo("Gral_SistemasEspecialesFrutasHorrtalizasConservasVegetales", "Gral_SistemasEspecialesFrutasHorrtalizasConservasVegetales" ) );
-                                
-                                eTipoRegimen.setModel(new DefaultComboBoxModel(modelTipoRegimen));
-                                break;
-            
-            case "Tipo Contrato":modelTipoContrato = new Vector();
-                                modelTipoContrato.addElement( new ModelCombo("SinAsignar", "SinAsignar" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_completoOrdinario", "100" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_completoFomento_contratacion_indefinidaTransformacion_contrato_temporal", "109" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_completoPersonas_con_discapacidad", "130" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_completoPersonas_con_discapacidadTransformacion_contrato_temporal", "139" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_completoFomento_contratacion_indefinidaInicial", "150" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_completoTransformacion_contrato_temporal", "189" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_parcialOrdinario", "200" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_parcialFomento_contratacion_indefinidaTransformacion_contrato_temporal", "209" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_parcialPersonas_con_discapacidad", "230" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_parcialPersonas_con_discapacidadTransformacion_contrato_temporal", "239" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_parcialFomento_contratacion_indefinidaInicial", "250" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_parcialTransformacion_contrato_temporal", "289" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoFijo_discontinuo", "300" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoFijo_discontinuoFomento_contratacion_indefinidaTransformacion_contrato_temporal", "309" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoFijo_discontinuoPersonas_con_discapacidad", "330" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoTiempo_parcialPersonas_con_discapacidadTransformacion_contrato_temporal_", "339" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoFijo_discontinuoFomento_contratacion_indefinidaInicial", "350" ) );
-                                modelTipoContrato.addElement( new ModelCombo("IndefinidoFijo_discontinuoTransformacion_contrato_temporal", "389" ) );
-                                modelTipoContrato.addElement( new ModelCombo("Duracion_determinadaTiempo_completoobra_o_servicio_determinado", "401" ) );
-                                modelTipoContrato.addElement( new ModelCombo("Duracion_determinadaTiempo_completoEventual_circunstancias_de_la_produccion", "402" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_completoCaracter_administrativo", "408" ) );
-                                modelTipoContrato.addElement( new ModelCombo("Duracion_determinadaTiempo_completoInterinidad", "410" ) );
-                                modelTipoContrato.addElement( new ModelCombo("Duracion_determinadaTiempo_completoInterinidadCaracter_administrativo", "418" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_completoPracticas", "420" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_completoformacion_y_aprendizaje", "430" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_completoRelevo", "441" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_completoFomento_contratacion_indefinida", "450" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_completoEmpresas_de_insercion", "452" ) );
-                                modelTipoContrato.addElement( new ModelCombo("Duracion_determinadaTiempo_parcialobra_o_servicio_determinado", "501" ) );
-                                modelTipoContrato.addElement( new ModelCombo("Duracion_determinadaTiempo_parcialEventual_circustancias_de_la_produccion", "502" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_parcialCaracter_administrativo", "508" ) );
-                                modelTipoContrato.addElement( new ModelCombo("Duracion_determinadaTiempo_parcialInterinidad", "510" ) );
-                                modelTipoContrato.addElement( new ModelCombo("Duracion_determinadaTiempo_parcialInterinidadCaracter_administrativo", "518" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_parcialPracticas", "520" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_parcialPersonas_con_discapacidad", "530" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_parcialJubilado_parcial", "540" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_parcialRelevo", "541" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_parcialFomento_contratacion_indefinida", "550" ) );
-                                modelTipoContrato.addElement( new ModelCombo("TemporalTiempo_parcialEmpresas_de_insercion", "552" ) );
-                                eTipoContrato.setModel(new DefaultComboBoxModel(modelTipoContrato));
-                                break;
+    private void llenarCombo(String TipoCombo) {
+        switch (TipoCombo) {
+            case "Tipo Regimen":
+                modelTipoRegimen = new Vector();
+                modelTipoRegimen.addElement(new ModelCombo("General", "General"));
+                modelTipoRegimen.addElement(new ModelCombo("Autonomos", "Autonomos"));
+                modelTipoRegimen.addElement(new ModelCombo("Mar", "Mar"));
+                modelTipoRegimen.addElement(new ModelCombo("Carbion", "Carbion"));
+                modelTipoRegimen.addElement(new ModelCombo("Hogar", "Hogar"));
+                modelTipoRegimen.addElement(new ModelCombo("Gral_RepresentantesComercio", "Gral_RepresentantesComercio"));
+                modelTipoRegimen.addElement(new ModelCombo("Gral_SistemasEspecialesFrutasHorrtalizasConservasVegetales", "Gral_SistemasEspecialesFrutasHorrtalizasConservasVegetales"));
+
+                eTipoRegimen.setModel(new DefaultComboBoxModel(modelTipoRegimen));
+                break;
+
+            case "Tipo Contrato":
+                modelTipoContrato = new Vector();
+                modelTipoContrato.addElement(new ModelCombo("SinAsignar", "SinAsignar"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_completoOrdinario", "100"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_completoFomento_contratacion_indefinidaTransformacion_contrato_temporal", "109"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_completoPersonas_con_discapacidad", "130"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_completoPersonas_con_discapacidadTransformacion_contrato_temporal", "139"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_completoFomento_contratacion_indefinidaInicial", "150"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_completoTransformacion_contrato_temporal", "189"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_parcialOrdinario", "200"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_parcialFomento_contratacion_indefinidaTransformacion_contrato_temporal", "209"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_parcialPersonas_con_discapacidad", "230"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_parcialPersonas_con_discapacidadTransformacion_contrato_temporal", "239"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_parcialFomento_contratacion_indefinidaInicial", "250"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_parcialTransformacion_contrato_temporal", "289"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoFijo_discontinuo", "300"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoFijo_discontinuoFomento_contratacion_indefinidaTransformacion_contrato_temporal", "309"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoFijo_discontinuoPersonas_con_discapacidad", "330"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoTiempo_parcialPersonas_con_discapacidadTransformacion_contrato_temporal_", "339"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoFijo_discontinuoFomento_contratacion_indefinidaInicial", "350"));
+                modelTipoContrato.addElement(new ModelCombo("IndefinidoFijo_discontinuoTransformacion_contrato_temporal", "389"));
+                modelTipoContrato.addElement(new ModelCombo("Duracion_determinadaTiempo_completoobra_o_servicio_determinado", "401"));
+                modelTipoContrato.addElement(new ModelCombo("Duracion_determinadaTiempo_completoEventual_circunstancias_de_la_produccion", "402"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_completoCaracter_administrativo", "408"));
+                modelTipoContrato.addElement(new ModelCombo("Duracion_determinadaTiempo_completoInterinidad", "410"));
+                modelTipoContrato.addElement(new ModelCombo("Duracion_determinadaTiempo_completoInterinidadCaracter_administrativo", "418"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_completoPracticas", "420"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_completoformacion_y_aprendizaje", "430"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_completoRelevo", "441"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_completoFomento_contratacion_indefinida", "450"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_completoEmpresas_de_insercion", "452"));
+                modelTipoContrato.addElement(new ModelCombo("Duracion_determinadaTiempo_parcialobra_o_servicio_determinado", "501"));
+                modelTipoContrato.addElement(new ModelCombo("Duracion_determinadaTiempo_parcialEventual_circustancias_de_la_produccion", "502"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_parcialCaracter_administrativo", "508"));
+                modelTipoContrato.addElement(new ModelCombo("Duracion_determinadaTiempo_parcialInterinidad", "510"));
+                modelTipoContrato.addElement(new ModelCombo("Duracion_determinadaTiempo_parcialInterinidadCaracter_administrativo", "518"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_parcialPracticas", "520"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_parcialPersonas_con_discapacidad", "530"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_parcialJubilado_parcial", "540"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_parcialRelevo", "541"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_parcialFomento_contratacion_indefinida", "550"));
+                modelTipoContrato.addElement(new ModelCombo("TemporalTiempo_parcialEmpresas_de_insercion", "552"));
+                eTipoContrato.setModel(new DefaultComboBoxModel(modelTipoContrato));
+                break;
         }
     }
-    
+
     /**
-     * 
+     *
      */
-    private void limpiarComponentesFormulario(){
+    private void limpiarComponentesFormulario() {
         eCodCEA.setText("");
         eIdCEA.setText("");
         eNumeroAnnosTotal.setText("");
@@ -152,10 +160,10 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         eNombreDocumento.setText("");
         eNumeroSeguridadSocial.setText("");
         eNombreTitular.setText("");
-                
+
         //Combo
-        eTipoContrato.setSelectedIndex(0); 
-        eTipoRegimen.setSelectedIndex(0); 
+        eTipoContrato.setSelectedIndex(0);
+        eTipoRegimen.setSelectedIndex(0);
 
         //Fechas
         Date fecha = null;
@@ -164,15 +172,15 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         eFechaCEA.setDate(fecha);
         eFechaDocumento.setDate(fecha);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public static ArrayList<Documento> cargarListaDocumentos(){
+    public static ArrayList<Documento> cargarListaDocumentos() {
         ArrayList<Documento> listaDocumentos = new ArrayList<>();
         String caminoDirectorioRaiz = Utiles.rutaEnviadosVidaLaboral;
-	File dirRaiz = new File(caminoDirectorioRaiz);
+        File dirRaiz = new File(caminoDirectorioRaiz);
         String archivos[] = dirRaiz.list();
         File dirTemp;
         Documento documento;
@@ -183,23 +191,22 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         }
         return listaDocumentos;
     }
-    
+
     /**
-     * 
-     * @param mensaje 
+     *
+     * @param mensaje
      */
-    private void actualizarInfoDocumentos(String mensaje){
-            new TareaSegundoPlano(this, mensaje) {
-                @Override
-                    protected void tareaHaRealizar() {
-                        listaDocumentos = cargarListaDocumentos();
-                        Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
-                        Dimension dimension = jXTable1.getPreferredSize();
-                        jScrollPane1.setPreferredSize(new Dimension(dimension.width,jXTable1.getRowHeight()*filas));
-                    }
-            }.ejecutarTarea();
+    private void actualizarInfoDocumentos(String mensaje) {
+        new TareaSegundoPlano(this, mensaje) {
+            @Override
+            protected void tareaHaRealizar() {
+                listaDocumentos = cargarListaDocumentos();
+                Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
+                Dimension dimension = jXTable1.getPreferredSize();
+                jScrollPane1.setPreferredSize(new Dimension(dimension.width, jXTable1.getRowHeight() * filas));
+            }
+        }.ejecutarTarea();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -232,10 +239,10 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         eIdCEA = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        eTipoRegimen = new javax.swing.JComboBox<>();
+        eTipoRegimen = new javax.swing.JComboBox<String>();
         jLabel15 = new javax.swing.JLabel();
         eFechaDocumento = new org.openswing.swing.client.DateControl();
-        eTipoContrato = new javax.swing.JComboBox<>();
+        eTipoContrato = new javax.swing.JComboBox<String>();
         jLabel16 = new javax.swing.JLabel();
         eNif = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -243,9 +250,9 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         jXTable1 = new org.jdesktop.swingx.JXTable();
         jButton2 = new javax.swing.JButton();
-        jXFindBar1 = new org.jdesktop.swingx.JXFindBar();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jXFindBar1 = new org.jdesktop.swingx.JXFindBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Extracción datos Vida Laboral");
@@ -347,9 +354,7 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGap(112, 112, 112)
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(eNif, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel16))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
@@ -360,7 +365,7 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                                     .addComponent(eNumeroSeguridadSocial))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 4, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel9)
@@ -384,7 +389,8 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                                         .addComponent(eFechaAltaUltimaEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(eFechaCEA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(eFechaAltaSS, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(eFechaDocumento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(eFechaDocumento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(eNif, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -490,17 +496,6 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
             }
         });
 
-        javax.swing.GroupLayout jXFindBar1Layout = new javax.swing.GroupLayout(jXFindBar1);
-        jXFindBar1.setLayout(jXFindBar1Layout);
-        jXFindBar1Layout.setHorizontalGroup(
-            jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
-        );
-        jXFindBar1Layout.setVerticalGroup(
-            jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 33, Short.MAX_VALUE)
-        );
-
         jButton1.setText("Actualizar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -515,29 +510,36 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout jXFindBar1Layout = new javax.swing.GroupLayout(jXFindBar1);
+        jXFindBar1.setLayout(jXFindBar1Layout);
+        jXFindBar1Layout.setHorizontalGroup(
+            jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 442, Short.MAX_VALUE)
+        );
+        jXFindBar1Layout.setVerticalGroup(
+            jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 35, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                    .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton2))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -545,17 +547,18 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                        .addGap(5, 5, 5))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
                             .addComponent(jButton1)
-                            .addComponent(jButton3)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))
-                .addContainerGap())
+                            .addComponent(jButton3))
+                        .addContainerGap())))
         );
 
         pack();
@@ -563,44 +566,48 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
 
     private void bConvertirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bConvertirMousePressed
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea Convertir?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0){
+        if (respuesta == 0) {
             JComponent comp = Utiles.ValidaControles(jPanel2);
-            if (comp == null){
+            if (comp == null) {
                 if (Utiles.validarFecha(eFechaAltaSS) && Utiles.validarFecha(eFechaAltaUltimaEmpresa) && Utiles.validarFecha(eFechaCEA) && Utiles.validarFecha(eFechaDocumento)) {
-                    if (eNif.getText().length() <= 10){
-                        new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
-                            @Override
-                            protected void tareaHaRealizar() {
-                                File archivo = new File(Utiles.rutaEnviadosVidaLaboral.concat(eNombreDocumento.getText()));
-                                Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosVidaLaboralPDF.concat(eNombreDocumento.getText())));
-                                if (movido){
-                                    Utiles.generarXMLVidaLaboral(eNombreDocumento);
-                                    listaDocumentos.remove(elementoSeleccionadoTabla);
-                                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
-                                    modelo.removeRow(elementoSeleccionadoTabla);
-                                    jXTable1.setModel(modelo);
-                                    limpiarComponentesFormulario();
-                                }else JOptionPane.showMessageDialog(null,"Debe cerrar el documento PDF antes de convertir.");
-                            }
+                    if (eNif.getText().length() <= 10) {
+                        if (eNumeroAnnosTotal.getText().length() <= 2) {
+                            new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
+                                @Override
+                                protected void tareaHaRealizar() {
+                                    File archivo = new File(Utiles.rutaEnviadosVidaLaboral.concat(eNombreDocumento.getText()));
+                                    Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosVidaLaboralPDF.concat(eNombreDocumento.getText())));
+                                    if (movido) {
+                                        Utiles.generarXMLVidaLaboral(eNombreDocumento);
+                                        listaDocumentos.remove(elementoSeleccionadoTabla);
+                                        DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
+                                        modelo.removeRow(elementoSeleccionadoTabla);
+                                        jXTable1.setModel(modelo);
+                                        limpiarComponentesFormulario();
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Debe cerrar el documento PDF antes de convertir.");
+                                    }
+                                }
                             }.ejecutarTarea();
-                    }else {
-                            JOptionPane.showMessageDialog(null,"NIF incorrecto, a lo sumo debe tener 10 caracteres.");
-                            eNif.requestFocus();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Número de años laborales incorrecto, a lo sumo debe tener 2 dígitos.");
+                            eNumeroAnnosTotal.requestFocus();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "NIF incorrecto, a lo sumo debe tener 10 caracteres.");
+                        eNif.requestFocus();
                     }
-                }else {
-                    JOptionPane.showMessageDialog(null,"Fecha incorrecta.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fecha incorrecta.");
                 }
-            }else {
-                 if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
-                {
-                    JOptionPane.showMessageDialog(null,Utiles.msgFechaIncorrecta + comp.getName());
+            } else {
+                if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) {
+                    JOptionPane.showMessageDialog(null, Utiles.msgFechaIncorrecta + comp.getName());
+                    comp.requestFocus();
+                } else {
+                    JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
                     comp.requestFocus();
                 }
-                else
-                {
-                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
-                    comp.requestFocus();
-                } 
             }
         }
     }//GEN-LAST:event_bConvertirMousePressed
@@ -608,7 +615,7 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         llenarCombo("Tipo Regimen");
         llenarCombo("Tipo Contrato");
-        
+
         JTableHeader th;
         th = jXTable1.getTableHeader();
         Font fuente = new Font(th.getFont().getName(), Font.BOLD, 11);
@@ -619,26 +626,26 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         columna.setPreferredWidth(200);
         columna = jXTable1.getColumn("Estado");
         columna.setPreferredWidth(200);
-        
+
         jXTable1.setAutoCreateRowSorter(true);
         jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jXTable1.setColumnControlVisible(true); 
+        jXTable1.setColumnControlVisible(true);
         jXFindBar1.setSearchable(jXTable1.getSearchable());
         jXTable1.setColumnControlVisible(true);
         TableRowFilterSupport.forTable(jXTable1).searchable(true).apply();
-        
-        jXTable1.addMouseListener(new MouseAdapter(){
-        @Override
-        public void mouseClicked(MouseEvent e){
-           elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-           jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
-        }
+
+        jXTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+            }
         });
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-        if (jXTable1.getSelectedRow() != -1){
+        if (jXTable1.getSelectedRow() != -1) {
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -648,21 +655,23 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                     eNombreDocumento.setText(documentoSeleccionado.getNombre());
                     jXTable1.clearSelection();
                     File archivo = new File(Utiles.rutaEnviadosVidaLaboral.concat("\\").concat(documentoSeleccionado.getNombre()));
-                        try {
-                            Desktop.getDesktop().open(archivo);
-                        }catch (IOException ex) {
-                        }
+                    try {
+                        Desktop.getDesktop().open(archivo);
+                    } catch (IOException ex) {
                     }
-                }.ejecutarTarea();
-            }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
+                }
+            }.ejecutarTarea();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
+        }
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
+        actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
-        if (jXTable1.getSelectedRow() != -1){
+        if (jXTable1.getSelectedRow() != -1) {
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -671,13 +680,15 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                     File archivo = new File(Utiles.rutaEnviadosVidaLaboral.concat(documentoSeleccionado.getNombre()));
                     archivo.renameTo(new File(Utiles.rutaEnviadosDocumentosKO.concat(documentoSeleccionado.getNombre())));
                     listaDocumentos.remove(elementoSeleccionadoTabla);
-                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
+                    DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
                     modelo.removeRow(elementoSeleccionadoTabla);
                     jXTable1.setModel(modelo);
                     limpiarComponentesFormulario();
                 }
             }.ejecutarTarea();
-        }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
+        }
     }//GEN-LAST:event_jButton3MousePressed
 
     /**
@@ -701,7 +712,7 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
 

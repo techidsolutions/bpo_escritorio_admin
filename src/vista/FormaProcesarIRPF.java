@@ -39,7 +39,6 @@ import util.Utiles;
  * @author TECH ID SOLUTIONS
  */
 public class FormaProcesarIRPF extends javax.swing.JDialog {
-
     Vector modelEstadoCivil;
     Vector modelProvincia;
     Vector modelViviendaHabitual;
@@ -48,126 +47,121 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
     ArrayList<Documento> listaDocumentos;
     int elementoSeleccionadoTabla = -1;
     Documento documentoSeleccionado;
-
+    
     /**
      * Creates new form FormaProcesarIRPF
-     *
      * @param parent
      * @param modal
      */
     public FormaProcesarIRPF(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
+        
         RestrictedTextField restriccionCodigoPostal = new RestrictedTextField(eCodigoPostal);
         restriccionCodigoPostal.setLimit(5);
         //restriccionCodigoPostal.setOnlyNums(true);
-
+        
         RestrictedTextField restriccionPersonasCargo = new RestrictedTextField(ePersonasCargo);
         restriccionPersonasCargo.setLimit(15);
         restriccionPersonasCargo.setOnlyNums(true);
-
+        
         RestrictedTextField restriccionNif = new RestrictedTextField(eNif);
         restriccionNif.setLimit(10);
-
+        
         eFecha.setFormat(Resources.DMY);
         eFecha.setName("FECHA");
         eFecha.setNextFocusableComponent(eNif);
     }
-
+    
     /**
-     *
-     * @param TipoCombo
+     * 
+     * @param TipoCombo 
      */
-    private void llenarCombo(String TipoCombo) {
-        switch (TipoCombo) {
-            case "Estado Civil":
-                modelEstadoCivil = new Vector();
-                modelEstadoCivil.addElement(new ModelCombo("Soltera", "Soltera"));
-                modelEstadoCivil.addElement(new ModelCombo("Casada", "Casada"));
-                modelEstadoCivil.addElement(new ModelCombo("Viuda", "Viuda"));
-                modelEstadoCivil.addElement(new ModelCombo("Divorciada", "Divorciada"));
-                eEstadoCivil.setModel(new DefaultComboBoxModel(modelEstadoCivil));
-                break;
-            case "Provincia":
-                modelProvincia = new Vector();
-                modelProvincia.addElement(new ModelCombo("SIN_ASIGNAR", "SIN_ASIGNAR"));
-                modelProvincia.addElement(new ModelCombo("ALAVA", "ALAVA"));
-                modelProvincia.addElement(new ModelCombo("ALBACETE", "ALBACETE"));
-                modelProvincia.addElement(new ModelCombo("ALICANTE", "ALICANTE"));
-                modelProvincia.addElement(new ModelCombo("ALMERIA", "ALMERIA"));
-                modelProvincia.addElement(new ModelCombo("AVILA", "AVILA"));
-                modelProvincia.addElement(new ModelCombo("BADAJOZ", "BADAJOZ"));
-                modelProvincia.addElement(new ModelCombo("BALEARES", "BALEARES"));
-                modelProvincia.addElement(new ModelCombo("BARCELONA", "BARCELONA"));
-                modelProvincia.addElement(new ModelCombo("BURGOS", "BURGOS"));
-                modelProvincia.addElement(new ModelCombo("CACERES", "CACERES"));
-                modelProvincia.addElement(new ModelCombo("CADIZ", "CADIZ"));
-                modelProvincia.addElement(new ModelCombo("CASTELLON", "CASTELLON"));
-                modelProvincia.addElement(new ModelCombo("CIUDAD_REAL", "CIUDAD_REAL"));
-                modelProvincia.addElement(new ModelCombo("CORDOBA", "CORDOBA"));
-                modelProvincia.addElement(new ModelCombo("A_CORUÑA", "A_CORUÑA"));
-                modelProvincia.addElement(new ModelCombo("CUENCA", "CUENCA"));
-                modelProvincia.addElement(new ModelCombo("GIRONA", "GIRONA"));
-                modelProvincia.addElement(new ModelCombo("GRANADA", "GRANADA"));
-                modelProvincia.addElement(new ModelCombo("GUADALAJARA", "GUADALAJARA"));
-                modelProvincia.addElement(new ModelCombo("GUIPUZCOA", "GUIPUZCOA"));
-                modelProvincia.addElement(new ModelCombo("HUELVA", "HUELVA"));
-                modelProvincia.addElement(new ModelCombo("HUESCA", "HUESCA"));
-                modelProvincia.addElement(new ModelCombo("JAEN", "JAEN"));
-                modelProvincia.addElement(new ModelCombo("LEON", "LEON"));
-                modelProvincia.addElement(new ModelCombo("LLEIDA", "LLEIDA"));
-                modelProvincia.addElement(new ModelCombo("LA_RIOJA", "LA_RIOJA"));
-                modelProvincia.addElement(new ModelCombo("LUGO", "LUGO"));
-                modelProvincia.addElement(new ModelCombo("MADRID", "MADRID"));
-                modelProvincia.addElement(new ModelCombo("MALAGA", "MALAGA"));
-                modelProvincia.addElement(new ModelCombo("MURCIA", "MURCIA"));
-                modelProvincia.addElement(new ModelCombo("NAVARRA", "NAVARRA"));
-                modelProvincia.addElement(new ModelCombo("OURENSE", "OURENSE"));
-                modelProvincia.addElement(new ModelCombo("ASTURIAS", "ASTURIAS"));
-                modelProvincia.addElement(new ModelCombo("PALENCIA", "PALENCIA"));
-                modelProvincia.addElement(new ModelCombo("LAS_PALMAS", "LAS_PALMAS"));
-                modelProvincia.addElement(new ModelCombo("PONTEVEDRA", "PONTEVEDRA"));
-                modelProvincia.addElement(new ModelCombo("SALAMANCA", "SALAMANCA"));
-                modelProvincia.addElement(new ModelCombo("SC_TENERIFE", "SC_TENERIFE"));
-                modelProvincia.addElement(new ModelCombo("CANTABRIA", "CANTABRIA"));
-                modelProvincia.addElement(new ModelCombo("SEGOVIA", "SEGOVIA"));
-                modelProvincia.addElement(new ModelCombo("SEVILLA", "SEVILLA"));
-                modelProvincia.addElement(new ModelCombo("SORIA", "SORIA"));
-                modelProvincia.addElement(new ModelCombo("TARRAGONA", "TARRAGONA"));
-                modelProvincia.addElement(new ModelCombo("TERUEL", "TERUEL"));
-                modelProvincia.addElement(new ModelCombo("TOLEDO", "TOLEDO"));
-                modelProvincia.addElement(new ModelCombo("VALENCIA", "VALENCIA"));
-                modelProvincia.addElement(new ModelCombo("VALLADOLID", "VALLADOLID"));
-                modelProvincia.addElement(new ModelCombo("VIZCAYA", "VIZCAYA"));
-                modelProvincia.addElement(new ModelCombo("ZAMORA", "ZAMORA"));
-                modelProvincia.addElement(new ModelCombo("ZARAGOZA", "ZARAGOZA"));
-                modelProvincia.addElement(new ModelCombo("CEUTA", "CEUTA"));
-                modelProvincia.addElement(new ModelCombo("MELILLA", "MELILLA"));
-
-                eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
-                break;
-            case "Vivienda habitual":
-                modelViviendaHabitual = new Vector();
-                modelViviendaHabitual.addElement(new ModelCombo("Propietario", "1:Propietario"));
-                modelViviendaHabitual.addElement(new ModelCombo("Usufructuario", "2:Usufructuario"));
-                modelViviendaHabitual.addElement(new ModelCombo("Arrendatario", "3:Arrendatario"));
-                modelViviendaHabitual.addElement(new ModelCombo("OtraSituacion", "4:OtraSituacion"));
-                eViviendaHabitual.setModel(new DefaultComboBoxModel(modelViviendaHabitual));
-                break;
-            case "Opción tributaria":
-                modelOpcionTributaria = new Vector();
-                modelOpcionTributaria.addElement(new ModelCombo("Individual", "Individual"));
-                modelOpcionTributaria.addElement(new ModelCombo("Conjunta", "Conjunta"));
-                eOpcionTributacion.setModel(new DefaultComboBoxModel(modelOpcionTributaria));
-                break;
+    private void llenarCombo(String TipoCombo){
+        switch(TipoCombo){
+            case "Estado Civil":modelEstadoCivil = new Vector();
+                                modelEstadoCivil.addElement( new ModelCombo("Soltera", "Soltera" ) );
+                                modelEstadoCivil.addElement( new ModelCombo("Casada", "Casada" ) );
+                                modelEstadoCivil.addElement( new ModelCombo("Viuda", "Viuda" ) );
+                                modelEstadoCivil.addElement( new ModelCombo("Divorciada", "Divorciada" ) );
+                                eEstadoCivil.setModel(new DefaultComboBoxModel(modelEstadoCivil));
+                                break;    
+            case "Provincia":modelProvincia = new Vector();
+                                modelProvincia.addElement( new ModelCombo("SIN_ASIGNAR", "SIN_ASIGNAR" ) );
+                                modelProvincia.addElement( new ModelCombo("ALAVA", "ALAVA" ) );
+                                modelProvincia.addElement( new ModelCombo("ALBACETE", "ALBACETE" ) );
+                                modelProvincia.addElement( new ModelCombo("ALICANTE", "ALICANTE" ) );
+                                modelProvincia.addElement( new ModelCombo("ALMERIA", "ALMERIA" ) );
+                                modelProvincia.addElement( new ModelCombo("AVILA", "AVILA" ) );
+                                modelProvincia.addElement( new ModelCombo("BADAJOZ", "BADAJOZ" ) );
+                                modelProvincia.addElement( new ModelCombo("BALEARES", "BALEARES" ) );
+                                modelProvincia.addElement( new ModelCombo("BARCELONA", "BARCELONA" ) );
+                                modelProvincia.addElement( new ModelCombo("BURGOS", "BURGOS" ) );
+                                modelProvincia.addElement( new ModelCombo("CACERES", "CACERES" ) );
+                                modelProvincia.addElement( new ModelCombo("CADIZ", "CADIZ" ) );
+                                modelProvincia.addElement( new ModelCombo("CASTELLON", "CASTELLON" ) );
+                                modelProvincia.addElement( new ModelCombo("CIUDAD_REAL", "CIUDAD_REAL" ) );
+                                modelProvincia.addElement( new ModelCombo("CORDOBA", "CORDOBA" ) );
+                                modelProvincia.addElement( new ModelCombo("A_CORUÑA", "A_CORUÑA" ) );
+                                modelProvincia.addElement( new ModelCombo("CUENCA", "CUENCA" ) );
+                                modelProvincia.addElement( new ModelCombo("GIRONA", "GIRONA" ) );
+                                modelProvincia.addElement( new ModelCombo("GRANADA", "GRANADA" ) );
+                                modelProvincia.addElement( new ModelCombo("GUADALAJARA", "GUADALAJARA" ) );
+                                modelProvincia.addElement( new ModelCombo("GUIPUZCOA", "GUIPUZCOA" ) );
+                                modelProvincia.addElement( new ModelCombo("HUELVA", "HUELVA" ) );
+                                modelProvincia.addElement( new ModelCombo("HUESCA", "HUESCA" ) );
+                                modelProvincia.addElement( new ModelCombo("JAEN", "JAEN" ) );
+                                modelProvincia.addElement( new ModelCombo("LEON", "LEON" ) );
+                                modelProvincia.addElement( new ModelCombo("LLEIDA", "LLEIDA" ) );
+                                modelProvincia.addElement( new ModelCombo("LA_RIOJA", "LA_RIOJA" ) );
+                                modelProvincia.addElement( new ModelCombo("LUGO", "LUGO" ) );
+                                modelProvincia.addElement( new ModelCombo("MADRID", "MADRID" ) );
+                                modelProvincia.addElement( new ModelCombo("MALAGA", "MALAGA" ) );
+                                modelProvincia.addElement( new ModelCombo("MURCIA", "MURCIA" ) );
+                                modelProvincia.addElement( new ModelCombo("NAVARRA", "NAVARRA" ) );
+                                modelProvincia.addElement( new ModelCombo("OURENSE", "OURENSE" ) );
+                                modelProvincia.addElement( new ModelCombo("ASTURIAS", "ASTURIAS" ) );
+                                modelProvincia.addElement( new ModelCombo("PALENCIA", "PALENCIA" ) );
+                                modelProvincia.addElement( new ModelCombo("LAS_PALMAS", "LAS_PALMAS" ) );
+                                modelProvincia.addElement( new ModelCombo("PONTEVEDRA", "PONTEVEDRA" ) );
+                                modelProvincia.addElement( new ModelCombo("SALAMANCA", "SALAMANCA" ) );
+                                modelProvincia.addElement( new ModelCombo("SC_TENERIFE", "SC_TENERIFE" ) );
+                                modelProvincia.addElement( new ModelCombo("CANTABRIA", "CANTABRIA" ) );
+                                modelProvincia.addElement( new ModelCombo("SEGOVIA", "SEGOVIA" ) );
+                                modelProvincia.addElement( new ModelCombo("SEVILLA", "SEVILLA" ) );
+                                modelProvincia.addElement( new ModelCombo("SORIA", "SORIA" ) );
+                                modelProvincia.addElement( new ModelCombo("TARRAGONA", "TARRAGONA" ) );
+                                modelProvincia.addElement( new ModelCombo("TERUEL", "TERUEL" ) );
+                                modelProvincia.addElement( new ModelCombo("TOLEDO", "TOLEDO" ) );
+                                modelProvincia.addElement( new ModelCombo("VALENCIA", "VALENCIA" ) );
+                                modelProvincia.addElement( new ModelCombo("VALLADOLID", "VALLADOLID" ) );
+                                modelProvincia.addElement( new ModelCombo("VIZCAYA", "VIZCAYA" ) );
+                                modelProvincia.addElement( new ModelCombo("ZAMORA", "ZAMORA" ) );
+                                modelProvincia.addElement( new ModelCombo("ZARAGOZA", "ZARAGOZA" ) );
+                                modelProvincia.addElement( new ModelCombo("CEUTA", "CEUTA" ) );
+                                modelProvincia.addElement( new ModelCombo("MELILLA", "MELILLA" ) );
+                                
+                                eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
+                                break;    
+            case "Vivienda habitual":    modelViviendaHabitual = new Vector();
+                                modelViviendaHabitual.addElement( new ModelCombo("Propietario", "1:Propietario" ) );
+                                modelViviendaHabitual.addElement( new ModelCombo("Usufructuario", "2:Usufructuario" ) );
+                                modelViviendaHabitual.addElement( new ModelCombo("Arrendatario", "3:Arrendatario" ) );
+                                modelViviendaHabitual.addElement( new ModelCombo("OtraSituacion", "4:OtraSituacion" ) );
+                                eViviendaHabitual.setModel(new DefaultComboBoxModel(modelViviendaHabitual));
+                                break;
+            case "Opción tributaria":    modelOpcionTributaria = new Vector();
+                                modelOpcionTributaria.addElement( new ModelCombo("Individual", "Individual" ) );
+                                modelOpcionTributaria.addElement( new ModelCombo("Conjunta", "Conjunta" ) );
+                                eOpcionTributacion.setModel(new DefaultComboBoxModel(modelOpcionTributaria));
+                                break;
         }
     }
-
+    
     /**
-     *
+     * 
      */
-    private void limpiarComponentesFormulario() {
+    private void limpiarComponentesFormulario(){
         eAportaciones.setText("");
         eBaseImponibleAhorro.setText("");
         eBaseImponibleGeneral.setText("");
@@ -179,26 +173,26 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         eRetenciones.setText("");
         eCodigoPostal.setText("");
         eNombreTitular.setText("");
-
+                
         //Combo
-        eEstadoCivil.setSelectedIndex(0);
-        eProvincia.setSelectedIndex(0);
-        eOpcionTributacion.setSelectedIndex(0);
-        eViviendaHabitual.setSelectedIndex(0);
+        eEstadoCivil.setSelectedIndex(0); 
+        eProvincia.setSelectedIndex(0); 
+        eOpcionTributacion.setSelectedIndex(0); 
+        eViviendaHabitual.setSelectedIndex(0); 
 
         //Fechas
         Date fecha = null;
         eFecha.setDate(fecha);
     }
-
+    
     /**
-     *
-     * @return
+     * 
+     * @return 
      */
-    public static ArrayList<Documento> cargarListaDocumentos() {
+    public static ArrayList<Documento> cargarListaDocumentos(){
         ArrayList<Documento> listaDocumentos = new ArrayList<>();
         String caminoDirectorioRaiz = Utiles.rutaEnviadosIRPF;
-        File dirRaiz = new File(caminoDirectorioRaiz);
+	File dirRaiz = new File(caminoDirectorioRaiz);
         String archivos[] = dirRaiz.list();
         File dirTemp;
         Documento documento;
@@ -209,22 +203,23 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         }
         return listaDocumentos;
     }
-
+    
     /**
-     *
-     * @param mensaje
+     * 
+     * @param mensaje 
      */
-    private void actualizarInfoDocumentos(String mensaje) {
-        new TareaSegundoPlano(this, mensaje) {
-            @Override
-            protected void tareaHaRealizar() {
-                listaDocumentos = cargarListaDocumentos();
-                Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
-                Dimension dimension = jXTable1.getPreferredSize();
-                jScrollPane1.setPreferredSize(new Dimension(dimension.width, jXTable1.getRowHeight() * filas));
-            }
-        }.ejecutarTarea();
+    private void actualizarInfoDocumentos(String mensaje){
+            new TareaSegundoPlano(this, mensaje) {
+                @Override
+                    protected void tareaHaRealizar() {
+                        listaDocumentos = cargarListaDocumentos();
+                        Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
+                        Dimension dimension = jXTable1.getPreferredSize();
+                        jScrollPane1.setPreferredSize(new Dimension(dimension.width,jXTable1.getRowHeight()*filas));
+                    }
+            }.ejecutarTarea();
     }
+       
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -776,34 +771,32 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
 
     private void bConvertirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bConvertirMousePressed
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea Convertir?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
+        if (respuesta == 0){
             JComponent comp = Utiles.ValidaControles(jPanel2);
-            if (comp == null) {
-                if (Utiles.validarFecha(eFecha)) {
-                    if (eNif.getText().length() <= 10) {
+            if (comp == null){
+                if (Utiles.validarFecha(eFecha)){
+                    if (eNif.getText().length() <= 10){
                         new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
                             @Override
                             protected void tareaHaRealizar() {
                                 File archivo = new File(Utiles.rutaEnviadosIRPF.concat(eNombreDocumento.getText()));
                                 Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosIRPFPDF.concat(eNombreDocumento.getText())));
-                                if (movido) {
+                                if (movido){
                                     Utiles.generarXMLOtroTipoDocumento(eNombreDocumento);
                                     listaDocumentos.remove(elementoSeleccionadoTabla);
-                                    DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
+                                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
                                     modelo.removeRow(elementoSeleccionadoTabla);
                                     jXTable1.setModel(modelo);
                                     limpiarComponentesFormulario();
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Debe cerrar el documento PDF antes de convertir.");
-                                }
+                                }else JOptionPane.showMessageDialog(null,"Debe cerrar el documento PDF antes de convertir.");
                             }
-                        }.ejecutarTarea();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "NIF incorrecto, a lo sumo debe tener 10 caracteres.");
+                            }.ejecutarTarea();
+                    }else {
+                        JOptionPane.showMessageDialog(null,"NIF incorrecto, a lo sumo debe tener 10 caracteres.");
                         eNif.requestFocus();
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Fecha incorrecta.");
+                    }    
+                }else {
+                    JOptionPane.showMessageDialog(null,"Fecha incorrecta.");
                     eFecha.requestFocus();
                 }
             } else {
@@ -829,7 +822,7 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
                     comp.requestFocus();
                 }
             }
-        }
+        }    
     }//GEN-LAST:event_bConvertirMousePressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -837,7 +830,7 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         llenarCombo("Provincia");
         llenarCombo("Vivienda habitual");
         llenarCombo("Opción tributaria");
-
+        
         JTableHeader th;
         th = jXTable1.getTableHeader();
         Font fuente = new Font(th.getFont().getName(), Font.BOLD, 11);
@@ -848,24 +841,25 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         columna.setPreferredWidth(200);
         columna = jXTable1.getColumn("Estado");
         columna.setPreferredWidth(200);
-
+        
+        
         jXTable1.setAutoCreateRowSorter(true);
         jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jXTable1.setColumnControlVisible(true);
+        jXTable1.setColumnControlVisible(true); 
         jXFindBar1.setSearchable(jXTable1.getSearchable());
         jXTable1.setColumnControlVisible(true);
         TableRowFilterSupport.forTable(jXTable1).searchable(true).apply();
-
-        jXTable1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-                jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
-
-            }
+        
+        jXTable1.addMouseListener(new MouseAdapter(){
+        @Override
+        public void mouseClicked(MouseEvent e){
+            
+           elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+           jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+          
+        }
         });
-
+        
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_formWindowOpened
 
@@ -874,86 +868,78 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
     }//GEN-LAST:event_eResultadoDeclaracionKeyTyped
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-        if (jXTable1.getSelectedRow() != -1) {
-            new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
-                @Override
-                protected void tareaHaRealizar() {
-                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-                    documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
-                    limpiarComponentesFormulario();
-                    eNombreDocumento.setText(documentoSeleccionado.getNombre());
-                    jXTable1.clearSelection();
-                    File archivo = new File(Utiles.rutaEnviadosIRPF.concat("\\").concat(documentoSeleccionado.getNombre()));
-                    try {
-                        Desktop.getDesktop().open(archivo);
-                    } catch (IOException ex) {
-                    }
-                }
+        if (jXTable1.getSelectedRow() != -1){ 
+             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
+                    @Override
+                    protected void tareaHaRealizar() {
+                        elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                        documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
+                        limpiarComponentesFormulario();
+                        eNombreDocumento.setText(documentoSeleccionado.getNombre());
+                        jXTable1.clearSelection();
+                        File archivo = new File(Utiles.rutaEnviadosIRPF.concat("\\").concat(documentoSeleccionado.getNombre()));
+                        try {
+                            Desktop.getDesktop().open(archivo);
+                        }catch (IOException ex) {
+                        }
+                    }               
             }.ejecutarTarea();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
-        }
+        }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-        actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
+         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
-        if (jXTable1.getSelectedRow() != -1) {
-            new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
-                @Override
-                protected void tareaHaRealizar() {
-                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-                    documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
-                    File archivo = new File(Utiles.rutaEnviadosIRPF.concat(documentoSeleccionado.getNombre()));
-                    archivo.renameTo(new File(Utiles.rutaEnviadosDocumentosKO.concat(documentoSeleccionado.getNombre())));
-                    listaDocumentos.remove(elementoSeleccionadoTabla);
-                    DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
-                    modelo.removeRow(elementoSeleccionadoTabla);
-                    jXTable1.setModel(modelo);
-                    limpiarComponentesFormulario();
-                }
+        if (jXTable1.getSelectedRow() != -1){ 
+             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
+                    @Override
+                    protected void tareaHaRealizar() {
+                        elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                        documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
+                        File archivo = new File(Utiles.rutaEnviadosIRPF.concat(documentoSeleccionado.getNombre()));
+                        archivo.renameTo(new File(Utiles.rutaEnviadosDocumentosKO.concat(documentoSeleccionado.getNombre())));
+                        listaDocumentos.remove(elementoSeleccionadoTabla);
+                        DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
+                        modelo.removeRow(elementoSeleccionadoTabla);
+                        jXTable1.setModel(modelo);
+                        limpiarComponentesFormulario();
+                    }               
             }.ejecutarTarea();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
-        }
+        }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
     }//GEN-LAST:event_jButton3MousePressed
 
     private void eAportacionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eAportacionesFocusLost
-        if (!eAportaciones.getText().equals("")) {
-            if (eAportaciones.getText().contains(".")) {
+        if (!eAportaciones.getText().equals(""))
+            if (eAportaciones.getText().contains(".")){
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eAportaciones.requestFocus();
             }
-        }
     }//GEN-LAST:event_eAportacionesFocusLost
 
     private void eBaseImponibleAhorroFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eBaseImponibleAhorroFocusLost
-        if (!eBaseImponibleAhorro.getText().equals("")) {
-            if (eBaseImponibleAhorro.getText().contains(".")) {
-                JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
-                eBaseImponibleAhorro.requestFocus();
-            }
-        }
+            if (!eBaseImponibleAhorro.getText().equals(""))
+                if (eBaseImponibleAhorro.getText().contains(".")){
+                    JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
+                    eBaseImponibleAhorro.requestFocus();
+                }
     }//GEN-LAST:event_eBaseImponibleAhorroFocusLost
 
     private void eBaseImponibleGeneralFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eBaseImponibleGeneralFocusLost
-        if (!eBaseImponibleGeneral.getText().equals("")) {
-            if (eBaseImponibleGeneral.getText().contains(".")) {
-                JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
-                eBaseImponibleGeneral.requestFocus();
-            }
-        }
+        if (!eBaseImponibleGeneral.getText().equals(""))
+                if (eBaseImponibleGeneral.getText().contains(".")){
+                    JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
+                    eBaseImponibleGeneral.requestFocus();
+                }
     }//GEN-LAST:event_eBaseImponibleGeneralFocusLost
 
     private void eRendimientoNetoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eRendimientoNetoFocusLost
-        if (!eRendimientoNeto.getText().equals("")) {
-            if (eRendimientoNeto.getText().contains(".")) {
-                JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
-                eRendimientoNeto.requestFocus();
-            }
-        }
+       if (!eRendimientoNeto.getText().equals(""))
+                if (eRendimientoNeto.getText().contains(".")){
+                    JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
+                    eRendimientoNeto.requestFocus();
+                }
     }//GEN-LAST:event_eRendimientoNetoFocusLost
 
     private void eRendimientoNetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eRendimientoNetoActionPerformed
@@ -961,20 +947,18 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
     }//GEN-LAST:event_eRendimientoNetoActionPerformed
 
     private void eResultadoDeclaracionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eResultadoDeclaracionFocusLost
-        if (!eResultadoDeclaracion.getText().equals("")) {
-            if (eResultadoDeclaracion.getText().contains(".")) {
-                JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
-                eResultadoDeclaracion.requestFocus();
-            }
+        if (!eResultadoDeclaracion.getText().equals(""))
+                if (eResultadoDeclaracion.getText().contains(".")){
+                    JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
+                    eResultadoDeclaracion.requestFocus();
         }
     }//GEN-LAST:event_eResultadoDeclaracionFocusLost
 
     private void eRetencionesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eRetencionesFocusLost
-        if (!eRetenciones.getText().equals("")) {
-            if (eRetenciones.getText().contains(".")) {
-                JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
-                eRetenciones.requestFocus();
-            }
+        if (!eRetenciones.getText().equals(""))
+                if (eRetenciones.getText().contains(".")){
+                    JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
+                    eRetenciones.requestFocus();
         }
     }//GEN-LAST:event_eRetencionesFocusLost
 
@@ -998,7 +982,7 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(FormaProcesarIRPF.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         //</editor-fold>
 
         /* Create and display the dialog */

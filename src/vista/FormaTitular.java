@@ -360,19 +360,19 @@ public class FormaTitular extends javax.swing.JDialog {
         jLabel44 = new javax.swing.JLabel();
         eFechaInscripcionTitular = new org.openswing.swing.client.DateControl();
         jLabel45 = new javax.swing.JLabel();
-        eTipoParticipacion = new javax.swing.JComboBox<>();
+        eTipoParticipacion = new javax.swing.JComboBox<String>();
         jLabel46 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         ePorcientoParticipacion = new javax.swing.JTextField();
-        eTipoDocumento = new javax.swing.JComboBox<>();
+        eTipoDocumento = new javax.swing.JComboBox<String>();
         jLabel50 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
-        eTipoPropiedad = new javax.swing.JComboBox<>();
+        eTipoPropiedad = new javax.swing.JComboBox<String>();
         jLabel51 = new javax.swing.JLabel();
-        eRegimenEconomico = new javax.swing.JComboBox<>();
+        eRegimenEconomico = new javax.swing.JComboBox<String>();
         jLabel52 = new javax.swing.JLabel();
-        eTipoTitulo = new javax.swing.JComboBox<>();
+        eTipoTitulo = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -484,7 +484,7 @@ public class FormaTitular extends javax.swing.JDialog {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
@@ -522,7 +522,7 @@ public class FormaTitular extends javax.swing.JDialog {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(eTipoTitulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(eTipoParticipacion, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(eFechaInscripcionTitular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(eFechaInscripcionTitular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                             .addComponent(eNumeroInscripcion, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(eNotario, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(eNumeroProtocolo, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -616,7 +616,7 @@ public class FormaTitular extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

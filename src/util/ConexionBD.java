@@ -24,6 +24,10 @@ public class ConexionBD {
     private String usuario; 
     private String clave;
     private String cadenaConexion;
+
+    ConexionBD(String ec234255134200euwest1computeamazonawscom, String lvanmvjveklsei, String a9f2638f12a6efd4024fd25c971084d46d4a152be) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * Método que devuelve una Conexión.
@@ -56,4 +60,14 @@ public class ConexionBD {
        Connection conexion = DriverManager.getConnection("jdbc:odbc:bd_bpo");
        return conexion;
     }
+//    public Connection Conexion_postgresql()throws java.sql.SQLException {
+//        try {
+//           Class.forName("org.postgresql.Driver"); // Se registra el driver
+//         }
+//         catch (ClassNotFoundException e ){ 
+//             
+//         } 
+//       cadenaConexion = "jdbc:postgresql://" + this.nombreHost + ":5432/d2j83ml2qjqnu0" + "?sslmode=require"; // Se crea la cadena de conexiÃ³n
+//       return DriverManager.getConnection(cadenaConexion, this.usuario, this.clave); 
+//    }
 }

@@ -59,7 +59,6 @@ import util.Utiles;
  * @author TECH ID SOLUTIONS
  */
 public class FormaPrincipal extends javax.swing.JFrame {
-
     private static Usuario usuario = null;
     int alto;
     final int filas = 20;
@@ -84,17 +83,17 @@ public class FormaPrincipal extends javax.swing.JFrame {
     Vector modelTipoPropiedad;
     Vector modelRegistroPropiedad;
     Vector modelTipoTitulo;
-
-    private ArrayList<ArrayList<ComponenteFormulario>> listaTitulares;
-    private ArrayList<ArrayList<ComponenteFormulario>> listaCargas;
-    private ArrayList<ArrayList<ComponenteFormulario>> listaAnejos;
+     
+    private ArrayList<ArrayList<ComponenteFormulario>> listaTitulares; 
+    private ArrayList<ArrayList<ComponenteFormulario>> listaCargas; 
+    private ArrayList<ArrayList<ComponenteFormulario>> listaAnejos; 
     private List<Poblacion> listaPoblaciones;
     private ArrayList<Provincia> listaProvincias;
     private List<RegistroPropiedad> listaRegistros;
 
     private ArrayList<ComponenteFormulario> listaTitularData;
 
-    public static void setUsuario(Usuario usuario) {
+    public  static void setUsuario(Usuario usuario) {
         FormaPrincipal.usuario = usuario;
     }
 
@@ -102,7 +101,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
         return usuario;
     }
 
-    public ArrayList<ArrayList<ComponenteFormulario>> getListaTitulares() {
+    public  ArrayList<ArrayList<ComponenteFormulario>> getListaTitulares() {
         return listaTitulares;
     }
 
@@ -121,11 +120,12 @@ public class FormaPrincipal extends javax.swing.JFrame {
     public void setListaAnejos(ArrayList<ArrayList<ComponenteFormulario>> listaAnejos) {
         this.listaAnejos = listaAnejos;
     }
-
+    
+    
     /**
-     *
+     * 
      */
-    private void llenarPoblaciones() {
+    private void llenarPoblaciones(){
         ComboboxToolTipRenderer renderer = new ComboboxToolTipRenderer();
         eRegistroPropiedad.setRenderer(renderer);
         List<String> tooltips = new ArrayList<>();
@@ -135,172 +135,165 @@ public class FormaPrincipal extends javax.swing.JFrame {
         modelPoblacion = new Vector();
         Collections.sort(listaPoblaciones);
         for (Poblacion poblacion : listaPoblaciones) {
-            modelPoblacion.addElement(new ModelCombo(poblacion.getCodigo(), poblacion.getNombre()));
+            modelPoblacion.addElement( new ModelCombo(poblacion.getCodigo(), poblacion.getNombre()) );
         }
         ePoblacion.setModel(new DefaultComboBoxModel(modelPoblacion));
-
+        
         modelRegistroPropiedad = new Vector();
         Collections.sort(listaRegistros);
-        modelRegistroPropiedad.addElement(new ModelCombo("0", "NO_INFORMADO"));
+        modelRegistroPropiedad.addElement( new ModelCombo("0", "NO_INFORMADO") );
         tooltips.add("NO_INFORMADO");
         for (RegistroPropiedad registroPropiedad : listaRegistros) {
-            modelRegistroPropiedad.addElement(new ModelCombo(registroPropiedad.getCodigo(), registroPropiedad.getNombre()));
+            modelRegistroPropiedad.addElement( new ModelCombo(registroPropiedad.getCodigo(), registroPropiedad.getNombre()) );
             tooltips.add(registroPropiedad.getNombre());
         }
         eRegistroPropiedad.setModel(new DefaultComboBoxModel(modelRegistroPropiedad));
         renderer.setTooltips(tooltips);
         /*
-         modelProvincia = new Vector();
-         for (Provincia provincia : listaProvincias) {
-         modelProvincia.addElement( new ModelCombo(provincia.getCodigo(), provincia.getNombre()) );
-         }
-         eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
-         */
+        modelProvincia = new Vector();
+        for (Provincia provincia : listaProvincias) {
+            modelProvincia.addElement( new ModelCombo(provincia.getCodigo(), provincia.getNombre()) );
+        }
+        eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
+        */
     }
-
-    private void llenarComboTipoInmueble(String TipoCombo) {
-        switch (TipoCombo) {
-            case "Subtipo inmueble":
-                modelSubTipoInmueble = new Vector();
-                modelSubTipoInmueble.addElement(new ModelCombo("TerrenoSecano", "TerrenoSecano"));
-                modelSubTipoInmueble.addElement(new ModelCombo("ViviendaPiso", "ViviendaPiso"));
-                modelSubTipoInmueble.addElement(new ModelCombo("ViviendaUnifamiliar", "ViviendaUnifamiliar"));
-                modelSubTipoInmueble.addElement(new ModelCombo("PlazaGaraje", "PlazaGaraje"));
-                modelSubTipoInmueble.addElement(new ModelCombo("CuartoTrastero", "CuartoTrastero"));
-                modelSubTipoInmueble.addElement(new ModelCombo("ObraNueva", "ObraNueva"));
-                modelSubTipoInmueble.addElement(new ModelCombo("DivisionHorizontal", "DivisionHorizontal"));
-                modelSubTipoInmueble.addElement(new ModelCombo("LocalComercial", "LocalComercial"));
-                modelSubTipoInmueble.addElement(new ModelCombo("EdificioIndustrial", "EdificioIndustrial"));
-                modelSubTipoInmueble.addElement(new ModelCombo("LocalIndustrial", "LocalIndustrial"));
-                modelSubTipoInmueble.addElement(new ModelCombo("LocalOficinas", "LocalOficinas"));
-                modelSubTipoInmueble.addElement(new ModelCombo("Suelo", "Suelo"));
-                modelSubTipoInmueble.addElement(new ModelCombo("OtrosInmuebles", "OtrosInmuebles"));
-                modelSubTipoInmueble.addElement(new ModelCombo("BienesInmuebles", "BienesInmuebles"));
-                modelSubTipoInmueble.addElement(new ModelCombo("EdificioCompleto", "EdificioCompleto"));
-                modelSubTipoInmueble.addElement(new ModelCombo("Pareado", "Pareado"));
-                modelSubTipoInmueble.addElement(new ModelCombo("Adosado", "Adosado"));
-                eSubtipoInmueble.setModel(new DefaultComboBoxModel(modelSubTipoInmueble));
-                break;
-            case "Tipo via":
-                modelTipoVia = new Vector();
-                modelTipoVia.addElement(new ModelCombo("Calle", "Calle"));
-                modelTipoVia.addElement(new ModelCombo("Plaza", "Plaza"));
-                modelTipoVia.addElement(new ModelCombo("Paseo", "Paseo"));
-                modelTipoVia.addElement(new ModelCombo("Avenida", "Avenida"));
-                modelTipoVia.addElement(new ModelCombo("Ronda", "Ronda"));
-                modelTipoVia.addElement(new ModelCombo("Carretera", "Carretera"));
-                modelTipoVia.addElement(new ModelCombo("Camino", "Camino"));
-                modelTipoVia.addElement(new ModelCombo("Cuesta", "Cuesta"));
-                modelTipoVia.addElement(new ModelCombo("Edificio", "Edificio"));
-                modelTipoVia.addElement(new ModelCombo("Urbanizacion", "Urbanizacion"));
-                modelTipoVia.addElement(new ModelCombo("Carrera", "Carrera"));
-                modelTipoVia.addElement(new ModelCombo("Callejon", "Callejon"));
-                modelTipoVia.addElement(new ModelCombo("Poligono", "Poligono"));
-                modelTipoVia.addElement(new ModelCombo("Travesia", "Travesia"));
-                modelTipoVia.addElement(new ModelCombo("Glorieta", "Glorieta"));
-                modelTipoVia.addElement(new ModelCombo("Colonia", "Colonia"));
-                modelTipoVia.addElement(new ModelCombo("Chalet", "Chalet"));
-                modelTipoVia.addElement(new ModelCombo("Agrupacion", "Agrupacion"));
-                modelTipoVia.addElement(new ModelCombo("Alameda", "Alameda"));
-                modelTipoVia.addElement(new ModelCombo("Apartado", "Apartado"));
-                modelTipoVia.addElement(new ModelCombo("Bajada", "Bajada"));
-                modelTipoVia.addElement(new ModelCombo("Barranco", "Barranco"));
-                modelTipoVia.addElement(new ModelCombo("Barriada", "Barriada"));
-                modelTipoVia.addElement(new ModelCombo("Barrio", "Barrio"));
-                modelTipoVia.addElement(new ModelCombo("Bloque", "Bloque"));
-                modelTipoVia.addElement(new ModelCombo("Bulevar", "Bulevar"));
-                modelTipoVia.addElement(new ModelCombo("Caserio", "Caserio"));
-                modelTipoVia.addElement(new ModelCombo("Diseminado", "Diseminado"));
-                modelTipoVia.addElement(new ModelCombo("Grupo", "Grupo"));
-                modelTipoVia.addElement(new ModelCombo("Lugar", "Lugar"));
-                modelTipoVia.addElement(new ModelCombo("Mercado", "Mercado"));
-                modelTipoVia.addElement(new ModelCombo("Parque", "Parque"));
-                modelTipoVia.addElement(new ModelCombo("Partida", "Partida"));
-                modelTipoVia.addElement(new ModelCombo("Pasaje", "Pasaje"));
-                modelTipoVia.addElement(new ModelCombo("Poblado", "Poblado"));
-                modelTipoVia.addElement(new ModelCombo("Rambla", "Rambla"));
-                modelTipoVia.addElement(new ModelCombo("Residencial", "Residencial"));
-                modelTipoVia.addElement(new ModelCombo("Rua", "Rua"));
-                modelTipoVia.addElement(new ModelCombo("Sector", "Sector"));
-                modelTipoVia.addElement(new ModelCombo("Senda", "Senda"));
-                modelTipoVia.addElement(new ModelCombo("Subida", "Subida"));
-                modelTipoVia.addElement(new ModelCombo("Torrente", "Torrente"));
-                modelTipoVia.addElement(new ModelCombo("Travesera", "Travesera"));
-                modelTipoVia.addElement(new ModelCombo("Via", "Via"));
-                modelTipoVia.addElement(new ModelCombo("Carrer", "Carrer"));
-                eTipoVia.setModel(new DefaultComboBoxModel(modelTipoVia));
-                break;
-            case "Regimen":
-                modelRegimen = new Vector();
-                modelRegimen.addElement(new ModelCombo("VentaLibre", "VentaLibre   "));
-                modelRegimen.addElement(new ModelCombo("VPO", "VPO"));
-                modelRegimen.addElement(new ModelCombo("VPOAnt78", "VPOAnt78"));
-                modelRegimen.addElement(new ModelCombo("VPOPrivada", "VPOPrivada"));
-                modelRegimen.addElement(new ModelCombo("VPOPublica", "VPOPublica"));
-                modelRegimen.addElement(new ModelCombo("VPT", "VPT"));
-                modelRegimen.addElement(new ModelCombo("Subvencionada", "Subvencionada"));
-                eRegimenProteccion.setModel(new DefaultComboBoxModel(modelRegimen));
-                break;
-            case "Regimen economico":
-                modelRegimenEconomico = new Vector();
-                modelRegimenEconomico.addElement(new ModelCombo("Otros", "Otros"));
-                modelRegimenEconomico.addElement(new ModelCombo("Gananciales", "Gananciales"));
-                modelRegimenEconomico.addElement(new ModelCombo("SeparacionBienes", "SeparacionBienes"));
-                modelRegimenEconomico.addElement(new ModelCombo("Participacion", "Participacion"));
-                eRegimenEconomico.setModel(new DefaultComboBoxModel(modelRegimenEconomico));
-                break;
-            case "Tipo de participacion":
-                modelTipoParticipacion = new Vector();
-                modelTipoParticipacion.addElement(new ModelCombo("Titular", "Titular"));
-                modelTipoParticipacion.addElement(new ModelCombo("SujetoPasivo", "SujetoPasivo"));
-                modelTipoParticipacion.addElement(new ModelCombo("Vendedor", "Vendedor"));
-                modelTipoParticipacion.addElement(new ModelCombo("Avalista", "Avalista"));
-                modelTipoParticipacion.addElement(new ModelCombo("Otros", "Otros"));
-                modelTipoParticipacion.addElement(new ModelCombo("Demandante", "Demandante"));
-                modelTipoParticipacion.addElement(new ModelCombo("Demandado", "Demandado"));
-                modelTipoParticipacion.addElement(new ModelCombo("PersonaContacto", "PersonaContacto"));
-                modelTipoParticipacion.addElement(new ModelCombo("HipotecanteNoDeudor", "HipotecanteNoDeudor"));
-                eTipoParticipacion.setModel(new DefaultComboBoxModel(modelTipoParticipacion));
-                break;
-            case "Tipo de propiedad":
-                modelTipoPropiedad = new Vector();
-                modelTipoPropiedad.addElement(new ModelCombo("Propietario", "Propietario"));
-                modelTipoPropiedad.addElement(new ModelCombo("Nudo_propietario", "Nudo_propietario"));
-                modelTipoPropiedad.addElement(new ModelCombo("Usufructuario", "Usufructuario"));
-                modelTipoPropiedad.addElement(new ModelCombo("Arrendatario_Ocupante", "Arrendatario_Ocupante"));
-                eTipoPropiedad.setModel(new DefaultComboBoxModel(modelTipoPropiedad));
-                break;
-            case "Tipo de titulo":
-                modelTipoTitulo = new Vector();
-                modelTipoTitulo.addElement(new ModelCombo("Adjudicacion", "Adjudicacion"));
-                modelTipoTitulo.addElement(new ModelCombo("Aportacion", "Aportacion"));
-                modelTipoTitulo.addElement(new ModelCombo("CompraVenta", "CompraVenta"));
-                modelTipoTitulo.addElement(new ModelCombo("DacionEnPago", "DacionEnPago"));
-                modelTipoTitulo.addElement(new ModelCombo("Donacion", "Donacion"));
-                modelTipoTitulo.addElement(new ModelCombo("Herencia", "Herencia"));
-                modelTipoTitulo.addElement(new ModelCombo("LiquidacionSociedad", "LiquidacionSociedad"));
-                modelTipoTitulo.addElement(new ModelCombo("ObraNueva", "ObraNueva"));
-                modelTipoTitulo.addElement(new ModelCombo("Permuta", "Permuta"));
-                modelTipoTitulo.addElement(new ModelCombo("PropiedadDivisionHorizontal", "PropiedadDivisionHorizontal"));
-                modelTipoTitulo.addElement(new ModelCombo("TransmisionOnerosa", "TransmisionOnerosa"));
-                modelTipoTitulo.addElement(new ModelCombo("CompensacionUrbanistica", "CompensacionUrbanistica"));
-                modelTipoTitulo.addElement(new ModelCombo("Otros", "Otros"));
-
-                eTipoTitulo.setModel(new DefaultComboBoxModel(modelTipoTitulo));
-                break;
-
-            case "Tipo de documento":
-                modelTipoDocumento = new Vector();
-                modelTipoDocumento.addElement(new ModelCombo("Unknwon", "Unknwon"));
-                modelTipoDocumento.addElement(new ModelCombo("Nif", "Nif"));
-                modelTipoDocumento.addElement(new ModelCombo("Cif", "Cif"));
-                modelTipoDocumento.addElement(new ModelCombo("Passport", "Passport"));
-                modelTipoDocumento.addElement(new ModelCombo("TarjetaResidente", "TarjetaResidente"));
-                modelTipoDocumento.addElement(new ModelCombo("IdentificacionFiscalMenor", "IdentificacionFiscalMenor"));
-                eTipoDocumento.setModel(new DefaultComboBoxModel(modelTipoDocumento));
-                break;
-            case "Provincia":
-                modelProvincia = new Vector();
+    
+    private void llenarComboTipoInmueble(String TipoCombo){
+        switch(TipoCombo){
+                case "Subtipo inmueble":modelSubTipoInmueble = new Vector();
+                                    modelSubTipoInmueble.addElement( new ModelCombo("TerrenoSecano", "TerrenoSecano" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("ViviendaPiso", "ViviendaPiso" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("ViviendaUnifamiliar", "ViviendaUnifamiliar" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("PlazaGaraje", "PlazaGaraje" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("CuartoTrastero", "CuartoTrastero" ) ); 
+                                    modelSubTipoInmueble.addElement( new ModelCombo("ObraNueva", "ObraNueva" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("DivisionHorizontal", "DivisionHorizontal" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("LocalComercial", "LocalComercial" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("EdificioIndustrial", "EdificioIndustrial" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("LocalIndustrial", "LocalIndustrial" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("LocalOficinas", "LocalOficinas" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("Suelo", "Suelo" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("OtrosInmuebles", "OtrosInmuebles" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("BienesInmuebles", "BienesInmuebles" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("EdificioCompleto", "EdificioCompleto" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("Pareado", "Pareado" ) );
+                                    modelSubTipoInmueble.addElement( new ModelCombo("Adosado", "Adosado" ) );
+                                    eSubtipoInmueble.setModel(new DefaultComboBoxModel(modelSubTipoInmueble));
+                                    break;    
+                case "Tipo via":    modelTipoVia = new Vector();
+                                    modelTipoVia.addElement( new ModelCombo("Calle", "Calle" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Plaza", "Plaza" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Paseo", "Paseo" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Avenida", "Avenida" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Ronda", "Ronda" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Carretera", "Carretera" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Camino", "Camino" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Cuesta", "Cuesta" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Edificio", "Edificio" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Urbanizacion", "Urbanizacion" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Carrera", "Carrera" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Callejon", "Callejon" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Poligono", "Poligono" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Travesia", "Travesia" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Glorieta", "Glorieta" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Colonia", "Colonia" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Chalet", "Chalet" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Agrupacion", "Agrupacion" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Alameda", "Alameda" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Apartado", "Apartado" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Bajada", "Bajada" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Barranco", "Barranco" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Barriada", "Barriada" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Barrio", "Barrio" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Bloque", "Bloque" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Bulevar", "Bulevar" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Caserio", "Caserio" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Diseminado", "Diseminado" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Grupo", "Grupo" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Lugar", "Lugar" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Mercado", "Mercado" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Parque", "Parque" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Partida", "Partida" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Pasaje", "Pasaje" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Poblado", "Poblado" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Rambla", "Rambla" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Residencial", "Residencial" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Rua", "Rua" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Sector", "Sector" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Senda", "Senda" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Subida", "Subida" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Torrente", "Torrente" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Travesera", "Travesera" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Via", "Via" ) );
+                                    modelTipoVia.addElement( new ModelCombo("Carrer", "Carrer" ) );
+                                    eTipoVia.setModel(new DefaultComboBoxModel(modelTipoVia));
+                                    break;
+                case "Regimen":     modelRegimen = new Vector();
+                                    modelRegimen.addElement( new ModelCombo("VentaLibre", "VentaLibre   " ) );
+                                    modelRegimen.addElement( new ModelCombo("VPO", "VPO" ) );
+                                    modelRegimen.addElement( new ModelCombo("VPOAnt78", "VPOAnt78" ) );
+                                    modelRegimen.addElement( new ModelCombo("VPOPrivada", "VPOPrivada" ) );
+                                    modelRegimen.addElement( new ModelCombo("VPOPublica", "VPOPublica" ) );
+                                    modelRegimen.addElement( new ModelCombo("VPT", "VPT" ) );
+                                    modelRegimen.addElement( new ModelCombo("Subvencionada", "Subvencionada" ) );
+                                    eRegimenProteccion.setModel(new DefaultComboBoxModel(modelRegimen));
+                                    break;
+                case "Regimen economico":     modelRegimenEconomico = new Vector();
+                                    modelRegimenEconomico.addElement( new ModelCombo("Otros", "Otros" ) );
+                                    modelRegimenEconomico.addElement( new ModelCombo("Gananciales", "Gananciales" ) );
+                                    modelRegimenEconomico.addElement( new ModelCombo("SeparacionBienes", "SeparacionBienes" ) );
+                                    modelRegimenEconomico.addElement( new ModelCombo("Participacion", "Participacion" ) );
+                                    eRegimenEconomico.setModel(new DefaultComboBoxModel(modelRegimenEconomico));
+                                    break;                    
+                case "Tipo de participacion":modelTipoParticipacion = new Vector();
+                                    modelTipoParticipacion.addElement( new ModelCombo("Titular", "Titular" ) );
+                                    modelTipoParticipacion.addElement( new ModelCombo("SujetoPasivo", "SujetoPasivo" ) );
+                                    modelTipoParticipacion.addElement( new ModelCombo("Vendedor", "Vendedor" ) );
+                                    modelTipoParticipacion.addElement( new ModelCombo("Avalista", "Avalista" ) );
+                                    modelTipoParticipacion.addElement( new ModelCombo("Otros", "Otros" ) );
+                                    modelTipoParticipacion.addElement( new ModelCombo("Demandante", "Demandante" ) );
+                                    modelTipoParticipacion.addElement( new ModelCombo("Demandado", "Demandado" ) );
+                                    modelTipoParticipacion.addElement( new ModelCombo("PersonaContacto", "PersonaContacto" ) );
+                                    modelTipoParticipacion.addElement( new ModelCombo("HipotecanteNoDeudor", "HipotecanteNoDeudor" ) );
+                                    eTipoParticipacion.setModel(new DefaultComboBoxModel(modelTipoParticipacion));
+                                    break; 
+                case "Tipo de propiedad":modelTipoPropiedad = new Vector();
+                                modelTipoPropiedad.addElement( new ModelCombo("Propietario", "Propietario" ) );
+                                modelTipoPropiedad.addElement( new ModelCombo("Nudo_propietario", "Nudo_propietario" ) );
+                                modelTipoPropiedad.addElement( new ModelCombo("Usufructuario", "Usufructuario" ) );
+                                modelTipoPropiedad.addElement( new ModelCombo("Arrendatario_Ocupante", "Arrendatario_Ocupante" ) );
+                                eTipoPropiedad.setModel(new DefaultComboBoxModel(modelTipoPropiedad));
+                                break;
+                case "Tipo de titulo":modelTipoTitulo = new Vector();
+                                modelTipoTitulo.addElement( new ModelCombo("Adjudicacion", "Adjudicacion" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("Aportacion", "Aportacion" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("CompraVenta", "CompraVenta" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("DacionEnPago", "DacionEnPago" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("Donacion", "Donacion" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("Herencia", "Herencia" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("LiquidacionSociedad", "LiquidacionSociedad" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("ObraNueva", "ObraNueva" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("Permuta", "Permuta" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("PropiedadDivisionHorizontal", "PropiedadDivisionHorizontal" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("TransmisionOnerosa", "TransmisionOnerosa" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("CompensacionUrbanistica", "CompensacionUrbanistica" ) );
+                                modelTipoTitulo.addElement( new ModelCombo("Otros", "Otros" ) );
+                                
+                                eTipoTitulo.setModel(new DefaultComboBoxModel(modelTipoTitulo));
+                                break;
+                                
+                
+                case "Tipo de documento":modelTipoDocumento = new Vector();
+                                modelTipoDocumento.addElement( new ModelCombo("Unknwon", "Unknwon" ) );
+                                modelTipoDocumento.addElement( new ModelCombo("Nif", "Nif" ) );
+                                modelTipoDocumento.addElement( new ModelCombo("Cif", "Cif" ) );
+                                modelTipoDocumento.addElement( new ModelCombo("Passport", "Passport" ) );
+                                modelTipoDocumento.addElement( new ModelCombo("TarjetaResidente", "TarjetaResidente" ) );
+                                modelTipoDocumento.addElement( new ModelCombo("IdentificacionFiscalMenor", "IdentificacionFiscalMenor" ) );
+                                eTipoDocumento.setModel(new DefaultComboBoxModel(modelTipoDocumento));
+                                break;                 
+                case "Provincia":modelProvincia = new Vector();
+                                modelProvincia = new Vector();
                 listaProvincias = new ArrayList<>();
                 //modelProvincia.addElement( new ModelCombo("SIN_ASIGNAR", "SIN_ASIGNAR" ) );
                 modelProvincia.addElement(new ModelCombo("ALAVA", "ALAVA"));
@@ -408,35 +401,35 @@ public class FormaPrincipal extends javax.swing.JFrame {
                 modelProvincia.addElement(new ModelCombo("MELILLA", "MELILLA"));
                 listaProvincias.add(new Provincia("52", "MELILLA"));
                 eProvincia.setModel(new DefaultComboBoxModel(modelProvincia));
-                break;
-            case "Poblacion":
-                modelPoblacion = new Vector();
-                modelPoblacion.addElement(new ModelCombo("222", "222"));
-                modelPoblacion.addElement(new ModelCombo("333", "333"));
-                ePoblacion.setModel(new DefaultComboBoxModel(modelPoblacion));
-                break;
+                break;      
+                case "Poblacion":modelPoblacion = new Vector();
+                                modelPoblacion.addElement( new ModelCombo("222", "222" ) );
+                                modelPoblacion.addElement( new ModelCombo("333", "333" ) );
+                                ePoblacion.setModel(new DefaultComboBoxModel(modelPoblacion));
+                                break;                
         }
     }
-
+    
+    
     /**
-     *
+     * 
      * @param modelo
      * @param combo
-     * @param valor
+     * @param valor 
      */
-    private void seleccionarElementoCombo(Vector modelo, JComboBox combo, String valor) {
+    private void seleccionarElementoCombo(Vector modelo, JComboBox combo, String valor){
         ModelCombo modeloCombo;
         int test = 9;
-        for (int i = 0; i < modelo.size(); i++) {
-            modeloCombo = (ModelCombo) modelo.elementAt(i);
-            if (modeloCombo.getClave().equals(valor)) {
+        for(int i=0; i<modelo.size(); i++){
+            modeloCombo = (ModelCombo)modelo.elementAt(i);
+            if (modeloCombo.getClave().equals(valor)){
                 combo.setSelectedIndex(i);
                 break;
             }
         }
     }
-
-    private void llenarCamposDocumentoGuardado(ArrayList<ComponenteFormulario> listaComponentesCargados) {
+    
+    private void llenarCamposDocumentoGuardado(ArrayList<ComponenteFormulario> listaComponentesCargados){
         eIdufir.setText(listaComponentesCargados.get(4).getValor());
         eReferenciaCatastral.setText(listaComponentesCargados.get(5).getValor());
         eNombreVia.setText(listaComponentesCargados.get(9).getValor());
@@ -464,10 +457,11 @@ public class FormaPrincipal extends javax.swing.JFrame {
         eNotario.setText(listaComponentesCargados.get(40).getValor());
         eNumeroInscripcion.setText(listaComponentesCargados.get(41).getValor());
         ePorcientoParticipacion.setText(listaComponentesCargados.get(44).getValor());
-
+        
         /*if (listaComponentesCargados.get(41).getValor().equals(""))
-         ePorcientoParticipacion.setText("   .  ");
-         else ePorcientoParticipacion.setText(Utiles.formaCadenaParaJFormatter(listaComponentesCargados.get(41).getValor(), 3) );*/
+            ePorcientoParticipacion.setText("   .  ");
+        else ePorcientoParticipacion.setText(Utiles.formaCadenaParaJFormatter(listaComponentesCargados.get(41).getValor(), 3) );*/
+        
         //Combo
         seleccionarElementoCombo(modelSubTipoInmueble, eSubtipoInmueble, listaComponentesCargados.get(7).getValor());
         seleccionarElementoCombo(modelTipoVia, eTipoVia, listaComponentesCargados.get(8).getValor());
@@ -475,51 +469,51 @@ public class FormaPrincipal extends javax.swing.JFrame {
         seleccionarElementoCombo(modelTipoParticipacion, eTipoParticipacion, listaComponentesCargados.get(43).getValor());
         seleccionarElementoCombo(modelPoblacion, ePoblacion, listaComponentesCargados.get(29).getValor());
         seleccionarElementoCombo(modelProvincia, eProvincia, listaComponentesCargados.get(30).getValor());
-
+        
         //Fechas
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date fecha = null;
-            if (!listaComponentesCargados.get(3).getValor().equals("")) {
+            if (!listaComponentesCargados.get(3).getValor().equals("")){
                 fecha = formato.parse(listaComponentesCargados.get(3).getValor());
                 eFechaVerificación.setDate(fecha);
             }
-            if (!listaComponentesCargados.get(25).getValor().equals("")) {
+            if (!listaComponentesCargados.get(25).getValor().equals("")){
                 fecha = formato.parse(listaComponentesCargados.get(25).getValor());
                 eFechaCalificacion.setDate(fecha);
             }
-            if (!listaComponentesCargados.get(39).getValor().equals("")) {
+            if (!listaComponentesCargados.get(39).getValor().equals("")){
                 fecha = formato.parse(listaComponentesCargados.get(42).getValor());
                 eFechaInscripcionTitular.setDate(fecha);
             }
-            if (!listaComponentesCargados.get(35).getValor().equals("")) {
+            if (!listaComponentesCargados.get(35).getValor().equals("")){
                 fecha = formato.parse(listaComponentesCargados.get(38).getValor());
                 eFechaEscritura.setDate(fecha);
             }
         } catch (ParseException ex) {
             Logger.getLogger(FormaTitular.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        if (listaComponentesCargados.size() > 45) {
+        
+        if (listaComponentesCargados.size() > 45){
             listaTitulares.clear();
             ArrayList<ComponenteFormulario> listaParaTitulares = new ArrayList<>();
             for (int i = 42; i < listaComponentesCargados.size(); i++) {
                 listaParaTitulares.add(listaComponentesCargados.get(i));
             }
-            int cantidadOtrosTitulares = listaParaTitulares.size() / 13;
+            int cantidadOtrosTitulares = listaParaTitulares.size()/13;
             ArrayList<ComponenteFormulario> listaParaTitularesTemp = null;
             for (int i = 0; i < cantidadOtrosTitulares; i++) {
                 listaParaTitularesTemp = new ArrayList<>();
-                for (int indice = i * 13; indice < (i * 13 + 13); indice++) {
+                for (int indice = i*13; indice < (i*13 + 13); indice++) {
                     listaParaTitularesTemp.add(listaParaTitulares.get(indice));
                 }
                 listaTitulares.add(listaParaTitularesTemp);
             }
-            Utiles.llenarTabla(jTable1, listaTitulares, "Titulares");
+            Utiles.llenarTabla(jTable1,listaTitulares, "Titulares");
         }
     }
-
-    private void limpiarComponentesFormulario() {
+    
+    private void limpiarComponentesFormulario(){
         eIdufir.setText("");
         eReferenciaCatastral.setText("");
         eNombreVia.setText("");
@@ -547,16 +541,17 @@ public class FormaPrincipal extends javax.swing.JFrame {
         eNumeroInscripcion.setText("");
         ePorcientoParticipacion.setText("");
         eCoeficiente.setText("");
-
+        
+        
         //Combo
-        eSubtipoInmueble.setSelectedIndex(0);
-        eTipoVia.setSelectedIndex(0);
-        eRegimenProteccion.setSelectedIndex(0);
-        eRegimenEconomico.setSelectedIndex(0);
-        eTipoParticipacion.setSelectedIndex(0);
-        ePoblacion.setSelectedIndex(0);
-        eProvincia.setSelectedIndex(0);
-        eRegistroPropiedad.setSelectedIndex(0);
+        eSubtipoInmueble.setSelectedIndex(0); 
+        eTipoVia.setSelectedIndex(0); 
+        eRegimenProteccion.setSelectedIndex(0); 
+        eRegimenEconomico.setSelectedIndex(0); 
+        eTipoParticipacion.setSelectedIndex(0); 
+        ePoblacion.setSelectedIndex(0); 
+        eProvincia.setSelectedIndex(0); 
+        eRegistroPropiedad.setSelectedIndex(0); 
 
         //Fechas
         Date fecha = null;
@@ -564,38 +559,41 @@ public class FormaPrincipal extends javax.swing.JFrame {
         eFechaCalificacion.setDate(fecha);
         eFechaInscripcionTitular.setDate(fecha);
         eFechaEscritura.setDate(fecha);
-
+        
         listaTitulares.clear();
         listaAnejos.clear();
         listaCargas.clear();
-
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        
+        DefaultTableModel modelo = (DefaultTableModel)jTable1.getModel();
         modelo.setRowCount(0);
     }
-
-    private void limpiarComponentes() {
+    
+    private void limpiarComponentes(){
         eNombreXML.setText("");
         listaTitulares.clear();
         listaAnejos.clear();
         listaCargas.clear();
     }
-
+    
     /*
-     private Boolean esErronea(){
+    private Boolean esErronea(){
         
-     ModelCombo modeloEstadoSolicitud = (ModelCombo)eEstadoSolicitud.getSelectedItem();
-     if (modeloEstadoSolicitud.getClave().equals("E")){
-     String referencia = eReferencia.getText();
-     String descripcion = eDescripcionError.getText();
-     limpiarComponentesFormulario();
-     eEstadoSolicitud.setSelectedIndex(1);
-     eReferencia.setText(referencia);
-     eDescripcionError.setText(descripcion);
-     return true;
-     }
-     return false;    
-     } 
-     */
+        ModelCombo modeloEstadoSolicitud = (ModelCombo)eEstadoSolicitud.getSelectedItem();
+        if (modeloEstadoSolicitud.getClave().equals("E")){
+            String referencia = eReferencia.getText();
+            String descripcion = eDescripcionError.getText();
+            limpiarComponentesFormulario();
+            eEstadoSolicitud.setSelectedIndex(1);
+            eReferencia.setText(referencia);
+            eDescripcionError.setText(descripcion);
+            return true;
+        }
+        return false;    
+    } 
+    */
+    
+    
+     
     /**
      * Creates new form FormaPrincipal
      */
@@ -605,85 +603,85 @@ public class FormaPrincipal extends javax.swing.JFrame {
         //setSize(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getSize());
         //setLocationRelativeTo(null);
         //jPanel1.setVisible(false);
-
+        
         RestrictedTextField restriccionIdufir = new RestrictedTextField(eIdufir);
         restriccionIdufir.setLimit(15);
-
+        
         RestrictedTextField restriccionReferenciaCatastral = new RestrictedTextField(eReferenciaCatastral);
         restriccionReferenciaCatastral.setLimit(55);
-
+        
         RestrictedTextField restriccionNombreVia = new RestrictedTextField(eNombreVia);
         restriccionNombreVia.setLimit(40);
-
+        
         RestrictedTextField restriccionBloquePortal = new RestrictedTextField(eBloqueOPortal);
         restriccionBloquePortal.setLimit(5);
-
+        
         RestrictedTextField restriccionPlanta = new RestrictedTextField(ePlanta);
         restriccionPlanta.setLimit(5);
-
+        
         RestrictedTextField restriccionPuerta = new RestrictedTextField(ePuerta);
         restriccionPuerta.setLimit(5);
-
+        
         RestrictedTextField restriccionEscalera = new RestrictedTextField(eEscalera);
         restriccionEscalera.setLimit(5);
-
+        
         RestrictedTextField restriccionCodigoPostal = new RestrictedTextField(eCodigoPostal);
         //restriccionCodigoPostal.setOnlyNums(true);
         restriccionCodigoPostal.setLimit(5);
-
+        
         RestrictedTextField restriccionSeccion = new RestrictedTextField(eSeccion);
         restriccionSeccion.setOnlyNums(true);
         restriccionSeccion.setLimit(3);
-
+        
         RestrictedTextField restriccionNombreRazon = new RestrictedTextField(eNombreRazon);
         restriccionNombreRazon.setLimit(137);
-
+        
         RestrictedTextField restriccionPrimerApellido = new RestrictedTextField(ePrimerApellido);
         restriccionPrimerApellido.setLimit(45);
-
+        
         RestrictedTextField restriccionSegundoApellido = new RestrictedTextField(eSegundoApellido);
         restriccionSegundoApellido.setLimit(45);
-
+        
         RestrictedTextField restriccionDocumento = new RestrictedTextField(eDocumento);
         restriccionDocumento.setLimit(10);
-
+        
         RestrictedTextField restriccionNumeroProtocolo = new RestrictedTextField(eNumeroProtocolo);
         restriccionNumeroProtocolo.setLimit(30);
-
+        
         RestrictedTextField restriccionNotario = new RestrictedTextField(eNotario);
         restriccionNotario.setLimit(50);
-
+        
         RestrictedTextField restriccionNumeroInscripcion = new RestrictedTextField(eNumeroInscripcion);
         restriccionNumeroInscripcion.setOnlyNums(true);
         restriccionNumeroInscripcion.setLimit(10);
-
+        
         RestrictedTextField restriccionNumeroFinca = new RestrictedTextField(eNumeroFinca);
         restriccionNumeroFinca.setLimit(6);
-
+        
         RestrictedTextField restriccionNumeroSubFinca = new RestrictedTextField(eSubfinca);
         restriccionNumeroSubFinca.setLimit(5);
-
+        
         RestrictedTextField restriccionTomo = new RestrictedTextField(eTomo);
         restriccionTomo.setOnlyNums(true);
         restriccionTomo.setLimit(4);
-
+        
         RestrictedTextField restriccionLibro = new RestrictedTextField(eLibro);
         restriccionLibro.setOnlyNums(true);
         restriccionLibro.setLimit(4);
-
+        
         RestrictedTextField restriccionFolio = new RestrictedTextField(eFolio);
         restriccionFolio.setOnlyNums(true);
         restriccionFolio.setLimit(6);
-
+        
         RestrictedTextField restriccionRazonSocial = new RestrictedTextField(eNombreRazon);
         restriccionRazonSocial.setLimit(137);
-
+        
         RestrictedTextField restriccionNif = new RestrictedTextField(eDocumento);
         restriccionNif.setLimit(10);
-
+        
         RestrictedTextField restriccionTipoProtocolo = new RestrictedTextField(eNumeroProtocolo);
         restriccionTipoProtocolo.setLimit(20);
-
+        
         eFechaVerificación.setFormat(Resources.DMY);
         eFechaVerificación.setName("FECHA_VERRIF_REG.");
         eFechaVerificación.setNextFocusableComponent(eIdufir);
@@ -696,7 +694,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
         eFechaInscripcionTitular.setFormat(Resources.DMY);
         eFechaInscripcionTitular.setName("TLO_FECHA_INSCRIPCION.");
         eFechaInscripcionTitular.setNextFocusableComponent(eTipoParticipacion);
-
+        
         llenarComboTipoInmueble("Tipo inmueble");
         llenarComboTipoInmueble("Subtipo inmueble");
         llenarComboTipoInmueble("Tipo finca");
@@ -716,35 +714,38 @@ public class FormaPrincipal extends javax.swing.JFrame {
         listaTitulares = new ArrayList<>();
         listaCargas = new ArrayList<>();
         listaAnejos = new ArrayList<>();
-
+        
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
         //Solo notas
         /*
-         jMenuItem1.setVisible(false);
-         jMenuItem2.setVisible(false);
-         jMenuItem3.setVisible(false);
-         jMenuItem4.setVisible(false);
-         jMenuItem5.setVisible(false);
-         jMenuItem7.setVisible(false);
-         jMenuItem8.setVisible(false);
-         jMenuItem9.setVisible(false);
-         jMenuItem11.setVisible(false);
-         jMenuItem12.setVisible(false);
-         jMenuItem13.setVisible(false);
-         */
+        jMenuItem1.setVisible(false);
+        jMenuItem2.setVisible(false);
+        jMenuItem3.setVisible(false);
+        jMenuItem4.setVisible(false);
+        jMenuItem5.setVisible(false);
+        jMenuItem7.setVisible(false);
+        jMenuItem8.setVisible(false);
+        jMenuItem9.setVisible(false);
+        jMenuItem11.setVisible(false);
+        jMenuItem12.setVisible(false);
+        jMenuItem13.setVisible(false);
+        */
+        
         //Sin notas
         /*
-         jMenuItem11.setVisible(false);
-         jMenuItem12.setVisible(false);
-         jMenuItem13.setVisible(false);
-         jPanel1.setVisible(false);
-         */
+        jMenuItem11.setVisible(false);
+        jMenuItem12.setVisible(false);
+        jMenuItem13.setVisible(false);
+        jPanel1.setVisible(false);
+        */
+        
     }
-
-    public static ArrayList<Documento> cargarListaDocumentos() {
+    
+    public static ArrayList<Documento> cargarListaDocumentos(){
         ArrayList<Documento> listaDocumentos = new ArrayList<>();
         String caminoDirectorioRaiz = Utiles.rutaEnviadosNotaSimple;
-        File dirRaiz = new File(caminoDirectorioRaiz);
+	File dirRaiz = new File(caminoDirectorioRaiz);
         String archivos[] = dirRaiz.list();
         File dirTemp;
         Documento documento;
@@ -755,17 +756,17 @@ public class FormaPrincipal extends javax.swing.JFrame {
         }
         return listaDocumentos;
     }
-
-    private void actualizarInfoDocumentos(String mensaje) {
-        new TareaSegundoPlano(this, mensaje) {
-            @Override
-            protected void tareaHaRealizar() {
-                listaDocumentos = cargarListaDocumentos();
-                Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
-                Dimension dimension = jXTable1.getPreferredSize();
-                jScrollPane4.setPreferredSize(new Dimension(dimension.width, jXTable1.getRowHeight() * filas));
-            }
-        }.ejecutarTarea();
+    
+    private void actualizarInfoDocumentos(String mensaje){
+            new TareaSegundoPlano(this, mensaje) {
+                @Override
+                    protected void tareaHaRealizar() {
+                        listaDocumentos = cargarListaDocumentos();
+                        Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
+                        Dimension dimension = jXTable1.getPreferredSize();
+                        jScrollPane4.setPreferredSize(new Dimension(dimension.width,jXTable1.getRowHeight()*filas));
+                    }
+            }.ejecutarTarea();
     }
 
     /**
@@ -1030,23 +1031,20 @@ public class FormaPrincipal extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(40, 40, 40))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1376,7 +1374,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
                                             .addComponent(eNombreRazon, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 116, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1581,6 +1579,22 @@ public class FormaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(eSeccion, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(eCodigoPostal, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(eEscalera, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ePuerta, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ePlanta, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(eBloqueOPortal, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel30)
                             .addComponent(jLabel24)
                             .addComponent(jLabel29)
@@ -1599,22 +1613,6 @@ public class FormaPrincipal extends javax.swing.JFrame {
                                             .addComponent(eSuperficieConstruida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(eSuperficieUtil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(eSuperficieTerreno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel25)
-                                    .addComponent(jLabel26)
-                                    .addComponent(jLabel27)
-                                    .addComponent(jLabel38))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(eTomo)
-                                    .addComponent(eLibro)
-                                    .addComponent(eFolio, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(eRegimenProteccion, javax.swing.GroupLayout.Alignment.TRAILING, 0, 144, Short.MAX_VALUE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -1640,36 +1638,34 @@ public class FormaPrincipal extends javax.swing.JFrame {
                                 .addComponent(eFechaVerificación, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                                 .addComponent(eNumeroFinca))
                             .addComponent(eRegistroPropiedad, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel25)
+                                    .addComponent(jLabel26)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jLabel38))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(eTomo)
+                                    .addComponent(eLibro)
+                                    .addComponent(eFolio, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(eRegimenProteccion, javax.swing.GroupLayout.Alignment.TRAILING, 0, 144, Short.MAX_VALUE)))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel17)
-                            .addComponent(jLabel18)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel22))
+                            .addComponent(jLabel33)
+                            .addComponent(jLabel47)
+                            .addComponent(jLabel48))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(eSeccion, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(eCodigoPostal, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(eEscalera, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ePuerta, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ePlanta, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(eBloqueOPortal, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
-                        .addGap(64, 64, 64)))
-                .addGap(0, 11, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel33)
-                    .addComponent(jLabel47)
-                    .addComponent(jLabel48))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(eProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ePoblacion, 0, 191, Short.MAX_VALUE)
-                    .addComponent(eCoeficiente, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(eProvincia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ePoblacion, 0, 191, Short.MAX_VALUE)
+                            .addComponent(eCoeficiente, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(20, 179, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1779,8 +1775,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel48)
                     .addComponent(eCoeficiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         eIdufir.getAccessibleContext().setAccessibleName("");
@@ -1790,16 +1785,16 @@ public class FormaPrincipal extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
 
         jScrollPane5.setViewportView(jPanel8);
@@ -1822,7 +1817,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(0, 16, Short.MAX_VALUE)
+                        .addGap(0, 123, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1837,7 +1832,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1846,8 +1841,8 @@ public class FormaPrincipal extends javax.swing.JFrame {
                 .addGap(3, 3, 3)
                 .addComponent(jButtonLimpiar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1047, 1047, 1047))
         );
 
         jMenu1.setText("Tipo de Documento");
@@ -2048,15 +2043,16 @@ public class FormaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 699, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -2065,14 +2061,13 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         FormaLogin formaLogin = new FormaLogin(this, true);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaLogin.setLocation(GEnv.getCenterPoint().x - formaLogin.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaLogin.getHeight() / 2 + 25);
+        formaLogin.setLocation(GEnv.getCenterPoint().x-formaLogin.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaLogin.getHeight()/2 + 25);
         formaLogin.setResizable(false);
         formaLogin.setVisible(true);
-
-        if (usuario != null) {
+        
+        if ( usuario != null)
             jLabelNombreUsuario.setText(usuario.getNombre());
-        }
-
+        
         JTableHeader th = jXTable1.getTableHeader();
         Font fuente = new Font(th.getFont().getName(), Font.BOLD, 11);
         th.setFont(fuente);
@@ -2082,38 +2077,38 @@ public class FormaPrincipal extends javax.swing.JFrame {
         columna.setPreferredWidth(300);
         columna = jXTable1.getColumn("Estado");
         columna.setPreferredWidth(360);
-
+        
         jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jXTable1.setColumnControlVisible(true);
+        jXTable1.setColumnControlVisible(true); 
         jXFindBar1.setSearchable(jXTable1.getSearchable());
         jXTable1.setColumnControlVisible(true);
         TableRowFilterSupport.forTable(jXTable1).searchable(true).apply();
-
-        jXTable1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (jXTable1.getSelectedRow() != -1) {
-                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-                    jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
-                }
-
-            }
+        
+        jXTable1.addMouseListener(new MouseAdapter(){
+        @Override
+        public void mouseClicked(MouseEvent e){
+           if (jXTable1.getSelectedRow() != -1){ 
+            elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+            jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+           }
+          
+        }
         });
-
+        
         eNumeroFinca.setDocument(new LimitarNumeros());
         eSubfinca.setDocument(new LimitarNumeros());
         eTomo.setDocument(new LimitarNumeros());
         eLibro.setDocument(new LimitarNumeros());
         eFolio.setDocument(new LimitarNumeros());
-
+        
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
-
+        
         llenarPoblaciones();
-
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
+        
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -2125,13 +2120,13 @@ public class FormaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLimpiarMousePressed
 
     private void jXTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jXTable1PropertyChange
-
+        
     }//GEN-LAST:event_jXTable1PropertyChange
 
     private void jMenuItem1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseReleased
         FormaProcesarIRPF formaProcesarIRPF = new FormaProcesarIRPF(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaProcesarIRPF.setLocation(GEnv.getCenterPoint().x - formaProcesarIRPF.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarIRPF.getHeight() / 2 + 25);
+        formaProcesarIRPF.setLocation(GEnv.getCenterPoint().x-formaProcesarIRPF.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarIRPF.getHeight()/2 + 25);
 
         formaProcesarIRPF.setResizable(true);
         formaProcesarIRPF.setVisible(true);
@@ -2140,7 +2135,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseReleased
         FormaProcesarVidaLaboral formaProcesarVidaLaboral = new FormaProcesarVidaLaboral(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaProcesarVidaLaboral.setLocation(GEnv.getCenterPoint().x - formaProcesarVidaLaboral.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarVidaLaboral.getHeight() / 2 + 25);
+        formaProcesarVidaLaboral.setLocation(GEnv.getCenterPoint().x-formaProcesarVidaLaboral.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarVidaLaboral.getHeight()/2 + 25);
 
         formaProcesarVidaLaboral.setResizable(true);
         formaProcesarVidaLaboral.setVisible(true);
@@ -2149,17 +2144,17 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private void jMenuItem3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem3MouseReleased
         FormaProcesarNomina formaProcesarNomina = new FormaProcesarNomina(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaProcesarNomina.setLocation(GEnv.getCenterPoint().x - formaProcesarNomina.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarNomina.getHeight() / 2 + 25);
+        formaProcesarNomina.setLocation(GEnv.getCenterPoint().x-formaProcesarNomina.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarNomina.getHeight()/2 + 25);
 
         formaProcesarNomina.setResizable(true);
         formaProcesarNomina.setVisible(true);
     }//GEN-LAST:event_jMenuItem3MouseReleased
 
     private void jMenuItem4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem4MouseReleased
-        if (jMenuItem4.isEnabled()) {
+        if (jMenuItem4.isEnabled()){
             FormaProcesarTasacion formaProcesarTasacion = new FormaProcesarTasacion(this, false);
             GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            formaProcesarTasacion.setLocation(GEnv.getCenterPoint().x - formaProcesarTasacion.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarTasacion.getHeight() / 2 + 25);
+            formaProcesarTasacion.setLocation(GEnv.getCenterPoint().x-formaProcesarTasacion.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarTasacion.getHeight()/2 + 25);
 
             formaProcesarTasacion.setResizable(true);
             formaProcesarTasacion.setVisible(true);
@@ -2167,20 +2162,20 @@ public class FormaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4MouseReleased
 
     private void jMenuItem5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseReleased
-        if (jMenuItem5.isEnabled()) {
-            FormaProcesarRecibo formaProcesarRecibo = new FormaProcesarRecibo(this, false);
-            GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            formaProcesarRecibo.setLocation(GEnv.getCenterPoint().x - formaProcesarRecibo.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarRecibo.getHeight() / 2 + 25);
+        if (jMenuItem5.isEnabled()){
+        FormaProcesarRecibo formaProcesarRecibo = new FormaProcesarRecibo(this, false);
+        GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        formaProcesarRecibo.setLocation(GEnv.getCenterPoint().x-formaProcesarRecibo.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarRecibo.getHeight()/2 + 25);
 
-            formaProcesarRecibo.setResizable(true);
-            formaProcesarRecibo.setVisible(true);
+        formaProcesarRecibo.setResizable(true);
+        formaProcesarRecibo.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem5MouseReleased
 
     private void jMenuItem6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MouseReleased
         FormaProcesarDocumentosKO formaProcesarDocumentosKO = new FormaProcesarDocumentosKO(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaProcesarDocumentosKO.setLocation(GEnv.getCenterPoint().x - formaProcesarDocumentosKO.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarDocumentosKO.getHeight() / 2 + 25);
+        formaProcesarDocumentosKO.setLocation(GEnv.getCenterPoint().x-formaProcesarDocumentosKO.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarDocumentosKO.getHeight()/2 + 25);
 
         formaProcesarDocumentosKO.setResizable(true);
         formaProcesarDocumentosKO.setVisible(true);
@@ -2189,7 +2184,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private void jMenu1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseReleased
         FormaNotaSimpleAExcel formaNotaSimpleAExcel = new FormaNotaSimpleAExcel(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaNotaSimpleAExcel.setLocation(GEnv.getCenterPoint().x - formaNotaSimpleAExcel.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaNotaSimpleAExcel.getHeight() / 2 + 25);
+        formaNotaSimpleAExcel.setLocation(GEnv.getCenterPoint().x-formaNotaSimpleAExcel.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaNotaSimpleAExcel.getHeight()/2 + 25);
 
         formaNotaSimpleAExcel.setResizable(true);
         formaNotaSimpleAExcel.setVisible(true);
@@ -2198,7 +2193,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private void jMenuItem7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem7MouseReleased
         FormaNotaSimpleAExcel formaNotaSimpleAExcel = new FormaNotaSimpleAExcel(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaNotaSimpleAExcel.setLocation(GEnv.getCenterPoint().x - formaNotaSimpleAExcel.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaNotaSimpleAExcel.getHeight() / 2 + 25);
+        formaNotaSimpleAExcel.setLocation(GEnv.getCenterPoint().x-formaNotaSimpleAExcel.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaNotaSimpleAExcel.getHeight()/2 + 25);
 
         formaNotaSimpleAExcel.setResizable(true);
         formaNotaSimpleAExcel.setVisible(true);
@@ -2207,30 +2202,30 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private void jMenuItem8MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem8MouseReleased
         FormaProcesarNotaSimpleCaixa formaProcesarNotaSimpleCaixa = new FormaProcesarNotaSimpleCaixa(this, false);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaProcesarNotaSimpleCaixa.setLocation(GEnv.getCenterPoint().x - formaProcesarNotaSimpleCaixa.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaProcesarNotaSimpleCaixa.getHeight() / 2 + 25);
+        formaProcesarNotaSimpleCaixa.setLocation(GEnv.getCenterPoint().x-formaProcesarNotaSimpleCaixa.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaProcesarNotaSimpleCaixa.getHeight()/2 + 25);
 
         formaProcesarNotaSimpleCaixa.setResizable(true);
         formaProcesarNotaSimpleCaixa.setVisible(true);
-
-
+        
+        
     }//GEN-LAST:event_jMenuItem8MouseReleased
 
     private void jButtonAdicionarTitularMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAdicionarTitularMousePressed
         BuildTitularData();
         FormaTitular formaTitular = new FormaTitular(this, true, 1, -1);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaTitular.setLocation(GEnv.getCenterPoint().x - formaTitular.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaTitular.getHeight() / 2 + 25);
+        formaTitular.setLocation(GEnv.getCenterPoint().x-formaTitular.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaTitular.getHeight()/2 + 25);
 
         formaTitular.setResizable(false);
         formaTitular.setVisible(true);
 
-        Utiles.llenarTabla(jTable1, listaTitulares, "Titulares");
+        Utiles.llenarTabla(jTable1,listaTitulares, "Titulares");
     }//GEN-LAST:event_jButtonAdicionarTitularMousePressed
 
     private void jButtonCargasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCargasMousePressed
         FormaCargas formaCargas = new FormaCargas(this, true);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaCargas.setLocation(GEnv.getCenterPoint().x - formaCargas.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaCargas.getHeight() / 2 + 25);
+        formaCargas.setLocation(GEnv.getCenterPoint().x-formaCargas.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaCargas.getHeight()/2 + 25);
 
         //formaCargas.setResizable(false);
         formaCargas.setVisible(true);
@@ -2238,44 +2233,42 @@ public class FormaPrincipal extends javax.swing.JFrame {
 
     private void jButtonConvertirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonConvertirMousePressed
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea Convertir?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
+        if (respuesta == 0){
             JComponent comp = Utiles.ValidaControles(jPanel5);
             JComponent comp1 = Utiles.ValidaControles(jPanel1);
             JComponent comp2 = Utiles.ValidaControles(jPanel6);
-            if (comp == null) {
-                if (comp1 == null) {
-                    if (comp2 == null) {
-                        if (Utiles.validarFecha(eFechaVerificación) && Utiles.validarFecha(eFechaCalificacion) && Utiles.validarFecha(eFechaEscritura) && Utiles.validarFecha(eFechaInscripcionTitular)) {
-                            //esErronea();
-                            new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
-                                @Override
-                                protected void tareaHaRealizar() {
-                                    File archivo = new File(Utiles.rutaEnviadosNotaSimple.concat(eNombreXML.getText()));
-                                    Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosNotaSimplePDF.concat(eNombreXML.getText())));
-                                    if (movido) {
-                                        Utiles.generarXML(eNombreXML, listaTitulares, "Convertir", listaAnejos, listaCargas);
-                                        listaDocumentos.remove(elementoSeleccionadoTabla);
-                                        DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
-                                        modelo.removeRow(elementoSeleccionadoTabla);
-                                        jXTable1.setModel(modelo);
-                                        limpiarComponentes();
-                                    } else {
-                                        JOptionPane.showMessageDialog(null, "Debe cerrar el documento PDF antes de convertir.");
-                                    }
+            if (comp == null){
+                if (comp1 == null){
+                    if (comp2 == null){
+                      if (Utiles.validarFecha(eFechaVerificación) && Utiles.validarFecha(eFechaCalificacion) && Utiles.validarFecha(eFechaEscritura) && Utiles.validarFecha(eFechaInscripcionTitular)) {  
+                //esErronea();
+                        new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
+                            @Override
+                            protected void tareaHaRealizar() {
+                                File archivo = new File(Utiles.rutaEnviadosNotaSimple.concat(eNombreXML.getText()));
+                                Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosNotaSimplePDF.concat(eNombreXML.getText())));
+                                if (movido){
+                                    Utiles.generarXML(eNombreXML, listaTitulares, "Convertir", listaAnejos, listaCargas);
+                                    listaDocumentos.remove(elementoSeleccionadoTabla);
+                                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
+                                    modelo.removeRow(elementoSeleccionadoTabla);
+                                    jXTable1.setModel(modelo);
+                                    limpiarComponentes();
+                                }else JOptionPane.showMessageDialog(null,"Debe cerrar el documento PDF antes de convertir.");
 
-                                }
-                            }.ejecutarTarea();
+                            }
+                        }.ejecutarTarea();
 
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Ha definido alguna fecha incorrectamente.");
-                        }
+                      } else {
+                        JOptionPane.showMessageDialog(null,"Ha definido alguna fecha incorrectamente.");
+                      }   
 
                     } else {
                         if (comp2 instanceof DateControl && ((DateControl) comp2).getValue() != null) {
                             JOptionPane.showMessageDialog(null, Utiles.msgFechaIncorrecta + comp2.getName());
                             comp2.requestFocus();
                         } else {
-                            JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
+                            JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp2.getName());
                             comp.requestFocus();
                         }
                     }
@@ -2302,30 +2295,27 @@ public class FormaPrincipal extends javax.swing.JFrame {
 
     private void jButtonEliminarTitularMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonEliminarTitularMousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1) {
-            DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
+        if (indiceSeleccionado != -1){
+            DefaultTableModel tabla = (DefaultTableModel)jTable1.getModel();
             tabla.removeRow(indiceSeleccionado);
             jTable1.setModel(tabla);
             listaTitulares.remove(indiceSeleccionado);
-        } else {
-            JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularEliminar);
-        }
+        } else
+        JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularEliminar);
     }//GEN-LAST:event_jButtonEliminarTitularMousePressed
 
     private void jButtonModificarTitularMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonModificarTitularMousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1) {
-            FormaTitular formaTitular = new FormaTitular(this, true, 2, indiceSeleccionado);
+        if (indiceSeleccionado != -1){
+            FormaTitular formaTitular = new FormaTitular(this, true, 2,indiceSeleccionado);
             GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            formaTitular.setLocation(GEnv.getCenterPoint().x - formaTitular.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaTitular.getHeight() / 2 + 25);
+            formaTitular.setLocation(GEnv.getCenterPoint().x-formaTitular.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaTitular.getHeight()/2 + 25);
 
             formaTitular.setResizable(false);
             formaTitular.setVisible(true);
 
-            Utiles.llenarTabla(jTable1, listaTitulares, "Titulares");
-        } else {
-            JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularModificar);
-        }
+            Utiles.llenarTabla(jTable1,listaTitulares, "Titulares");
+        } else JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularModificar);
     }//GEN-LAST:event_jButtonModificarTitularMousePressed
 
     private void ePorcientoParticipacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ePorcientoParticipacionKeyTyped
@@ -2335,7 +2325,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
     private void jButtonCargas1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCargas1MousePressed
         FormaAnejo formaAnejo = new FormaAnejo(this, true);
         GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        formaAnejo.setLocation(GEnv.getCenterPoint().x - formaAnejo.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaAnejo.getHeight() / 2 + 25);
+        formaAnejo.setLocation(GEnv.getCenterPoint().x-formaAnejo.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaAnejo.getHeight()/2 + 25);
         formaAnejo.setResizable(false);
         formaAnejo.setVisible(true);
     }//GEN-LAST:event_jButtonCargas1MousePressed
@@ -2363,14 +2353,14 @@ public class FormaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_eSuperficieTerrenoKeyTyped
 
     private void ePoblacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ePoblacionActionPerformed
-
-        ModelCombo modelo = (ModelCombo) ePoblacion.getSelectedItem();
+        
+        ModelCombo modelo = (ModelCombo)ePoblacion.getSelectedItem();
         Boolean indiceAsignado = false;
         for (Poblacion poblacion : listaPoblaciones) {
-            if (modelo.getClave().equals(poblacion.getCodigo())) {
+            if (modelo.getClave().equals(poblacion.getCodigo())){
                 int indice = 0;
                 for (Provincia provincia : listaProvincias) {
-                    if (poblacion.getCodigoProvincia().equals(provincia.getCodigo())) {
+                    if (poblacion.getCodigoProvincia().equals(provincia.getCodigo())){
                         eProvincia.setSelectedIndex(indice);
                         indiceAsignado = true;
                         break;
@@ -2378,11 +2368,10 @@ public class FormaPrincipal extends javax.swing.JFrame {
                     indice++;
                 }
             }
-            if (indiceAsignado) {
-                break;
-            }
+            if (indiceAsignado)
+            break;
         }
-
+        
     }//GEN-LAST:event_ePoblacionActionPerformed
 
     private void eCoeficienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eCoeficienteKeyTyped
@@ -2390,7 +2379,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_eCoeficienteKeyTyped
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
-        if (jXTable1.getSelectedRow() != -1) {
+        if (jXTable1.getSelectedRow() != -1){
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -2399,15 +2388,13 @@ public class FormaPrincipal extends javax.swing.JFrame {
                     File archivo = new File(Utiles.rutaEnviadosNotaSimple.concat(documentoSeleccionado.getNombre()));
                     archivo.renameTo(new File(Utiles.rutaEnviadosDocumentosKO.concat(documentoSeleccionado.getNombre())));
                     listaDocumentos.remove(elementoSeleccionadoTabla);
-                    DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
+                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
                     modelo.removeRow(elementoSeleccionadoTabla);
                     jXTable1.setModel(modelo);
                     limpiarComponentesFormulario();
                 }
             }.ejecutarTarea();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
-        }
+        }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
     }//GEN-LAST:event_jButton3MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
@@ -2415,7 +2402,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-        if (jXTable1.getSelectedRow() != -1) {
+        if (jXTable1.getSelectedRow() != -1){
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -2426,17 +2413,15 @@ public class FormaPrincipal extends javax.swing.JFrame {
                     //eReferencia.setText(documentoSeleccionado.getNombre().substring(0, documentoSeleccionado.getNombre().length()-4).split("_")[0]);
                     jXTable1.clearSelection();
                     File archivo = new File(Utiles.rutaEnviadosNotaSimple.concat("\\").concat(documentoSeleccionado.getNombre()));
-
+                   
                     System.out.print(Utiles.rutaEnviadosNotaSimple);
-                    try {
-                        Desktop.getDesktop().open(archivo);
-                    } catch (IOException ex) {
+                        try {
+                            Desktop.getDesktop().open(archivo);
+                        }catch (IOException ex) {
+                        }
                     }
-                }
-            }.ejecutarTarea();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
-        }
+                }.ejecutarTarea();
+            }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
@@ -2445,45 +2430,42 @@ public class FormaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem9MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem9MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.copiarFichPdfFromFTPbySSH(this, listaDocumentos, usuario.getNombreCompleto());
-                    jButton1MousePressed(null);
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.copiarFichPdfFromFTPbySSH(this, listaDocumentos, usuario.getNombreCompleto());
+                jButton1MousePressed(null);
+            }
+        }.ejecutarTarea();
     }//GEN-LAST:event_jMenuItem9MouseReleased
 
     private void jMenuItem10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem10MouseReleased
-        int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea subir documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaSubiendoArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.copiarFichXMLToFTPbySSH(usuario.getNombreCompleto());
-                }
-            }.ejecutarTarea();
-        }
+       int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea subir documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaSubiendoArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.copiarFichXMLToFTPbySSH(usuario.getNombreCompleto());
+            }
+        }.ejecutarTarea();
     }//GEN-LAST:event_jMenuItem10MouseReleased
 
     private void jMenuItem13MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem13MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos KO OCR?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.descargarKOOCR(this, listaDocumentos, usuario.getNombreCompleto());
-                    jButton1MousePressed(null);
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.descargarKOOCR(this, listaDocumentos, usuario.getNombreCompleto());
+                jButton1MousePressed(null);
+            }
+        }.ejecutarTarea();
     }//GEN-LAST:event_jMenuItem13MouseReleased
 
     private void jMenuItem11MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem11MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos pendientes OCR?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
+        if (respuesta == 0)
             new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -2491,48 +2473,43 @@ public class FormaPrincipal extends javax.swing.JFrame {
                     //jButton4MousePressed(null);
                 }
             }.ejecutarTarea();
-        }
     }//GEN-LAST:event_jMenuItem11MouseReleased
 
     private void jMenuItem12MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem12MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea subir documentos pendientes OCR?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaSubiendoArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.subirXMLPendientesOCR(usuario.getNombreCompleto());
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaSubiendoArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.subirXMLPendientesOCR(usuario.getNombreCompleto());
+            }
+        }.ejecutarTarea();
     }//GEN-LAST:event_jMenuItem12MouseReleased
 
     private void jButtonAdicionarTitular1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAdicionarTitular1MousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1) {
-            FormaTitular formaTitular = new FormaTitular(this, true, 3, indiceSeleccionado);
+        if (indiceSeleccionado != -1){
+            FormaTitular formaTitular = new FormaTitular(this, true, 3,indiceSeleccionado);
             GraphicsEnvironment GEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            formaTitular.setLocation(GEnv.getCenterPoint().x - formaTitular.getWidth() / 2 - 20, GEnv.getCenterPoint().y - formaTitular.getHeight() / 2 + 25);
+            formaTitular.setLocation(GEnv.getCenterPoint().x-formaTitular.getWidth()/2 - 20,GEnv.getCenterPoint().y-formaTitular.getHeight()/2 + 25);
 
             formaTitular.setResizable(false);
             formaTitular.setVisible(true);
 
-            Utiles.llenarTabla(jTable1, listaTitulares, "Titulares");
-        } else {
-            JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularModificar);
-        }
+            Utiles.llenarTabla(jTable1,listaTitulares, "Titulares");
+        } else JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneTitularModificar);
     }//GEN-LAST:event_jButtonAdicionarTitular1MousePressed
 
     private void jMenuItem14MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem14MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.copiarNotasSimplesFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
-                    jButton1MousePressed(null);
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.copiarNotasSimplesFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                jButton1MousePressed(null);
+            }
+        }.ejecutarTarea();
     }//GEN-LAST:event_jMenuItem14MouseReleased
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -2541,15 +2518,14 @@ public class FormaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem15MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem15MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.copiarTasacionesFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
-                    jButton1MousePressed(null);
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.copiarTasacionesFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                jButton1MousePressed(null);
+            } 
+        }.ejecutarTarea();
     }//GEN-LAST:event_jMenuItem15MouseReleased
 
     private void jMenu2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseReleased
@@ -2561,82 +2537,76 @@ public class FormaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void eSuperficieConstruidaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eSuperficieConstruidaFocusLost
-        if (!eSuperficieConstruida.getText().equals("")) {
-            if (eSuperficieConstruida.getText().contains(".")) {
+         if (!eSuperficieConstruida.getText().equals(""))
+            if (eSuperficieConstruida.getText().contains(".")){
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eSuperficieConstruida.requestFocus();
             }
-        }
     }//GEN-LAST:event_eSuperficieConstruidaFocusLost
 
     private void eSuperficieUtilFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eSuperficieUtilFocusLost
-        if (!eSuperficieUtil.getText().equals("")) {
-            if (eSuperficieUtil.getText().contains(".")) {
+        if (!eSuperficieUtil.getText().equals(""))
+            if (eSuperficieUtil.getText().contains(".")){
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eSuperficieUtil.requestFocus();
             }
-        }
     }//GEN-LAST:event_eSuperficieUtilFocusLost
 
     private void eSuperficieTerrenoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eSuperficieTerrenoFocusLost
-        if (!eSuperficieTerreno.getText().equals("")) {
-            if (eSuperficieTerreno.getText().contains(".")) {
+        if (!eSuperficieTerreno.getText().equals(""))
+            if (eSuperficieTerreno.getText().contains(".")){
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eSuperficieTerreno.requestFocus();
             }
     }//GEN-LAST:event_eSuperficieTerrenoFocusLost
-    }
+
     private void jMenuItem16MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem16MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.copiarVidaLaboralFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
-                    jButton1MousePressed(null);
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.copiarVidaLaboralFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                jButton1MousePressed(null);
+            }
+        }.ejecutarTarea();
 //        
     }//GEN-LAST:event_jMenuItem16MouseReleased
 
     private void jMenuItem17MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem17MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.copiarIRPFFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
-                    jButton1MousePressed(null);
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.copiarIRPFFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                jButton1MousePressed(null);
+            }
+        }.ejecutarTarea();
     }//GEN-LAST:event_jMenuItem17MouseReleased
 
     private void jMenuItem18MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem18MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.copiarNominasFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
-                    jButton1MousePressed(null);
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.copiarNominasFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                jButton1MousePressed(null);
+            }
+        }.ejecutarTarea();        
     }//GEN-LAST:event_jMenuItem18MouseReleased
 
     private void jMenuItem19MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem19MouseReleased
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea descargar documentos?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0) {
-            new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
-                @Override
-                protected void tareaHaRealizar() {
-                    Utiles.copiarRecibosFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
-                    jButton1MousePressed(null);
-                }
-            }.ejecutarTarea();
-        }
+        if (respuesta == 0)
+        new TareaSegundoPlano(this, Utiles.msgTareaDescargarArchivos) {
+            @Override
+            protected void tareaHaRealizar() {
+                Utiles.copiarRecibosFromFTP(this, listaDocumentos, usuario.getNombreCompleto());
+                jButton1MousePressed(null);
+            }
+        }.ejecutarTarea();          
     }//GEN-LAST:event_jMenuItem19MouseReleased
 
     /**
@@ -2659,7 +2629,7 @@ public class FormaPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FormaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         //</editor-fold>
 
         /* Create and display the form */

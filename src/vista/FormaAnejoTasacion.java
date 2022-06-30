@@ -31,48 +31,53 @@ public class FormaAnejoTasacion extends javax.swing.JDialog {
     private Vector modelTipoAnejo;
     final private FormaProcesarFinca fp;
     private int indiceAnejoSeleccionada;
-    
+
     /**
      * Creates new form FormaCargas
+     *
      * @param parent
      * @param modal
      */
     public FormaAnejoTasacion(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.fp = (FormaProcesarFinca)parent;
+        this.fp = (FormaProcesarFinca) parent;
     }
-    
-     private void llenarCombo(String TipoCombo){
-        switch(TipoCombo){
-            case "Tipo anejo":modelTipoAnejo = new Vector();
-                                modelTipoAnejo.addElement( new ModelCombo("PlazaGaraje", "PlazaGaraje" ) );
-                                modelTipoAnejo.addElement( new ModelCombo("CuartoTrastero", "CuartoTrastero" ) );
-                                modelTipoAnejo.addElement( new ModelCombo("OtrosInmuebles", "OtrosInmuebles" ) );
-                                eTipoAnejo.setModel(new DefaultComboBoxModel(modelTipoAnejo));
-                                break;
+
+    private void llenarCombo(String TipoCombo) {
+        switch (TipoCombo) {
+            case "Tipo anejo":
+                modelTipoAnejo = new Vector();
+                modelTipoAnejo.addElement(new ModelCombo("PlazaGaraje", "PlazaGaraje"));
+                modelTipoAnejo.addElement(new ModelCombo("CuartoTrastero", "CuartoTrastero"));
+                modelTipoAnejo.addElement(new ModelCombo("OtrosInmuebles", "OtrosInmuebles"));
+                eTipoAnejo.setModel(new DefaultComboBoxModel(modelTipoAnejo));
+                break;
         }
-     }
-     
-     private void seleccionarElementoCombo(Vector modelo, JComboBox combo, String valor){
+    }
+
+    private void seleccionarElementoCombo(Vector modelo, JComboBox combo, String valor) {
         ModelCombo modeloCombo;
         int test = 9;
-        for(int i=0; i<modelo.size(); i++){
-            modeloCombo = (ModelCombo)modelo.elementAt(i);
-            if (modeloCombo.getClave().equals(valor)){
+        for (int i = 0; i < modelo.size(); i++) {
+            modeloCombo = (ModelCombo) modelo.elementAt(i);
+            if (modeloCombo.getClave().equals(valor)) {
                 combo.setSelectedIndex(i);
                 break;
             }
         }
     }
-     private void llenarFormulario(){
+
+    private void llenarFormulario() {
         //Combo
         seleccionarElementoCombo(modelTipoAnejo, eTipoAnejo, fp.getListaAnejos().get(indiceAnejoSeleccionada).get(0).getValor());
-        
+
         //Textos
         eSupConstruida.setText(fp.getListaAnejos().get(indiceAnejoSeleccionada).get(1).getValor());
         eSupUtil.setText(fp.getListaAnejos().get(indiceAnejoSeleccionada).get(2).getValor());
-     }
+        eValoracion.setText(fp.getListaAnejos().get(indiceAnejoSeleccionada).get(3).getValor());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -294,162 +299,175 @@ public class FormaAnejoTasacion extends javax.swing.JDialog {
 
     private void eAdicionarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eAdicionarMousePressed
         JComponent comp = Utiles.ValidaControles(jPanel1);
-        if (comp == null){  
-            JComponent compTemp = (JComponent)eTipoAnejo;
+        if (comp == null) {
+            JComponent compTemp = (JComponent) eTipoAnejo;
             String atributo;
             ArrayList<ComponenteFormulario> listaComponentesXML = new ArrayList<>();
-            while (compTemp != null){
+            while (compTemp != null) {
                 atributo = compTemp.getName();
-                if (atributo.endsWith("."))
+                if (atributo.endsWith(".")) {
                     atributo = atributo.substring(0, atributo.length() - 1);
-                if (compTemp instanceof JTextField){
-                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextField)compTemp).getText()));
+                }
+                if (compTemp instanceof JTextField) {
+                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextField) compTemp).getText()));
                 } else if (compTemp instanceof JComboBox) {
-                        listaComponentesXML.add(new ComponenteFormulario(atributo, ((ModelCombo)((JComboBox)compTemp).getSelectedItem()).getClave()));
+                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((ModelCombo) ((JComboBox) compTemp).getSelectedItem()).getClave()));
                 } else if (compTemp instanceof JFormattedTextField) {
-                         listaComponentesXML.add(new ComponenteFormulario(atributo, ((JFormattedTextField)compTemp).getText()));
+                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((JFormattedTextField) compTemp).getText()));
                 } else if (compTemp instanceof DateControl) {
-                    if (((DateControl)compTemp).getDate() != null)
-                        listaComponentesXML.add(new ComponenteFormulario(atributo,  Utiles.convertirFechaYYYYMMDD( ((DateControl)compTemp).getDate())));
-                    else listaComponentesXML.add(new ComponenteFormulario(atributo,  ""));
-                } else if (compTemp instanceof JTextArea){
-                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextArea)compTemp).getText()));
-                } 
-                compTemp = (JComponent)compTemp.getNextFocusableComponent();
+                    if (((DateControl) compTemp).getDate() != null) {
+                        listaComponentesXML.add(new ComponenteFormulario(atributo, Utiles.convertirFechaYYYYMMDD(((DateControl) compTemp).getDate())));
+                    } else {
+                        listaComponentesXML.add(new ComponenteFormulario(atributo, ""));
+                    }
+                } else if (compTemp instanceof JTextArea) {
+                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextArea) compTemp).getText()));
+                }
+                compTemp = (JComponent) compTemp.getNextFocusableComponent();
             }
             fp.getListaAnejos().add(listaComponentesXML);
-            Utiles.llenarTabla(jTable1,fp.getListaAnejos(), "Anejos");
+            Utiles.llenarTabla(jTable1, fp.getListaAnejos(), "Anejos");
             eSupConstruida.setText("");
             eSupUtil.setText("");
+            eValoracion.setText("");
             JOptionPane.showMessageDialog(null, Utiles.msgOperacionRealizada);
-        }else {
-             if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
-                {
-                    JOptionPane.showMessageDialog(null,Utiles.msgFechaIncorrecta + comp.getName());
-                    comp.requestFocus();
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
-                    comp.requestFocus();
-                }
+        } else {
+            if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) {
+                JOptionPane.showMessageDialog(null, Utiles.msgFechaIncorrecta + comp.getName());
+                comp.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
+                comp.requestFocus();
+            }
         }
     }//GEN-LAST:event_eAdicionarMousePressed
 
     private void eEliminarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eEliminarMousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1){
-            DefaultTableModel tabla = (DefaultTableModel)jTable1.getModel();
+        if (indiceSeleccionado != -1) {
+            DefaultTableModel tabla = (DefaultTableModel) jTable1.getModel();
             tabla.removeRow(indiceSeleccionado);
             jTable1.setModel(tabla);
             fp.getListaAnejos().remove(indiceSeleccionado);
-        } else
-             JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneCargaEliminar);
+        } else {
+            JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneCargaEliminar);
+        }
     }//GEN-LAST:event_eEliminarMousePressed
 
     private void eModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eModificarMousePressed
         int indiceSeleccionado = jTable1.getSelectedRow();
-        if (indiceSeleccionado != -1){
-            JComponent compTemp = (JComponent)eTipoAnejo;
+        if (indiceSeleccionado != -1) {
+            JComponent compTemp = (JComponent) eTipoAnejo;
             String atributo;
             ArrayList<ComponenteFormulario> listaComponentesXML = new ArrayList<>();
-            while (compTemp != null){
+            while (compTemp != null) {
                 atributo = compTemp.getName();
-                if (atributo.endsWith("."))
+                if (atributo.endsWith(".")) {
                     atributo = atributo.substring(0, atributo.length() - 1);
-                if (compTemp instanceof JTextField){
-                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextField)compTemp).getText()));
+                }
+                if (compTemp instanceof JTextField) {
+                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((JTextField) compTemp).getText()));
                 } else if (compTemp instanceof JComboBox) {
-                        listaComponentesXML.add(new ComponenteFormulario(atributo, ((ModelCombo)((JComboBox)compTemp).getSelectedItem()).getClave()));
+                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((ModelCombo) ((JComboBox) compTemp).getSelectedItem()).getClave()));
                 } else if (compTemp instanceof JFormattedTextField) {
-                         listaComponentesXML.add(new ComponenteFormulario(atributo, ((JFormattedTextField)compTemp).getText()));
+                    listaComponentesXML.add(new ComponenteFormulario(atributo, ((JFormattedTextField) compTemp).getText()));
                 } else if (compTemp instanceof DateControl) {
-                    if (((DateControl)compTemp).getDate() != null)
-                        listaComponentesXML.add(new ComponenteFormulario(atributo,  Utiles.convertirFechaYYYYMMDD( ((DateControl)compTemp).getDate())));
-                    else listaComponentesXML.add(new ComponenteFormulario(atributo,  ""));
-                } 
-                compTemp = (JComponent)compTemp.getNextFocusableComponent();
+                    if (((DateControl) compTemp).getDate() != null) {
+                        listaComponentesXML.add(new ComponenteFormulario(atributo, Utiles.convertirFechaYYYYMMDD(((DateControl) compTemp).getDate())));
+                    } else {
+                        listaComponentesXML.add(new ComponenteFormulario(atributo, ""));
+                    }
+                }
+                compTemp = (JComponent) compTemp.getNextFocusableComponent();
             }
             fp.getListaAnejos().set(indiceSeleccionado, listaComponentesXML);
             llenarFormulario();
-            Utiles.llenarTabla(jTable1,fp.getListaAnejos(), "Anejos");
+            Utiles.llenarTabla(jTable1, fp.getListaAnejos(), "Anejos");
             JOptionPane.showMessageDialog(null, Utiles.msgOperacionRealizada);
-        } else
-             JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneCargaModificar);
-        
+        } else {
+            JOptionPane.showMessageDialog(null, Utiles.msgSeleccioneCargaModificar);
+        }
+
     }//GEN-LAST:event_eModificarMousePressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        jTable1.addMouseListener(new MouseAdapter(){
-        @Override
-        public void mouseClicked(MouseEvent e){
-           indiceAnejoSeleccionada = jTable1.getSelectedRow();
-           llenarFormulario();
-        }
+
+        jTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                indiceAnejoSeleccionada = jTable1.getSelectedRow();
+                llenarFormulario();
+            }
         });
-        Utiles.llenarTabla(jTable1,fp.getListaAnejos(), "Anejos");
+        Utiles.llenarTabla(jTable1, fp.getListaAnejos(), "Anejos");
+        
         llenarCombo("Tipo anejo");
+
+        if (fp.getListaAnejos() != null && fp.getListaAnejos().size() > 0) {
+            indiceAnejoSeleccionada = 0;
+            llenarFormulario();
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void eTipoAnejoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eTipoAnejoActionPerformed
         /*
-        switch (eTipoAnejo.getSelectedIndex()){
-            case 0: eSupConstruida.setEnabled(true);
-                    eSupUtil.setEnabled(true);
-                    eSupConstruida1.setEnabled(false);
-                    eSupUtil1.setEnabled(false);
+         switch (eTipoAnejo.getSelectedIndex()){
+         case 0: eSupConstruida.setEnabled(true);
+         eSupUtil.setEnabled(true);
+         eSupConstruida1.setEnabled(false);
+         eSupUtil1.setEnabled(false);
                     
-                    eTipoAnejo.setNextFocusableComponent(eSupConstruida);
-                    eSupConstruida.setNextFocusableComponent(eSupUtil);
-                    eSupUtil.setNextFocusableComponent(eValoracion);
+         eTipoAnejo.setNextFocusableComponent(eSupConstruida);
+         eSupConstruida.setNextFocusableComponent(eSupUtil);
+         eSupUtil.setNextFocusableComponent(eValoracion);
                     
-                    eSupConstruida.setName("ANEJO_SUPERF_CONSTRUIDA.");
-                    eSupUtil.setName("ANEJO_SUPERF_UTIL.");
-                    break;
-            case 1: eSupConstruida.setEnabled(false);
-                    eSupUtil.setEnabled(false);
-                    eSupConstruida1.setEnabled(true);
-                    eSupUtil1.setEnabled(true);
+         eSupConstruida.setName("ANEJO_SUPERF_CONSTRUIDA.");
+         eSupUtil.setName("ANEJO_SUPERF_UTIL.");
+         break;
+         case 1: eSupConstruida.setEnabled(false);
+         eSupUtil.setEnabled(false);
+         eSupConstruida1.setEnabled(true);
+         eSupUtil1.setEnabled(true);
                     
-                    eTipoAnejo.setNextFocusableComponent(eSupConstruida1);
-                    eSupConstruida1.setNextFocusableComponent(eSupUtil1);
-                    eSupUtil1.setNextFocusableComponent(eValoracion);
+         eTipoAnejo.setNextFocusableComponent(eSupConstruida1);
+         eSupConstruida1.setNextFocusableComponent(eSupUtil1);
+         eSupUtil1.setNextFocusableComponent(eValoracion);
                     
-                    eSupConstruida1.setName("ANEJO_SUPERF_CONSTRUIDA.");
-                    eSupUtil1.setName("ANEJO_SUPERF_UTIL.");
-                    break;
+         eSupConstruida1.setName("ANEJO_SUPERF_CONSTRUIDA.");
+         eSupUtil1.setName("ANEJO_SUPERF_UTIL.");
+         break;
             
-            case 2: eSupConstruida.setEnabled(true);
-                    eSupUtil.setEnabled(true);
-                    eSupConstruida1.setEnabled(true);
-                    eSupUtil1.setEnabled(true);
+         case 2: eSupConstruida.setEnabled(true);
+         eSupUtil.setEnabled(true);
+         eSupConstruida1.setEnabled(true);
+         eSupUtil1.setEnabled(true);
                     
-                    eTipoAnejo.setNextFocusableComponent(eSupConstruida);
-                    eSupConstruida.setNextFocusableComponent(eSupUtil);
-                    eSupUtil.setNextFocusableComponent(eSupConstruida1);
-                    eSupConstruida1.setNextFocusableComponent(eSupUtil1);
-                    eSupUtil1.setNextFocusableComponent(eValoracion);
+         eTipoAnejo.setNextFocusableComponent(eSupConstruida);
+         eSupConstruida.setNextFocusableComponent(eSupUtil);
+         eSupUtil.setNextFocusableComponent(eSupConstruida1);
+         eSupConstruida1.setNextFocusableComponent(eSupUtil1);
+         eSupUtil1.setNextFocusableComponent(eValoracion);
                     
-                    eSupConstruida.setName("ANEJO_SUPERF_CONSTRUIDA_GARAJE.");
-                    eSupUtil.setName("ANEJO_SUPERF_UTIL_GARAJE.");
-                    eSupConstruida1.setName("ANEJO_SUPERF_CONSTRUIDA_TRASTERO.");
-                    eSupUtil1.setName("ANEJO_SUPERF_UTIL_TRASTERO.");
-                    break;
+         eSupConstruida.setName("ANEJO_SUPERF_CONSTRUIDA_GARAJE.");
+         eSupUtil.setName("ANEJO_SUPERF_UTIL_GARAJE.");
+         eSupConstruida1.setName("ANEJO_SUPERF_CONSTRUIDA_TRASTERO.");
+         eSupUtil1.setName("ANEJO_SUPERF_UTIL_TRASTERO.");
+         break;
                     
                     
                     
-            case 2:eSupConstruida.setEnabled(true);
-                    eSupUtil.setEnabled(true);
-                    eSupConstruida1.setEnabled(false);
-                    eSupUtil1.setEnabled(false);
+         case 2:eSupConstruida.setEnabled(true);
+         eSupUtil.setEnabled(true);
+         eSupConstruida1.setEnabled(false);
+         eSupUtil1.setEnabled(false);
                     
-                    eTipoAnejo.setNextFocusableComponent(eSupConstruida);
-                    eSupConstruida.setNextFocusableComponent(eSupUtil);
-                    eSupUtil.setNextFocusableComponent(eValoracion);
-                    eSupConstruida.setName("ANEJO_SUPERF_CONSTRUIDA.");
-                    eSupUtil.setName("ANEJO_SUPERF_UTIL.");
-        }
-        */
+         eTipoAnejo.setNextFocusableComponent(eSupConstruida);
+         eSupConstruida.setNextFocusableComponent(eSupUtil);
+         eSupUtil.setNextFocusableComponent(eValoracion);
+         eSupConstruida.setName("ANEJO_SUPERF_CONSTRUIDA.");
+         eSupUtil.setName("ANEJO_SUPERF_UTIL.");
+         }
+         */
     }//GEN-LAST:event_eTipoAnejoActionPerformed
 
     private void eSupConstruidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eSupConstruidaKeyTyped
