@@ -593,6 +593,8 @@ public class Utiles {
             creador.crearDocumentoRecibo(listaComponentesXML);
             creador.escribirArchivoRecibo(eNombreXML.getText());
         } catch (ParserConfigurationException | TransformerException ex) {
+            
+            System.out.println("generarXMLRecibo:" + ex);
         }
     }
 
@@ -1131,7 +1133,7 @@ public class Utiles {
                 objAux = listaObjetos.get(nFila);
                 documento = (Documento) objAux;
                 data.setValueAt(documento.getNombre(), nFila, 0);
-                data.setValueAt(documento.getEstado(), nFila, 1);
+//                data.setValueAt(documento.getEstado(), nFila, 1);
                 nFila++;
             }
             nFila++;

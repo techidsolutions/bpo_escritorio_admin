@@ -346,11 +346,11 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         jXFindBar1.setLayout(jXFindBar1Layout);
         jXFindBar1Layout.setHorizontalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 505, Short.MAX_VALUE)
         );
         jXFindBar1Layout.setVerticalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 39, Short.MAX_VALUE)
+            .addGap(0, 35, Short.MAX_VALUE)
         );
 
         jXTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -358,11 +358,11 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nombre", "Estado"
+                "Nombre"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -487,11 +487,11 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         Font fuente = new Font(th.getFont().getName(), Font.BOLD, 11);
         th.setFont(fuente);
 
-        jXTable1.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
-        TableColumn columna = jXTable1.getColumn("Nombre");
-        columna.setPreferredWidth(200);
-        columna = jXTable1.getColumn("Estado");
-        columna.setPreferredWidth(200);
+//        jXTable1.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
+//        TableColumn columna = jXTable1.getColumn("Nombre");
+//        columna.setPreferredWidth(400);
+//        columna = jXTable1.getColumn("Estado");
+//        columna.setPreferredWidth(200);
         
         
         jXTable1.setAutoCreateRowSorter(true);

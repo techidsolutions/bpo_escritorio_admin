@@ -278,6 +278,12 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         eNumeroAnnosTotal.setName("NUMERO_ANNO_TOTAL"); // NOI18N
         eNumeroAnnosTotal.setNextFocusableComponent(eNumeroSeguridadSocial);
 
+        eFechaCEA.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                eFechaCEAFocusLost(evt);
+            }
+        });
+
         bConvertir.setText("Convertir");
         bConvertir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -475,11 +481,11 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nombre", "Estado"
+                "Nombre"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -514,7 +520,7 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         jXFindBar1.setLayout(jXFindBar1Layout);
         jXFindBar1Layout.setHorizontalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 442, Short.MAX_VALUE)
+            .addGap(0, 505, Short.MAX_VALUE)
         );
         jXFindBar1Layout.setVerticalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -530,15 +536,15 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane2)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton2))))
+                    .addComponent(jXFindBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButton2))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -621,11 +627,11 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         Font fuente = new Font(th.getFont().getName(), Font.BOLD, 11);
         th.setFont(fuente);
 
-        jXTable1.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
-        TableColumn columna = jXTable1.getColumn("Nombre");
-        columna.setPreferredWidth(200);
-        columna = jXTable1.getColumn("Estado");
-        columna.setPreferredWidth(200);
+//        jXTable1.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
+//        TableColumn columna = jXTable1.getColumn("Nombre");
+//        columna.setPreferredWidth(400);
+//        columna = jXTable1.getColumn("Estado");
+//        columna.setPreferredWidth(200);
 
         jXTable1.setAutoCreateRowSorter(true);
         jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -690,6 +696,14 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
         }
     }//GEN-LAST:event_jButton3MousePressed
+
+    private void eFechaCEAFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eFechaCEAFocusLost
+
+       if (eFechaCEA.getValue() != null) 
+        {
+            eFechaDocumento.setDate(eFechaCEA.getDate());
+        }
+    }//GEN-LAST:event_eFechaCEAFocusLost
 
     /**
      * @param args the command line arguments

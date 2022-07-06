@@ -70,7 +70,8 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         
         eFecha.setFormat(Resources.DMY);
         eFecha.setName("FECHA");
-        eFecha.setNextFocusableComponent(eNif);
+        eFecha.setNextFocusableComponent(eNif);       
+        
     }
     
     /**
@@ -149,6 +150,7 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
                                 modelViviendaHabitual.addElement( new ModelCombo("Arrendatario", "3:Arrendatario" ) );
                                 modelViviendaHabitual.addElement( new ModelCombo("OtraSituacion", "4:OtraSituacion" ) );
                                 eViviendaHabitual.setModel(new DefaultComboBoxModel(modelViviendaHabitual));
+                                eViviendaHabitual.setSelectedIndex(3);
                                 break;
             case "Opción tributaria":    modelOpcionTributaria = new Vector();
                                 modelOpcionTributaria.addElement( new ModelCombo("Individual", "Individual" ) );
@@ -171,14 +173,14 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         eRendimientoNeto.setText("");
         eResultadoDeclaracion.setText("");
         eRetenciones.setText("");
-        eCodigoPostal.setText("");
+        eCodigoPostal.setText("0");
         eNombreTitular.setText("");
                 
         //Combo
         eEstadoCivil.setSelectedIndex(0); 
         eProvincia.setSelectedIndex(0); 
         eOpcionTributacion.setSelectedIndex(0); 
-        eViviendaHabitual.setSelectedIndex(0); 
+        eViviendaHabitual.setSelectedIndex(3); 
 
         //Fechas
         Date fecha = null;
@@ -250,12 +252,12 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         eBaseImponibleGeneral = new javax.swing.JTextField();
         eBaseImponibleAhorro = new javax.swing.JTextField();
         eCodigoPostal = new javax.swing.JTextField();
-        eEstadoCivil = new javax.swing.JComboBox<>();
+        eEstadoCivil = new javax.swing.JComboBox<String>();
         eFecha = new org.openswing.swing.client.DateControl();
-        eOpcionTributacion = new javax.swing.JComboBox<>();
+        eOpcionTributacion = new javax.swing.JComboBox<String>();
         ePersonasCargo = new javax.swing.JTextField();
-        eProvincia = new javax.swing.JComboBox<>();
-        eViviendaHabitual = new javax.swing.JComboBox<>();
+        eProvincia = new javax.swing.JComboBox<String>();
+        eViviendaHabitual = new javax.swing.JComboBox<String>();
         eRendimientoNeto = new javax.swing.JTextField();
         eRetenciones = new javax.swing.JTextField();
         bConvertir = new javax.swing.JButton();
@@ -648,11 +650,11 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nombre", "Estado"
+                "Nombre"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -666,11 +668,11 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         jXFindBar1.setLayout(jXFindBar1Layout);
         jXFindBar1Layout.setHorizontalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 421, Short.MAX_VALUE)
+            .addGap(0, 446, Short.MAX_VALUE)
         );
         jXFindBar1Layout.setVerticalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 33, Short.MAX_VALUE)
+            .addGap(0, 35, Short.MAX_VALUE)
         );
 
         jButton1.setText("Actualizar");
@@ -694,18 +696,22 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(8, 8, 8)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
-                .addContainerGap(507, Short.MAX_VALUE))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(566, 566, 566))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -735,14 +741,14 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 872, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 957, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -831,16 +837,19 @@ public class FormaProcesarIRPF extends javax.swing.JDialog {
         llenarCombo("Vivienda habitual");
         llenarCombo("Opción tributaria");
         
+                
+        eCodigoPostal.setText("0");
+        
         JTableHeader th;
         th = jXTable1.getTableHeader();
         Font fuente = new Font(th.getFont().getName(), Font.BOLD, 11);
         th.setFont(fuente);
 
-        jXTable1.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
-        TableColumn columna = jXTable1.getColumn("Nombre");
-        columna.setPreferredWidth(200);
-        columna = jXTable1.getColumn("Estado");
-        columna.setPreferredWidth(200);
+//        jXTable1.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
+//        TableColumn columna = jXTable1.getColumn("Nombre");
+//        columna.setPreferredWidth(400);
+//        columna = jXTable1.getColumn("Estado");
+//        columna.setPreferredWidth(200);
         
         
         jXTable1.setAutoCreateRowSorter(true);

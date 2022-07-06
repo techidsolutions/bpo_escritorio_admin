@@ -967,14 +967,14 @@ public class FormaPrincipal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Estado"
+                "Nombre"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -2072,11 +2072,11 @@ public class FormaPrincipal extends javax.swing.JFrame {
         Font fuente = new Font(th.getFont().getName(), Font.BOLD, 11);
         th.setFont(fuente);
 
-        jXTable1.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
-        TableColumn columna = jXTable1.getColumn("Nombre");
-        columna.setPreferredWidth(300);
-        columna = jXTable1.getColumn("Estado");
-        columna.setPreferredWidth(360);
+//        jXTable1.setAutoResizeMode(JXTable.AUTO_RESIZE_OFF);
+//        TableColumn columna = jXTable1.getColumn("Nombre");
+//        columna.setPreferredWidth(660);
+//        columna = jXTable1.getColumn("Estado");
+//        columna.setPreferredWidth(360);
         
         jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         jXTable1.setColumnControlVisible(true); 
