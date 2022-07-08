@@ -36,14 +36,16 @@ import static vista.FormaProcesarNomina.cargarListaDocumentos;
  * @author TECH ID SOLUTIONS
  */
 public class FormaProcesarRecibo extends javax.swing.JDialog {
+
     Vector modelGrupoCotizacion;
     final int filas = 20;
     ArrayList<Documento> listaDocumentos;
     int elementoSeleccionadoTabla = -1;
     Documento documentoSeleccionado;
-    
+
     /**
      * Creates new form FormaProcesarIRPF
+     *
      * @param parent
      * @param modal
      */
@@ -58,7 +60,7 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         eFechaVencimiento.setNextFocusableComponent(eImportePrestamo);
     }
 
-     private void limpiarComponentesFormulario(){
+    private void limpiarComponentesFormulario() {
         eCapitalPendiente.setText("");
         eCuota.setText("");
         eEntidadEmisora.setText("");
@@ -66,18 +68,17 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         eNombreDocumento.setText("");
         eNumeroPrestamo.setText("");
         eNombreTitular.setText("");
-                
+
         //Fechas
         Date fecha = null;
         eFechaRecibo.setDate(fecha);
-        eFechaVencimiento.setDate(new Date(0,0,1));
+        eFechaVencimiento.setDate(new Date(0, 0, 1));
     }
-     
-    
-    public static ArrayList<Documento> cargarListaDocumentos(){
+
+    public static ArrayList<Documento> cargarListaDocumentos() {
         ArrayList<Documento> listaDocumentos = new ArrayList<>();
         String caminoDirectorioRaiz = Utiles.rutaEnviadosRecibo;
-	File dirRaiz = new File(caminoDirectorioRaiz);
+        File dirRaiz = new File(caminoDirectorioRaiz);
         String archivos[] = dirRaiz.list();
         File dirTemp;
         Documento documento;
@@ -87,22 +88,20 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
             listaDocumentos.add(documento);
         }
         return listaDocumentos;
-    } 
-     
-     
-    private void actualizarInfoDocumentos(String mensaje){
-            new TareaSegundoPlano(this, mensaje) {
-                @Override
-                    protected void tareaHaRealizar() {
-                        listaDocumentos = cargarListaDocumentos();
-                        Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
-                        Dimension dimension = jXTable1.getPreferredSize();
-                        jScrollPane1.setPreferredSize(new Dimension(dimension.width,jXTable1.getRowHeight()*filas));
-                    }
-            }.ejecutarTarea();
     }
-    
-    
+
+    private void actualizarInfoDocumentos(String mensaje) {
+        new TareaSegundoPlano(this, mensaje) {
+            @Override
+            protected void tareaHaRealizar() {
+                listaDocumentos = cargarListaDocumentos();
+                Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
+                Dimension dimension = jXTable1.getPreferredSize();
+                jScrollPane1.setPreferredSize(new Dimension(dimension.width, jXTable1.getRowHeight() * filas));
+            }
+        }.ejecutarTarea();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,7 +112,6 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -140,7 +138,6 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         jXTable1 = new org.jdesktop.swingx.JXTable();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Extracción datos Recibo");
@@ -154,11 +151,12 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(614, 828));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
         jScrollPane3.setPreferredSize(new java.awt.Dimension(360, 500));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información Recibo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel2.setMaximumSize(new java.awt.Dimension(0, 0));
+        jPanel2.setName(""); // NOI18N
+        jPanel2.setPreferredSize(new java.awt.Dimension(0, 0));
 
         jLabel1.setText("Capital pendiente:");
 
@@ -245,42 +243,41 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bConvertir)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(eNumeroPrestamo)
-                            .addComponent(eImportePrestamo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(eFechaVencimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                            .addComponent(eEntidadEmisora, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(eCuota, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(eCapitalPendiente)
-                            .addComponent(eFechaRecibo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(eNombreDocumento, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel17)
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(eNombreTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(eEntidadEmisora, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(eCuota, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(eCapitalPendiente, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(eNombreDocumento, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(eNombreTitular, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(eFechaRecibo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bConvertir)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(eNumeroPrestamo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(eImportePrestamo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(eFechaVencimiento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(2, 2, 2)))
+                .addGap(36, 36, 36))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(eNombreDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -316,31 +313,14 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(eNumeroPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(49, 49, 49)
                 .addComponent(bConvertir)
-                .addGap(130, 130, 130))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         jScrollPane3.setViewportView(jPanel2);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(247, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(411, Short.MAX_VALUE))
-        );
-
-        jScrollPane1.setViewportView(jPanel1);
+        jScrollPane1.setViewportView(jScrollPane3);
 
         javax.swing.GroupLayout jXFindBar1Layout = new javax.swing.GroupLayout(jXFindBar1);
         jXFindBar1.setLayout(jXFindBar1Layout);
@@ -370,6 +350,11 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
             }
         });
         jXTable1.setEditable(false);
+        jXTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jXTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jXTable1);
 
         jButton3.setText("Convertir a Documento KO");
@@ -386,34 +371,27 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
             }
         });
 
-        jButton4.setText("Cargar documento");
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton4MousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(21, 21, 21))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2)))
+                        .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2)
+                        .addGap(21, 21, 21))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,13 +402,13 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3))
-                        .addContainerGap(19, Short.MAX_VALUE))))
+                            .addComponent(jButton3)
+                            .addComponent(jButton2))
+                        .addGap(0, 14, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -442,39 +420,38 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
 
     private void bConvertirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bConvertirMousePressed
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea Convertir?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (respuesta == 0){
+        if (respuesta == 0) {
             JComponent comp = Utiles.ValidaControles(jPanel2);
-            if (comp == null){
+            if (comp == null) {
                 //if (Utiles.validarFecha(eFechaRecibo) && Utiles.validarFecha(eFechaVencimiento)){
-                    new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
-                        @Override
-                        protected void tareaHaRealizar() {
-                            File archivo = new File(Utiles.rutaEnviadosRecibo.concat(eNombreDocumento.getText()));
-                            Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosReciboPDF.concat(eNombreDocumento.getText())));
-                            if (movido){
-                                Utiles.generarXMLRecibo(eNombreDocumento);
-                                listaDocumentos.remove(elementoSeleccionadoTabla);
-                                DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
-                                modelo.removeRow(elementoSeleccionadoTabla);
-                                jXTable1.setModel(modelo);
-                                limpiarComponentesFormulario();
-                            }else JOptionPane.showMessageDialog(null,"Debe cerrar el documento PDF antes de convertir.");    
+                new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
+                    @Override
+                    protected void tareaHaRealizar() {
+                        File archivo = new File(Utiles.rutaEnviadosRecibo.concat(eNombreDocumento.getText()));
+                        Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosReciboPDF.concat(eNombreDocumento.getText())));
+                        if (movido) {
+                            Utiles.generarXMLRecibo(eNombreDocumento);
+                            listaDocumentos.remove(elementoSeleccionadoTabla);
+                            DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
+                            modelo.removeRow(elementoSeleccionadoTabla);
+                            jXTable1.setModel(modelo);
+                            limpiarComponentesFormulario();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Debe cerrar el documento PDF antes de convertir.");
                         }
-                        }.ejecutarTarea();
+                    }
+                }.ejecutarTarea();
                 /*
-                }else {
-                        JOptionPane.showMessageDialog(null,"Fecha incorrecta.");
+                 }else {
+                 JOptionPane.showMessageDialog(null,"Fecha incorrecta.");
 
-                    }    */
-            }else {
-                if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) 
-                {
-                    JOptionPane.showMessageDialog(null,Utiles.msgFechaIncorrecta + comp.getName());
+                 }    */
+            } else {
+                if (comp instanceof DateControl && ((DateControl) comp).getValue() != null) {
+                    JOptionPane.showMessageDialog(null, Utiles.msgFechaIncorrecta + comp.getName());
                     comp.requestFocus();
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
+                } else {
+                    JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
                     comp.requestFocus();
                 }
             }
@@ -492,23 +469,24 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
 //        columna.setPreferredWidth(400);
 //        columna = jXTable1.getColumn("Estado");
 //        columna.setPreferredWidth(200);
-        
-        
         jXTable1.setAutoCreateRowSorter(true);
         jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jXTable1.setColumnControlVisible(true); 
+        jXTable1.setColumnControlVisible(true);
         jXFindBar1.setSearchable(jXTable1.getSearchable());
         jXTable1.setColumnControlVisible(true);
         TableRowFilterSupport.forTable(jXTable1).searchable(true).apply();
-        
-        jXTable1.addMouseListener(new MouseAdapter(){
-        @Override
-        public void mouseClicked(MouseEvent e){
-           elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-           jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
-        }
+
+        jXTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                if (jXTable1.getSelectedRow() != -1) {
+                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                    jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+                }
+            }
         });
-        eFechaVencimiento.setDate(new Date(0,0,1));
+        eFechaVencimiento.setDate(new Date(0, 0, 1));
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
 
     }//GEN-LAST:event_formWindowOpened
@@ -522,7 +500,7 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
     }//GEN-LAST:event_eImportePrestamoKeyTyped
 
     private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
-        if (jXTable1.getSelectedRow() != -1){
+        if (jXTable1.getSelectedRow() != -1) {
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -531,66 +509,77 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
                     File archivo = new File(Utiles.rutaEnviadosRecibo.concat(documentoSeleccionado.getNombre()));
                     archivo.renameTo(new File(Utiles.rutaEnviadosDocumentosKO.concat(documentoSeleccionado.getNombre())));
                     listaDocumentos.remove(elementoSeleccionadoTabla);
-                    DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
+                    DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
                     modelo.removeRow(elementoSeleccionadoTabla);
                     jXTable1.setModel(modelo);
                     limpiarComponentesFormulario();
                 }
             }.ejecutarTarea();
-        }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
+        }
     }//GEN-LAST:event_jButton3MousePressed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_jButton2MousePressed
 
-    private void jButton4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MousePressed
-        if (jXTable1.getSelectedRow() != -1){
-            new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
-                @Override
-                protected void tareaHaRealizar() {
-                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-                    documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
-                    limpiarComponentesFormulario();
-                    eNombreDocumento.setText(documentoSeleccionado.getNombre());
-                    jXTable1.clearSelection();
-                    File archivo = new File(Utiles.rutaEnviadosRecibo.concat("\\").concat(documentoSeleccionado.getNombre()));
-                        try {
-                            Desktop.getDesktop().open(archivo);
-                        }catch (IOException ex) {
-                        }
-                    }
-                }.ejecutarTarea();
-            }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
-    }//GEN-LAST:event_jButton4MousePressed
-
     private void eNumeroPrestamoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eNumeroPrestamoKeyTyped
         //Utiles.validarNumeroReal(evt, eImportePrestamo, 9, 2);
     }//GEN-LAST:event_eNumeroPrestamoKeyTyped
 
     private void eCapitalPendienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eCapitalPendienteFocusLost
-        if (!eCapitalPendiente.getText().equals(""))
-            if (eCapitalPendiente.getText().contains(".")){
+        if (!eCapitalPendiente.getText().equals("")) {
+            if (eCapitalPendiente.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eCapitalPendiente.requestFocus();
             }
+        }
     }//GEN-LAST:event_eCapitalPendienteFocusLost
 
     private void eCuotaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eCuotaFocusLost
-        if (!eCuota.getText().equals(""))
-            if (eCuota.getText().contains(".")){
+        if (!eCuota.getText().equals("")) {
+            if (eCuota.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eCuota.requestFocus();
             }
+        }
     }//GEN-LAST:event_eCuotaFocusLost
 
     private void eImportePrestamoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_eImportePrestamoFocusLost
-        if (!eImportePrestamo.getText().equals(""))
-            if (eImportePrestamo.getText().contains(".")){
+        if (!eImportePrestamo.getText().equals("")) {
+            if (eImportePrestamo.getText().contains(".")) {
                 JOptionPane.showMessageDialog(null, "No se permite el caracter \".\" debe utilizar \",\" ");
                 eImportePrestamo.requestFocus();
             }
+        }
     }//GEN-LAST:event_eImportePrestamoFocusLost
+
+    private void jXTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jXTable1MouseClicked
+        // TODO add your handling code here:
+
+        if (evt.getClickCount() > 1) {
+            if (jXTable1.getSelectedRow() != -1) {
+                new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
+                    @Override
+                    protected void tareaHaRealizar() {
+                        elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                        documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
+                        limpiarComponentesFormulario();
+                        eNombreDocumento.setText(documentoSeleccionado.getNombre());
+                        jXTable1.clearSelection();
+                        File archivo = new File(Utiles.rutaEnviadosRecibo.concat("\\").concat(documentoSeleccionado.getNombre()));
+                        try {
+                            Desktop.getDesktop().open(archivo);
+                        } catch (IOException ex) {
+                        }
+                    }
+                }.ejecutarTarea();
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
+            }
+        }
+    }//GEN-LAST:event_jXTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -615,7 +604,7 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -650,7 +639,6 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
     private javax.swing.JTextField eNumeroPrestamo;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
@@ -660,7 +648,6 @@ public class FormaProcesarRecibo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

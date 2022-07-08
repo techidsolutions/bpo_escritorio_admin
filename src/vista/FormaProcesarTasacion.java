@@ -9,6 +9,8 @@ import Atxy2k.CustomTextField.RestrictedTextField;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.ComponenteFormulario;
 import modelo.Documento;
@@ -29,6 +32,7 @@ import modelo.ModelCombo;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.openswing.swing.client.DateControl;
 import org.openswing.swing.internationalization.java.Resources;
+import org.oxbow.swingbits.table.filter.TableRowFilterSupport;
 import util.ComboboxToolTipRenderer;
 import util.ModelTooltips;
 import util.TareaSegundoPlano;
@@ -202,6 +206,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         listaFincas.clear();
         DefaultTableModel modelo = (DefaultTableModel)jTable1.getModel();
         modelo.setRowCount(0);
+        limpiarComponentes();
     }
     
     /**
@@ -563,7 +568,6 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         jXTable1 = new org.jdesktop.swingx.JXTable();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
 
         jLabel27.setText("Nombre tasador:");
 
@@ -879,19 +883,22 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
                                         .addComponent(jLabel46)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(eValorHipotecario, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(141, 141, 141)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButton9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton5))
+                                        .addGap(67, 67, 67)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(jButton9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton10)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton5))))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(141, 141, 141)
                                         .addComponent(jLabel28)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7)
@@ -974,7 +981,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jButton4))
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1064,7 +1071,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
                             .addComponent(jButton9)
                             .addComponent(jButton10)
                             .addComponent(jButton5))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1075,7 +1082,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
                             .addComponent(jLabel47)
                             .addComponent(eValorTasacionEstadistico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(125, 125, 125))
+                .addGap(119, 119, 119))
         );
 
         jScrollPane6.setViewportView(jPanel2);
@@ -1084,24 +1091,23 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bConvertir)
+                .addGap(333, 333, 333))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(654, 654, 654)
-                        .addComponent(bConvertir))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 762, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(300, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(bConvertir)
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addContainerGap(386, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -1130,9 +1136,9 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
             }
         });
         jXTable1.setEditable(false);
-        jXTable1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jXTable1PropertyChange(evt);
+        jXTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jXTable1MouseClicked(evt);
             }
         });
         jScrollPane5.setViewportView(jXTable1);
@@ -1156,29 +1162,21 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
             }
         });
 
-        jButton8.setText("Cargar documento");
-        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton8MousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8))
-                    .addComponent(jScrollPane5))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -1188,13 +1186,11 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton7)
-                            .addComponent(jButton6)
-                            .addComponent(jButton8))
-                        .addGap(0, 66, Short.MAX_VALUE)))
+                            .addComponent(jButton6))))
                 .addContainerGap())
         );
 
@@ -1268,6 +1264,23 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         anadirHints();
         
         SelectEmpresaTasadoraInfo(0);
+        
+        jXTable1.setAutoCreateRowSorter(true);
+        jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        jXTable1.setColumnControlVisible(true);
+        jXTable1.setColumnControlVisible(true);
+        TableRowFilterSupport.forTable(jXTable1).searchable(true).apply();
+
+        jXTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                if (jXTable1.getSelectedRow() != -1) {
+                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                    jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+                }
+            }
+        });
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1331,10 +1344,6 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         Utiles.validarNumeroReal(evt, eValorTasacion, 9, 2);
     }//GEN-LAST:event_eValorTasacionKeyTyped
 
-    private void jXTable1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jXTable1PropertyChange
-
-    }//GEN-LAST:event_jXTable1PropertyChange
-
     private void jButton6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MousePressed
         if (jXTable1.getSelectedRow() != -1){
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
@@ -1357,27 +1366,6 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
     private void jButton7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MousePressed
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_jButton7MousePressed
-
-    private void jButton8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MousePressed
-        if (jXTable1.getSelectedRow() != -1){
-            new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
-                @Override
-                protected void tareaHaRealizar() {
-                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-                    documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
-                    limpiarComponentesFormulario();
-                    eNombreDocumento.setText(documentoSeleccionado.getNombre());
-                    //eReferencia.setText(documentoSeleccionado.getNombre().substring(0, documentoSeleccionado.getNombre().length()-4).split("_")[0]);
-                    jXTable1.clearSelection();
-                    File archivo = new File(Utiles.rutaEnviadosTasacion.concat("\\").concat(documentoSeleccionado.getNombre()));
-                        try {
-                            Desktop.getDesktop().open(archivo);
-                        }catch (IOException ex) {
-                        }
-                    }
-                }.ejecutarTarea();
-            }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
-    }//GEN-LAST:event_jButton8MousePressed
 
     private void eValorHipotecarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_eValorHipotecarioKeyTyped
         Utiles.validarNumeroReal(evt, eValorHipotecario, 9, 2);
@@ -1490,6 +1478,32 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         SelectEmpresaTasadoraInfo(eEmpresaTasadora.getSelectedIndex());
     }//GEN-LAST:event_eEmpresaTasadoraActionPerformed
 
+    private void jXTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jXTable1MouseClicked
+        // TODO add your handling code here:
+        
+         if(evt.getClickCount() > 1)
+        {
+            if (jXTable1.getSelectedRow() != -1){
+            new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
+                @Override
+                protected void tareaHaRealizar() {
+                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                    documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
+                    limpiarComponentesFormulario();
+                    eNombreDocumento.setText(documentoSeleccionado.getNombre());
+                    //eReferencia.setText(documentoSeleccionado.getNombre().substring(0, documentoSeleccionado.getNombre().length()-4).split("_")[0]);
+                    jXTable1.clearSelection();
+                    File archivo = new File(Utiles.rutaEnviadosTasacion.concat("\\").concat(documentoSeleccionado.getNombre()));
+                        try {
+                            Desktop.getDesktop().open(archivo);
+                        }catch (IOException ex) {
+                        }
+                    }
+                }.ejecutarTarea();
+            }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
+        }
+    }//GEN-LAST:event_jXTable1MouseClicked
+
     private void SelectEmpresaTasadoraInfo(int index) {
 
         if (index != -1) {
@@ -1577,7 +1591,6 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;

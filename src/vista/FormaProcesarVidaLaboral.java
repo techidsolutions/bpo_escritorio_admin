@@ -249,7 +249,6 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         eNombreTitular = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jXTable1 = new org.jdesktop.swingx.JXTable();
-        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jXFindBar1 = new org.jdesktop.swingx.JXFindBar();
@@ -493,14 +492,12 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
             }
         });
         jXTable1.setEditable(false);
-        jScrollPane2.setViewportView(jXTable1);
-
-        jButton2.setText("Cargar documento");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton2MousePressed(evt);
+        jXTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jXTable1MouseClicked(evt);
             }
         });
+        jScrollPane2.setViewportView(jXTable1);
 
         jButton1.setText("Actualizar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -520,7 +517,7 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         jXFindBar1.setLayout(jXFindBar1Layout);
         jXFindBar1Layout.setHorizontalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 505, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jXFindBar1Layout.setVerticalGroup(
             jXFindBar1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,13 +535,13 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jXFindBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(42, 42, 42)
-                        .addComponent(jButton2))
-                    .addComponent(jScrollPane2))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)))
+                        .addGap(0, 80, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -561,7 +558,6 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
                             .addComponent(jButton1)
                             .addComponent(jButton3))
                         .addContainerGap())))
@@ -643,34 +639,15 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
         jXTable1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-                jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+                if (jXTable1.getSelectedRow() != -1) 
+                {
+                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();                
+                   jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+                }
             }
         });
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_formWindowOpened
-
-    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
-        if (jXTable1.getSelectedRow() != -1) {
-            new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
-                @Override
-                protected void tareaHaRealizar() {
-                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-                    documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
-                    limpiarComponentesFormulario();
-                    eNombreDocumento.setText(documentoSeleccionado.getNombre());
-                    jXTable1.clearSelection();
-                    File archivo = new File(Utiles.rutaEnviadosVidaLaboral.concat("\\").concat(documentoSeleccionado.getNombre()));
-                    try {
-                        Desktop.getDesktop().open(archivo);
-                    } catch (IOException ex) {
-                    }
-                }
-            }.ejecutarTarea();
-        } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
-        }
-    }//GEN-LAST:event_jButton2MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
@@ -704,6 +681,33 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
             eFechaDocumento.setDate(eFechaCEA.getDate());
         }
     }//GEN-LAST:event_eFechaCEAFocusLost
+
+    private void jXTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jXTable1MouseClicked
+        // TODO add your handling code here:
+        
+         if(evt.getClickCount() > 1)
+        {
+            if (jXTable1.getSelectedRow() != -1) {
+            new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
+                @Override
+                protected void tareaHaRealizar() {
+                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                    documentoSeleccionado = listaDocumentos.get(elementoSeleccionadoTabla);
+                    limpiarComponentesFormulario();
+                    eNombreDocumento.setText(documentoSeleccionado.getNombre());
+                    jXTable1.clearSelection();
+                    File archivo = new File(Utiles.rutaEnviadosVidaLaboral.concat("\\").concat(documentoSeleccionado.getNombre()));
+                    try {
+                        Desktop.getDesktop().open(archivo);
+                    } catch (IOException ex) {
+                    }
+                }
+            }.ejecutarTarea();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
+        }
+        }
+    }//GEN-LAST:event_jXTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -762,7 +766,6 @@ public class FormaProcesarVidaLaboral extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> eTipoContrato;
     private javax.swing.JComboBox<String> eTipoRegimen;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;

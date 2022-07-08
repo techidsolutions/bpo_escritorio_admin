@@ -34,50 +34,52 @@ import util.Utiles;
  * @author TECH ID SOLUTIONS
  */
 public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
+
     Vector modelTipoDocumento;
     final int filas = 20;
     ArrayList<Documento> listaDocumentos;
     int elementoSeleccionadoTabla = -1;
     Documento documentoSeleccionado;
-    
+
     public FormaProcesarDocumentosKO(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-    
+
     /**
-     * 
-     * @param TipoCombo 
+     *
+     * @param TipoCombo
      */
-    private void llenarCombo(String TipoCombo){
-        switch(TipoCombo){
-            case "Tipo Documento":modelTipoDocumento = new Vector();
-                                modelTipoDocumento.addElement( new ModelCombo("ILEGIBLE", "ILEGIBLE" ) );
-                                modelTipoDocumento.addElement( new ModelCombo("NO_COINCIDE_TIPOLOGIA_DOCUMENTAL", "NO_COINCIDE_TIPOLOGIA_DOCUMENTAL" ) );
-                                modelTipoDocumento.addElement( new ModelCombo("DOCUMENTO_INCORRECTO", "DOCUMENTO_INCORRECTO" ) );
-                                modelTipoDocumento.addElement( new ModelCombo("OTROS_ERRORES", "OTROS_ERRORES" ) );
-                                eDescripcion.setModel(new DefaultComboBoxModel(modelTipoDocumento));
-                                break;
+    private void llenarCombo(String TipoCombo) {
+        switch (TipoCombo) {
+            case "Tipo Documento":
+                modelTipoDocumento = new Vector();
+                modelTipoDocumento.addElement(new ModelCombo("ILEGIBLE", "ILEGIBLE"));
+                modelTipoDocumento.addElement(new ModelCombo("NO_COINCIDE_TIPOLOGIA_DOCUMENTAL", "NO_COINCIDE_TIPOLOGIA_DOCUMENTAL"));
+                modelTipoDocumento.addElement(new ModelCombo("DOCUMENTO_INCORRECTO", "DOCUMENTO_INCORRECTO"));
+                modelTipoDocumento.addElement(new ModelCombo("OTROS_ERRORES", "OTROS_ERRORES"));
+                eDescripcion.setModel(new DefaultComboBoxModel(modelTipoDocumento));
+                break;
         }
     }
-    
+
     /**
-     * 
+     *
      */
-    private void limpiarComponentesFormulario(){
+    private void limpiarComponentesFormulario() {
         eNombreDocumento.setText("");
         eObservaciones.setText("");
-        eDescripcion.setSelectedIndex(0); 
+        eDescripcion.setSelectedIndex(0);
     }
-    
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public static ArrayList<Documento> cargarListaDocumentos(){
+    public static ArrayList<Documento> cargarListaDocumentos() {
         ArrayList<Documento> listaDocumentos = new ArrayList<>();
         String caminoDirectorioRaiz = Utiles.rutaEnviadosDocumentosKO;
-	File dirRaiz = new File(caminoDirectorioRaiz);
+        File dirRaiz = new File(caminoDirectorioRaiz);
         String archivos[] = dirRaiz.list();
         File dirTemp;
         Documento documento;
@@ -88,25 +90,22 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
         }
         return listaDocumentos;
     }
-    
+
     /**
-     * 
-     * @param mensaje 
+     *
+     * @param mensaje
      */
-    private void actualizarInfoDocumentos(String mensaje){
-            new TareaSegundoPlano(this, mensaje) {
-                @Override
-                    protected void tareaHaRealizar() {
-                        listaDocumentos = cargarListaDocumentos();
-                        Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
-                        Dimension dimension = jXTable1.getPreferredSize();
-                        jScrollPane1.setPreferredSize(new Dimension(dimension.width,jXTable1.getRowHeight()*filas));
-                    }
-            }.ejecutarTarea();
+    private void actualizarInfoDocumentos(String mensaje) {
+        new TareaSegundoPlano(this, mensaje) {
+            @Override
+            protected void tareaHaRealizar() {
+                listaDocumentos = cargarListaDocumentos();
+                Utiles.llenarTabla(jXTable1, listaDocumentos, "Documentos IRPF");
+                Dimension dimension = jXTable1.getPreferredSize();
+                jScrollPane1.setPreferredSize(new Dimension(dimension.width, jXTable1.getRowHeight() * filas));
+            }
+        }.ejecutarTarea();
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,7 +131,6 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         jXTable1 = new org.jdesktop.swingx.JXTable();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jXFindBar1 = new org.jdesktop.swingx.JXFindBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -246,19 +244,17 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
             }
         });
         jXTable1.setEditable(false);
+        jXTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jXTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jXTable1);
 
         jButton2.setText("Actualizar");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jButton2MousePressed(evt);
-            }
-        });
-
-        jButton3.setText("Cargar documento");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton3MousePressed(evt);
             }
         });
 
@@ -281,13 +277,11 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jXFindBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -300,11 +294,9 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(209, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
@@ -331,27 +323,29 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
 
     private void bConvertirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bConvertirMousePressed
         int respuesta = JOptionPane.showConfirmDialog(null, "Realmente desea Convertir?", "Confirmar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (respuesta == 0){
+        if (respuesta == 0) {
             JComponent comp = Utiles.ValidaControles(jPanel2);
-            if (comp == null){
-                    new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
-                        @Override
-                        protected void tareaHaRealizar() {
-                            File archivo = new File(Utiles.rutaEnviadosDocumentosKO.concat(eNombreDocumento.getText()));
-                            Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosDocumentosKOPDF.concat(eNombreDocumento.getText())));
-                            if (movido){
-                                Utiles.generarXMLDocumentoKO(eNombreDocumento);
-                                listaDocumentos.remove(elementoSeleccionadoTabla);
-                                DefaultTableModel modelo = (DefaultTableModel)jXTable1.getModel();
-                                modelo.removeRow(elementoSeleccionadoTabla);
-                                jXTable1.setModel(modelo);
-                                limpiarComponentesFormulario();
-                            }else JOptionPane.showMessageDialog(null,"Debe cerrar el documento PDF antes de convertir.");
+            if (comp == null) {
+                new TareaSegundoPlano(this, Utiles.msgTareaRealizandoConversion) {
+                    @Override
+                    protected void tareaHaRealizar() {
+                        File archivo = new File(Utiles.rutaEnviadosDocumentosKO.concat(eNombreDocumento.getText()));
+                        Boolean movido = archivo.renameTo(new File(Utiles.rutaProcesadosDocumentosKOPDF.concat(eNombreDocumento.getText())));
+                        if (movido) {
+                            Utiles.generarXMLDocumentoKO(eNombreDocumento);
+                            listaDocumentos.remove(elementoSeleccionadoTabla);
+                            DefaultTableModel modelo = (DefaultTableModel) jXTable1.getModel();
+                            modelo.removeRow(elementoSeleccionadoTabla);
+                            jXTable1.setModel(modelo);
+                            limpiarComponentesFormulario();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Debe cerrar el documento PDF antes de convertir.");
                         }
-                        }.ejecutarTarea();
+                    }
+                }.ejecutarTarea();
 
-            }else {
-                JOptionPane.showMessageDialog(null,Utiles.msgDebeIntroducir + comp.getName());
+            } else {
+                JOptionPane.showMessageDialog(null, Utiles.msgDebeIntroducir + comp.getName());
                 comp.requestFocus();
             }
         }
@@ -359,7 +353,7 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         llenarCombo("Tipo Documento");
-        
+
         JTableHeader th;
         th = jXTable1.getTableHeader();
         Font fuente = new Font(th.getFont().getName(), Font.BOLD, 11);
@@ -370,23 +364,25 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
 //        columna.setPreferredWidth(200);
 //        columna = jXTable1.getColumn("Estado");
 //        columna.setPreferredWidth(200);
-        
-        
         jXTable1.setAutoCreateRowSorter(true);
         jXTable1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        jXTable1.setColumnControlVisible(true); 
+        jXTable1.setColumnControlVisible(true);
         jXFindBar1.setSearchable(jXTable1.getSearchable());
         jXTable1.setColumnControlVisible(true);
         TableRowFilterSupport.forTable(jXTable1).searchable(true).apply();
-        
-        jXTable1.addMouseListener(new MouseAdapter(){
-        @Override
-        public void mouseClicked(MouseEvent e){
-           elementoSeleccionadoTabla = jXTable1.getSelectedRow();
-           jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
-        }
+
+        jXTable1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                if (jXTable1.getSelectedRow() != -1)
+                {
+                    elementoSeleccionadoTabla = jXTable1.getSelectedRow();
+                    jXTable1.setRowSelectionInterval(jXTable1.rowAtPoint(e.getPoint()), jXTable1.rowAtPoint(e.getPoint()));
+                }
+            }
         });
-        
+
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_formWindowOpened
 
@@ -394,14 +390,15 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
         JFileChooser explorador = new JFileChooser();
         explorador.setDialogTitle("Seleccionar documento...");
         int seleccion = explorador.showDialog(null, "Abrir!");
-        switch(seleccion) {
-            case JFileChooser.APPROVE_OPTION:File archivo = explorador.getSelectedFile();
-                                             eNombreDocumento.setText(archivo.getName());
-                                             break;
+        switch (seleccion) {
+            case JFileChooser.APPROVE_OPTION:
+                File archivo = explorador.getSelectedFile();
+                eNombreDocumento.setText(archivo.getName());
+                break;
             case JFileChooser.CANCEL_OPTION:
-            break;
+                break;
             case JFileChooser.ERROR_OPTION:
-            break;
+                break;
         }
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -409,8 +406,11 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
         actualizarInfoDocumentos(Utiles.msgTareaCargandoDocumentos);
     }//GEN-LAST:event_jButton2MousePressed
 
-    private void jButton3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MousePressed
-        if (jXTable1.getSelectedRow() != -1){
+    private void jXTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jXTable1MouseClicked
+        // TODO add your handling code here:
+
+        if (evt.getClickCount() > 1) {
+            if (jXTable1.getSelectedRow() != -1) {
             new TareaSegundoPlano(this, Utiles.msgTareaProcesandoDocumento) {
                 @Override
                 protected void tareaHaRealizar() {
@@ -420,14 +420,17 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
                     eNombreDocumento.setText(documentoSeleccionado.getNombre());
                     jXTable1.clearSelection();
                     File archivo = new File(Utiles.rutaEnviadosDocumentosKO.concat("\\").concat(documentoSeleccionado.getNombre()));
-                        try {
-                            Desktop.getDesktop().open(archivo);
-                        }catch (IOException ex) {
-                        }
+                    try {
+                        Desktop.getDesktop().open(archivo);
+                    } catch (IOException ex) {
                     }
-                }.ejecutarTarea();
-            }else JOptionPane.showMessageDialog(null,"Debe seleccionar un documento de la lista.");
-    }//GEN-LAST:event_jButton3MousePressed
+                }
+            }.ejecutarTarea();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un documento de la lista.");
+        }
+        }
+    }//GEN-LAST:event_jXTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -452,7 +455,7 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        
+
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -481,7 +484,6 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
     private javax.swing.JTextArea eObservaciones;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel8;
