@@ -1511,6 +1511,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
             eCodigoTasacionEstadistica.setText(aux.getNombre());
             if (aux.getValor() != "") {
                 eFechaValoracionEstadistico.setDate(BuildDate(aux.getValor()));
+                
             } else {
                 eFechaValoracionEstadistico.setDate(null);
             }
@@ -1644,7 +1645,7 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         modelEmpresaTasadora.addElement(new ModelCombo("BARNA-TASA, S.A.", "BARNA-TASA, S.A."));
         datosEmpresaTasadora.add(new ComponenteFormulario("4470", ""));
         modelEmpresaTasadora.addElement(new ModelCombo("CBRE VALUATION ADVISORY, S.A.", "CBRE VALUATION ADVISORY, S.A."));
-        datosEmpresaTasadora.add(new ComponenteFormulario("4630", ""));
+        datosEmpresaTasadora.add(new ComponenteFormulario("4630", "14/04/2011"));
         modelEmpresaTasadora.addElement(new ModelCombo("COLLECTIU ARQUITECTES TAXADORS.S.A.", "COLLECTIU ARQUITECTES TAXADORS.S.A."));
         datosEmpresaTasadora.add(new ComponenteFormulario("4462", ""));
         modelEmpresaTasadora.addElement(new ModelCombo("COMPAÑIA HISPANA DE TASACIONES Y VALORACIONES, S.A.", "COMPAÑIA HISPANA DE TASACIONES Y VALORACIONES, S.A."));
