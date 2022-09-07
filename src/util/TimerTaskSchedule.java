@@ -55,8 +55,8 @@ public class TimerTaskSchedule {
                     String portFtp = mainProperties.getProperty("portFtp");
                     //Cerrando el fichero
                     fileInputStream.close();
-                    documentosenviadosws= sshConnector.connectsftp(USUARIO, PASSWORD, SERVIDOR, PUERTO);                    
-                    //documentosenviadosws = sshConnector.connectsftp(usuarioFtp, claveFtp, ipFtp, new Integer(portFtp));
+                    //documentosenviadosws= sshConnector.connectsftp(USUARIO, PASSWORD, SERVIDOR, PUERTO);                    
+                    documentosenviadosws = sshConnector.connectsftp(usuarioFtp, claveFtp, ipFtp, new Integer(portFtp));
                     JOptionPane.showMessageDialog(null, "Documentos disponibles\n"
                             + "Nota Simple:" + documentosenviadosws.getDescargdaNotas() + "\n"
                             + "IRPF:" + documentosenviadosws.getDescargdaIRPF() + "\n"
