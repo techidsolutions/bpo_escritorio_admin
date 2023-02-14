@@ -1654,9 +1654,9 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         modelEmpresaTasadora.addElement(new ModelCombo("ARCO VALORACIONES", "ARCO VALORACIONES"));
         datosEmpresaTasadora.add(new ComponenteFormulario("4416", "15/07/1992"));
         modelEmpresaTasadora.addElement(new ModelCombo("ARQUITASA SOCIEDA DE TASACION, S.A.", "ARQUITASA SOCIEDA DE TASACION, S.A."));
-        datosEmpresaTasadora.add(new ComponenteFormulario("4404", ""));
+        datosEmpresaTasadora.add(new ComponenteFormulario("4404", "03/02/1992"));
         modelEmpresaTasadora.addElement(new ModelCombo("BALKIDE BALORAZIOAK, S.A.", "BALKIDE BALORAZIOAK, S.A."));
-        datosEmpresaTasadora.add(new ComponenteFormulario("4444", ""));
+        datosEmpresaTasadora.add(new ComponenteFormulario("4444", "18/11/1993"));
         modelEmpresaTasadora.addElement(new ModelCombo("BARNA-TASA, S.A.", "BARNA-TASA, S.A."));
         datosEmpresaTasadora.add(new ComponenteFormulario("4470", "26/06/1995"));
         modelEmpresaTasadora.addElement(new ModelCombo("CBRE VALUATION ADVISORY, S.A.", "CBRE VALUATION ADVISORY, S.A."));
@@ -1709,10 +1709,12 @@ public class FormaProcesarTasacion extends javax.swing.JDialog {
         datosEmpresaTasadora.add(new ComponenteFormulario("4349", ""));
         modelEmpresaTasadora.addElement(new ModelCombo("SERVATAS", "SERVATAS"));
         datosEmpresaTasadora.add(new ComponenteFormulario("4307", "17/09/1984"));
-        modelEmpresaTasadora.addElement(new ModelCombo("JJL VALORACIONES", "JJL VALORACIONES"));
+        modelEmpresaTasadora.addElement(new ModelCombo("JLL VALORACIONES", "JLL VALORACIONES"));
         datosEmpresaTasadora.add(new ComponenteFormulario("4302", "23/11/1982"));
         modelEmpresaTasadora.addElement(new ModelCombo("LKS TASACIONES", "LKS TASACIONES"));
         datosEmpresaTasadora.add(new ComponenteFormulario("4444", ""));
+        modelEmpresaTasadora.addElement(new ModelCombo("IBERTASA, SOCIEDAD DE TASACION", "IBERTASA, SOCIEDAD DE TASACION"));
+        datosEmpresaTasadora.add(new ComponenteFormulario("4422", "02/11/1982"));
     }
 
     private Date BuildDate(String fecha) {
