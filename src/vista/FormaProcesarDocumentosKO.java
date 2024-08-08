@@ -61,7 +61,20 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
                 eDescripcion.setModel(new DefaultComboBoxModel(modelTipoDocumento));
                 break;
         }
+        
+        eDescripcion.addItemListener(this::comboBoxitemStateChanged);
     }
+    
+    public void comboBoxitemStateChanged(Object e) {
+    if (eDescripcion.getSelectedIndex() == 2) {
+        
+        eObservaciones.setText("Faltan datos obligatorios:\n" +
+        "Capital pendiente\n" +
+        "Titular \n" +
+        "Fecha \n" +
+        "Cuota");
+    }
+}
 
     /**
      *
@@ -69,7 +82,8 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
     private void limpiarComponentesFormulario() {
         eNombreDocumento.setText("");
         eObservaciones.setText("");
-        eDescripcion.setSelectedIndex(0);
+        eDescripcion.setSelectedIndex(2);
+        comboBoxitemStateChanged(null);
     }
 
     /**
@@ -353,6 +367,8 @@ public class FormaProcesarDocumentosKO extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         llenarCombo("Tipo Documento");
+        
+        eDescripcion.setSelectedIndex(2);
 
         JTableHeader th;
         th = jXTable1.getTableHeader();
